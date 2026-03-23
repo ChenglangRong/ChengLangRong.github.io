@@ -1,0 +1,1176 @@
+<html lang="zh-CN"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人学术主页</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- GSAP 动画库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a237e',
+                        secondary: '#283593',
+                        accent: '#0d6efd',
+                        light: '#f8f9fa',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-balance {
+                text-wrap: balance;
+            }
+            .card-shadow {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            }
+            .nav-shadow {
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            }
+            /* 新增：拖拽排序样式 */
+            .draggable-item {
+                cursor: grab;
+                transition: all 0.2s ease;
+            }
+            .draggable-item:active {
+                cursor: grabbing;
+                opacity: 0.8;
+            }
+            .draggable-item.over {
+                border: 2px dashed #1a237e;
+                background-color: rgba(26, 35, 126, 0.05);
+            }
+            /* 新增：图片预览容器样式 */
+            .image-carousel {
+                position: relative;
+                width: 100%;
+                height: 60vh;
+            }
+            .carousel-img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                border-radius: 8px;
+            }
+            .carousel-nav {
+                position: absolute;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                gap: 8px;
+            }
+            .carousel-dot {
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background-color: rgba(255, 255, 255, 0.5);
+                cursor: pointer;
+                transition: all 0.2s ease;
+            }
+            .carousel-dot.active {
+                background-color: #1a237e;
+                width: 24px;
+                border-radius: 6px;
+            }
+            .carousel-btn {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background-color: rgba(26, 35, 126, 0.8);
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                border: none;
+                z-index: 10;
+            }
+            .carousel-btn.prev {
+                left: 20px;
+            }
+            .carousel-btn.next {
+                right: 20px;
+            }
+        }
+    </style>
+    
+    <style>
+        /* 自定义滚动区域的自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        
+        /* 平滑区域的动画 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* 导航栏滚动效果 */
+        .navbar-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 50;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        /* 卡片悬停效果 */
+        .card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        /* 时间线样式 */
+        .timeline {
+            position: relative;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #e5e7eb;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 45px;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 8px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: #1a237e;
+            border: 4px solid #e5e7eb;
+        }
+        
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 加载提示样式 */
+        .pdf-loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 70vh;
+            color: #1a237e;
+        }
+
+        /* 新增：图片排序容器样式 */
+        .image-sort-container {
+            padding: 20px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .sortable-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .sortable-item {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .sortable-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+        .sortable-item .remove-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: rgba(255,0,0,0.8);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .upload-area {
+            border: 2px dashed #e5e7eb;
+            border-radius: 8px;
+            padding: 32px;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 24px;
+            transition: all 0.2s ease;
+        }
+        .upload-area:hover {
+            border-color: #1a237e;
+            background-color: rgba(26, 35, 126, 0.05);
+        }
+        .action-btns {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body class="bg-light text-gray-800 font-sans">
+    <!-- 导航栏 -->
+    <nav id="navbar" class="navbar-fixed bg-white bg-opacity-95 nav-shadow py-4">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex justify-between items-center">
+                <a href="#" class="text-3xl font-normal text-primary">ChengLang Rong</a>
+                
+                <!-- 桌面导航 -->
+                <div class="hidden md:flex ml-auto space-x-8">
+                    <a href="#home" class="text-base text-gray-600 hover:text-primary transition-colors">首页</a>
+                    <a href="#research" class="text-base text-gray-600 hover:text-primary transition-colors">研究成果</a>
+                    <a href="#education" class="text-base text-gray-600 hover:text-primary transition-colors">教育经历</a>
+                    <a href="#awards" class="text-base text-gray-600 hover:text-primary transition-colors">荣誉奖项</a>
+                    <a href="#contact" class="text-base text-gray-600 hover:text-primary transition-colors">联系方式</a>
+                </div>
+                
+                <!-- 移动端菜单按钮 -->
+                <button id="menu-toggle" class="md:hidden ml-auto text-primary focus:outline-none">
+                    <i class="fa fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 移动端导航菜单 -->
+        <div id="mobile-menu" class="md:hidden bg-white hidden absolute top-full left-0 w-full border-t border-gray-100">
+            <div class="container mx-auto px-4 py-4">
+                <a href="#home" class="block py-2 text-gray-600 hover:text-primary">首页</a>
+                <a href="#research" class="block py-2 text-gray-600 hover:text-primary">研究成果</a>
+                <a href="#education" class="block py-2 text-gray-600 hover:text-primary">教育经历</a>
+                <a href="#awards" class="block py-2 text-gray-600 hover:text-primary">荣誉奖项</a>
+                <a href="#contact" class="block py-2 text-gray-600 hover:text-primary">联系方式</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero 区域 -->
+    <section id="home" class="min-h-screen flex items-center pt-16">
+        <div class="container mx-auto px-4 py-16">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-12">
+                <!-- 左侧文字内容 -->
+                <div class="max-w-3xl md:w-2/3">
+                    <h1 class="text-6xl font-bold mb-6 leading-tight text-primary">容程朗  ChengLang Rong</h1>
+                    <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                        研究方向：AI, Sheduling, Deep Reinforcement Learning, Deep Learning, Petri Net, Graph, GNN, Cluster Tool, Robotic Arm
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#research" class="px-6 py-3 bg-primary text-white font-medium rounded-md hover:bg-secondary transition duration-300">
+                            研究成果
+                        </a>
+                        <a href="#contact" class="px-6 py-3 border border-gray-300 text-primary font-medium rounded-md hover:bg-gray-100 transition duration-300">
+                            联系我
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 右侧图片 -->
+                <div class="md:w-1/2 relative">
+                    <div class="rounded-lg overflow-hidden shadow-lg">
+                        <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/d9ff29f7d968494593e1cc7e3a1cbd59~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=20260323182936727AD79E14307CFBFE0E&amp;rrcfp=e75484ac&amp;x-expires=1774866577&amp;x-signature=4HqF5QMGz7dim2x75vaEkxECMjI%3D" alt="容程朗" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 研究成果区域 -->
+    <section id="research" class="py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-16 text-center text-primary">研究成果</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- 研究成果1 -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-sm p-8 fade-in">
+                    <div class="flex items-start justify-between mb-4">
+                        <h3 class="text-xl font-semibold text-primary">Scheduling of a Single-Arm Cluster Tool for Processing Two Types of Wafers with Parallel Processing</h3>
+                    </div>
+                    <div class="mb-4">
+                        <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full mr-2 mb-2">Deep Reinforcement Learning</span>
+                        <span class="inline-block px-3 py-1 bg-green-100 text-green-800 text-sm font-medium rounded-full mr-2 mb-2">Scheduling</span>  
+                        <span class="inline-block px-3 py-1 bg-green-100 text-green-800 text-sm font-medium rounded-full mr-2 mb-2">Single Robot</span>
+                        <span class="inline-block px-3 py-1 bg-green-100 text-yellow-800 text-sm font-medium rounded-full mr-2 mb-2">Single Cluster Tool</span>
+                        <span class="inline-block px-3 py-1 bg-purple-100 text-purple-800 text-sm font-medium rounded-full mr-2 mb-2">CCF C Conference</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        <strong>Time：</strong>2025.06-2026.1 | <strong>Role：</strong>课题总负责人
+                    </p>
+                    <p class="text-gray-700 mb-6 font-bold">
+                        简介：提出基于强化学习的单机械臂调度策略，解决了单臂单组合设备加工小批次多品种类型晶圆的调度问题，实验对比5种最流行的RL算法，以第一作者的身份录用了一篇CCF C类会议论文。
+                    </p>
+                    <div class="flex space-x-4">
+                        <button class="view-research-btn px-4 py-2 text-primary border border-primary rounded-md hover:bg-primary hover:text-white transition duration-300" data-id="research1">
+                            查看详情
+                        </button>
+
+                        <!-- 改造：阅读论文按钮（绑定自定义图片弹窗） -->
+                        <button class="read-pdf-btn px-4 py-2 bg-accent text-white rounded-md hover:bg-blue-700 transition duration-300" 
+                                data-target="pdf1" 
+                                data-title="Scheduling of a Single-Arm Cluster Tool for Processing Two Types of Wafers with Parallel Processing">
+                            阅读论文
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 研究成果2 -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-sm p-8 fade-in">
+                    <div class="flex items-start justify-between mb-4">
+                        <h3 class="text-xl font-semibold text-primary">Scheduling of Single-Arm Multicluster Tools for Multi-Type Wafers with Parallel Processing and Residency Time Constraints</h3>
+                    </div>
+                    <div class="mb-4">
+                        <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full mr-2 mb-2">Multi-Agent Reinforcement Learning</span>
+                        <span class="inline-block px-3 py-1 bg-green-100 text-green-800 text-sm font-medium rounded-full mr-2 mb-2">Scheduling</span>  
+                        <span class="inline-block px-3 py-1 bg-green-100 text-green-800 text-sm font-medium rounded-full mr-2 mb-2">Single Robot</span>
+                        <span class="inline-block px-3 py-1 bg-green-100 text-green-800 text-sm font-medium rounded-full mr-2 mb-2">Dula Cluster Tool</span>
+                        <span class="inline-block px-3 py-1 bg-red-100 text-red-800 text-sm font-medium rounded-full mr-2 mb-2">SCI Top Journal</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        <strong>Time：</strong>2025.11-2026.3 | <strong>Role：</strong>课题总负责人
+                    </p>
+                    <p class="text-gray-700 mb-6 font-bold">
+                        简介：提出基于多智能体强化学习的单机械臂调度策略，针对双组合设备中的双单臂的协作调度问题，研发了双组合设备加工多品种类型晶圆的协作调度策略，实验对比最前沿最流行的RL算法，以第二作者身份在投一篇高水平SCI期刊论文。
+                    </p>
+                    <div class="flex space-x-4">
+                        <button class="view-research-btn px-4 py-2 text-primary border border-primary rounded-md hover:bg-primary hover:text-white transition duration-300" data-id="research2">
+                            查看详情
+                        </button>
+                        <!-- 改造：阅读论文按钮（绑定自定义图片弹窗） -->
+                        <button class="read-pdf-btn px-4 py-2 bg-accent text-white rounded-md hover:bg-blue-700 transition duration-300"
+                                data-target="pdf2"
+                                data-title="Scheduling of Single-Arm Multicluster Tools for Multi-Type Wafers with Parallel Processing and Residency Time Constraints">
+                            阅读论文
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 教育经历区域 -->
+    <section id="education" class="py-24 bg-light">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-16 text-center text-primary">教育经历</h2>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="timeline fade-in">
+                    <!-- 教育经历1 -->
+                    <div class="timeline-item">
+                        <div class="bg-white p-6 rounded-lg shadow-sm">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-semibold text-primary">广东工业大学</h3>
+                                <span class="text-sm text-gray-500">2023-2027</span>
+                            </div>
+                            <p class="text-gray-600 mb-2"><strong>专业：</strong>人工智能创新班（本科）</p>
+                            <p class="text-gray-600 mb-2"><strong>GPA：</strong>3.654/5.0</p>
+                            <div class="mt-4">
+                                <h4 class="font-medium text-gray-800 mb-2">主修课程：</h4>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">人工智能导论</span>
+                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">机器学习</span>
+                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">深度学习</span>
+                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">强化学习</span>
+                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">数据结构与算法</span>
+                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">计算机网络</span>
+                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">操作系统</span>
+                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">计算机组成原理</span>
+                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">工科数学分析</span>
+                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">线性代数</span>
+                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">离散数学</span>
+                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">数值计算方法</span>
+                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">软件工程</span>
+                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">程序设计</span>
+                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">数据库系统</span>
+                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">数字逻辑及系统设计</span>
+                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">最优化方法</span>
+                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">Linux技术</span>
+                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">大数据技术原理与应用</span>
+                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">编译原理</span>
+                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">自然语言处理</span>
+                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">高性能计算</span>
+                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">知识工程与知识图谱</span>
+                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">半导体制造工艺与设备</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 荣誉奖项区域 -->
+    <section id="awards" class="py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-16 text-center text-primary">荣誉奖项</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 奖项1 -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-sm p-6 fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fa fa-trophy text-yellow-500 text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-primary">全国大学生数学建模大赛</h3>
+                    </div>
+                    <p class="text-gray-600 mb-2"><strong>等级：</strong>广东省分赛 二等奖</p>
+                    <p class="text-gray-600"><strong>时间：</strong>2024年</p>
+                    <div class="mt-4">
+                        <!-- 改造：查看证书按钮（绑定自定义图片弹窗） -->
+                        <button class="view-file-btn text-primary hover:underline flex items-center"
+                                data-target="award1"
+                                data-title="全国大学生数学建模大赛证书">
+                            <i class="fa fa-file-pdf-o mr-2"></i> 查看奖项证书
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 奖项2 -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-sm p-6 fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fa fa-certificate text-blue-500 text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-primary">全国大学生数学竞赛</h3>
+                    </div>
+                    <p class="text-gray-600 mb-2"><strong>等级：</strong>广东省分赛 三等奖</p>
+                    <p class="text-gray-600"><strong>时间：</strong>2024年</p>
+                    <div class="mt-4">
+                        <button class="view-file-btn text-primary hover:underline flex items-center"
+                                data-target="award2"
+                                data-title="全国大学生数学竞赛证书">
+                            <i class="fa fa-file-pdf-o mr-2"></i> 查看奖项证书
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 奖项3 -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-sm p-6 fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fa fa-robot text-green-500 text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-primary">中国机器人级人工智能大赛</h3>
+                    </div>
+                    <p class="text-gray-600 mb-2"><strong>等级：</strong>人工智能创新赛（广东赛区） 三等奖</p>
+                    <p class="text-gray-600"><strong>时间：</strong>2025年</p>
+                    <div class="mt-4">
+                        <button class="view-file-btn text-primary hover:underline flex items-center"
+                                data-target="award3"
+                                data-title="中国机器人级人工智能大赛证书">
+                            <i class="fa fa-file-image-o mr-2"></i> 查看奖项证书
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 奖项4 -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-sm p-6 fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fa fa-star text-purple-500 text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-primary">广东工业大学优秀学生奖学金</h3>
+                    </div>
+                    <p class="text-gray-600 mb-2"><strong>等级：</strong>三等奖学金</p>
+                    <p class="text-gray-600"><strong>时间：</strong>2023-2024学年</p>
+                    <div class="mt-4">
+                        <button class="view-file-btn text-primary hover:underline flex items-center"
+                                data-target="award4"
+                                data-title="广东工业大学优秀学生奖学金证书">
+                            <i class="fa fa-file-image-o mr-2"></i> 查看奖项证书
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 奖项5 -->
+                <div class="card bg-white rounded-lg overflow-hidden shadow-sm p-6 fade-in">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fa fa-star text-red-500 text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-primary">广东工业大学优秀学生奖学金</h3>
+                    </div>
+                    <p class="text-gray-600 mb-2"><strong>等级：</strong>二等奖学金</p>
+                    <p class="text-gray-600"><strong>时间：</strong>2024-2025学年</p>
+                    <div class="mt-4">
+                        <button class="view-file-btn text-primary hover:underline flex items-center"
+                                data-target="award5"
+                                data-title="广东工业大学优秀学生奖学金证书">
+                            <i class="fa fa-file-image-o mr-2"></i> 查看奖项证书
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系方式区域 -->
+    <section id="contact" class="py-24 bg-light">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-16 text-center text-primary">联系方式</h2>
+            
+            <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-sm p-8 fade-in">
+                <div>
+                    <h3 class="text-xl font-semibold mb-6 text-primary">联系信息</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                <i class="fa fa-envelope text-blue-500"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">邮箱</p>
+                                <p class="text-gray-800">3123004845@mail2.gdut.edu.cn</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center mr-4">
+                                <i class="fa fa-github text-gray-500"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">GitHub</p>
+                                <a href="https://github.com/ChenglangRong" class="text-primary hover:underline" target="_blank">ChenglangRong</a>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                <i class="fa fa-university text-blue-500"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">学校</p>
+                                <p class="text-gray-800">广东工业大学 计算机学院</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="py-12 bg-primary text-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h3 class="text-2xl font-bold">容程朗 | ChengLang Rong</h3>
+                    <p class="text-gray-300 mt-2">计算机科学与技术 人工智能 研究学者</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="https://github.com/ChenglangRong" class="text-gray-300 hover:text-white transition duration-300" target="_blank">
+                        <i class="fa fa-github text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-300 hover:text-white transition duration-300">
+                        <i class="fa fa-google text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-300 hover:text-white transition duration-300">
+                        <i class="fa fa-linkedin text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300 text-sm">
+                <p>© 2026 容程朗 | 学术主页. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 研究成果详情模态框 -->
+    <div id="research-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-8">
+                <div class="flex justify-between items-start mb-6">
+                    <h3 id="modal-title" class="text-2xl font-semibold text-primary"></h3>
+                    <button id="close-modal" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+                        <i class="fa fa-times text-xl"></i>
+                    </button>
+                </div>
+                <div id="modal-content" class="space-y-6">
+                    <!-- 内容将通过JavaScript动态填充 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 改造：自定义图片模态框（排序+预览） -->
+    <div id="image-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-lg max-w-6xl w-full max-h-[95vh] overflow-hidden flex flex-col">
+            <!-- 模态框头部 -->
+            <div class="p-6 border-b flex justify-between items-center">
+                <h3 id="image-modal-title" class="text-2xl font-semibold text-primary"></h3>
+                <div class="flex gap-4">
+                    <button id="edit-sort-btn" class="px-4 py-2 border border-primary text-primary rounded-md hover:bg-primary hover:text-white transition">
+                        <i class="fa fa-sort mr-2"></i>编辑排序
+                    </button>
+                    <button id="close-image-modal" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+                        <i class="fa fa-times text-xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 排序模式容器 -->
+            <div id="sort-mode-container" class="hidden flex-1 p-6 overflow-y-auto">
+                <div class="image-sort-container">
+                    <h4 class="text-lg font-medium mb-4 text-gray-800">上传/排序图片（最多6张）</h4>
+                    
+                    <!-- 上传区域 -->
+                    <div class="upload-area" id="upload-area">
+                        <input type="file" id="image-upload" accept="image/*" multiple hidden>
+                        <i class="fa fa-cloud-upload text-4xl text-primary mb-2"></i>
+                        <p class="text-gray-600">点击或拖拽图片到此处上传</p>
+                        <p class="text-gray-400 text-sm mt-1">支持JPG/PNG格式，最多上传6张</p>
+                    </div>
+                    
+                    <!-- 图片排序网格 -->
+                    <div class="sortable-grid" id="sortable-grid">
+                        <!-- 图片项将动态生成 -->
+                    </div>
+                    
+                    <div class="action-btns">
+                        <button id="save-sort-btn" class="px-6 py-2 bg-primary text-white rounded-md hover:bg-secondary transition">
+                            保存排序并预览
+                        </button>
+                        <button id="cancel-sort-btn" class="px-6 py-2 border border-gray-300 text-gray-600 rounded-md hover:bg-gray-100 transition">
+                            取消
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 预览模式容器 -->
+            <div id="preview-mode-container" class="flex-1 relative">
+                <!-- 图片轮播 -->
+                <div class="image-carousel">
+                    <img id="carousel-main-img" src="" alt="预览图片" class="carousel-img">
+                    <!-- 上一张/下一张按钮 -->
+                    <button class="carousel-btn prev" id="prev-img">
+                        <i class="fa fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-btn next" id="next-img">
+                        <i class="fa fa-chevron-right"></i>
+                    </button>
+                    <!-- 轮播指示器 -->
+                    <div class="carousel-nav" id="carousel-dots">
+                        <!-- 指示器将动态生成 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 回到顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300">
+        <i class="fa fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // ========== 核心改造：图片排序+预览功能 ==========
+            // 全局变量
+            const imageModal = document.getElementById('image-modal');
+            const imageModalTitle = document.getElementById('image-modal-title');
+            const sortModeContainer = document.getElementById('sort-mode-container');
+            const previewModeContainer = document.getElementById('preview-mode-container');
+            const editSortBtn = document.getElementById('edit-sort-btn');
+            const closeImageModal = document.getElementById('close-image-modal');
+            const uploadArea = document.getElementById('upload-area');
+            const imageUpload = document.getElementById('image-upload');
+            const sortableGrid = document.getElementById('sortable-grid');
+            const saveSortBtn = document.getElementById('save-sort-btn');
+            const cancelSortBtn = document.getElementById('cancel-sort-btn');
+            const carouselMainImg = document.getElementById('carousel-main-img');
+            const prevImgBtn = document.getElementById('prev-img');
+            const nextImgBtn = document.getElementById('next-img');
+            const carouselDots = document.getElementById('carousel-dots');
+            
+            // 图片数据存储（按target分组）
+            const imageData = {
+                pdf1: [], // 论文1图片
+                pdf2: [], // 论文2图片
+                award1: [], // 奖项1图片
+                award2: [], // 奖项2图片
+                award3: [], // 奖项3图片
+                award4: [], // 奖项4图片
+                award5: []  // 奖项5图片
+            };
+            let currentTarget = ''; // 当前操作的目标（pdf1/award1等）
+            let currentImgIndex = 0; // 当前预览的图片索引
+
+            // 1. 打开图片模态框（论文/证书按钮点击）
+            const openImageModal = (target, title) => {
+                currentTarget = target;
+                imageModalTitle.textContent = title;
+                imageModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                
+                // 初始化预览模式
+                sortModeContainer.classList.add('hidden');
+                previewModeContainer.classList.remove('hidden');
+                
+                // 如果有图片，加载预览；否则默认进入编辑模式
+                if (imageData[currentTarget].length > 0) {
+                    renderCarousel();
+                } else {
+                    switchToSortMode();
+                }
+            };
+
+            // 2. 切换到排序模式
+            const switchToSortMode = () => {
+                previewModeContainer.classList.add('hidden');
+                sortModeContainer.classList.remove('hidden');
+                // 渲染已上传的图片
+                renderSortableGrid();
+            };
+
+            // 3. 渲染排序网格
+            const renderSortableGrid = () => {
+                sortableGrid.innerHTML = '';
+                const images = imageData[currentTarget];
+                
+                if (images.length === 0) {
+                    sortableGrid.innerHTML = '<p class="text-gray-500 text-center col-span-full">暂无上传的图片</p>';
+                    return;
+                }
+                
+                images.forEach((img, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'sortable-item draggable-item';
+                    item.setAttribute('data-index', index);
+                    item.innerHTML = `
+                        <img src="${img}" alt="图片${index+1}">
+                        <div class="remove-btn" data-index="${index}">×</div>
+                    `;
+                    sortableGrid.appendChild(item);
+                });
+
+                // 绑定拖拽排序事件
+                initDragAndDrop();
+                // 绑定删除事件
+                bindRemoveEvents();
+            };
+
+            // 4. 初始化拖拽排序
+            const initDragAndDrop = () => {
+                const items = document.querySelectorAll('.draggable-item');
+                let draggedItem = null;
+
+                items.forEach(item => {
+                    item.addEventListener('dragstart', (e) => {
+                        draggedItem = item;
+                        setTimeout(() => item.classList.add('opacity-0'), 0);
+                    });
+
+                    item.addEventListener('dragend', () => {
+                        draggedItem = null;
+                        item.classList.remove('opacity-0');
+                    });
+
+                    item.addEventListener('dragover', (e) => {
+                        e.preventDefault();
+                    });
+
+                    item.addEventListener('dragenter', (e) => {
+                        e.preventDefault();
+                        if (item !== draggedItem) {
+                            item.classList.add('over');
+                        }
+                    });
+
+                    item.addEventListener('dragleave', () => {
+                        item.classList.remove('over');
+                    });
+
+                    item.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        item.classList.remove('over');
+                        
+                        if (draggedItem) {
+                            const draggedIndex = parseInt(draggedItem.getAttribute('data-index'));
+                            const targetIndex = parseInt(item.getAttribute('data-index'));
+                            
+                            // 交换数组中的图片
+                            const temp = imageData[currentTarget][draggedIndex];
+                            imageData[currentTarget][draggedIndex] = imageData[currentTarget][targetIndex];
+                            imageData[currentTarget][targetIndex] = temp;
+                            
+                            // 重新渲染网格
+                            renderSortableGrid();
+                        }
+                    });
+                });
+            };
+
+            // 5. 绑定删除图片事件
+            const bindRemoveEvents = () => {
+                const removeBtns = document.querySelectorAll('.remove-btn');
+                removeBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const index = parseInt(btn.getAttribute('data-index'));
+                        imageData[currentTarget].splice(index, 1);
+                        renderSortableGrid();
+                    });
+                });
+            };
+
+            // 6. 渲染轮播预览
+            const renderCarousel = () => {
+                const images = imageData[currentTarget];
+                if (images.length === 0) return;
+
+                // 设置当前图片
+                carouselMainImg.src = images[currentImgIndex];
+                
+                // 渲染指示器
+                carouselDots.innerHTML = '';
+                images.forEach((_, index) => {
+                    const dot = document.createElement('div');
+                    dot.className = `carousel-dot ${index === currentImgIndex ? 'active' : ''}`;
+                    dot.setAttribute('data-index', index);
+                    dot.addEventListener('click', () => {
+                        currentImgIndex = index;
+                        renderCarousel();
+                    });
+                    carouselDots.appendChild(dot);
+                });
+
+                // 禁用/启用翻页按钮
+                prevImgBtn.disabled = currentImgIndex === 0;
+                nextImgBtn.disabled = currentImgIndex === images.length - 1;
+            };
+
+            // 7. 上传图片处理
+            uploadArea.addEventListener('click', () => {
+                imageUpload.click();
+            });
+
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('border-primary', 'bg-primary/5');
+            });
+
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('border-primary', 'bg-primary/5');
+            });
+
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('border-primary', 'bg-primary/5');
+                
+                const files = e.dataTransfer.files;
+                handleImageFiles(files);
+            });
+
+            imageUpload.addEventListener('change', () => {
+                const files = imageUpload.files;
+                handleImageFiles(files);
+            });
+
+            // 8. 处理上传的图片文件
+            const handleImageFiles = (files) => {
+                const images = imageData[currentTarget];
+                const maxCount = 6;
+                const remaining = maxCount - images.length;
+                
+                if (remaining <= 0) {
+                    alert('最多只能上传6张图片！');
+                    return;
+                }
+
+                // 过滤图片文件
+                const imageFiles = Array.from(files).filter(file => file.type.startsWith('image/'));
+                if (imageFiles.length === 0) {
+                    alert('请选择图片文件（JPG/PNG）！');
+                    return;
+                }
+
+                // 限制上传数量
+                const uploadCount = Math.min(imageFiles.length, remaining);
+                for (let i = 0; i < uploadCount; i++) {
+                    const file = imageFiles[i];
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        images.push(e.target.result);
+                        renderSortableGrid();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+
+            // 9. 保存排序并切换到预览
+            saveSortBtn.addEventListener('click', () => {
+                if (imageData[currentTarget].length === 0) {
+                    alert('请至少上传一张图片！');
+                    return;
+                }
+                currentImgIndex = 0;
+                sortModeContainer.classList.add('hidden');
+                previewModeContainer.classList.remove('hidden');
+                renderCarousel();
+            });
+
+            // 10. 取消排序编辑
+            cancelSortBtn.addEventListener('click', () => {
+                if (imageData[currentTarget].length > 0) {
+                    sortModeContainer.classList.add('hidden');
+                    previewModeContainer.classList.remove('hidden');
+                    renderCarousel();
+                } else {
+                    closeImageModal.click();
+                }
+            });
+
+            // 11. 轮播翻页
+            prevImgBtn.addEventListener('click', () => {
+                if (currentImgIndex > 0) {
+                    currentImgIndex--;
+                    renderCarousel();
+                }
+            });
+
+            nextImgBtn.addEventListener('click', () => {
+                if (currentImgIndex < imageData[currentTarget].length - 1) {
+                    currentImgIndex++;
+                    renderCarousel();
+                }
+            });
+
+            // 12. 关闭图片模态框
+            closeImageModal.addEventListener('click', () => {
+                imageModal.classList.add('hidden');
+                document.body.style.overflow = '';
+                // 重置状态
+                currentTarget = '';
+                currentImgIndex = 0;
+            });
+
+            // 13. 点击模态框外部关闭
+            imageModal.addEventListener('click', (e) => {
+                if (e.target === imageModal) {
+                    closeImageModal.click();
+                }
+            });
+
+            // 14. 编辑排序按钮点击
+            editSortBtn.addEventListener('click', switchToSortMode);
+
+            // 15. 绑定论文/证书按钮点击事件
+            document.querySelectorAll('.read-pdf-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const target = btn.getAttribute('data-target');
+                    const title = btn.getAttribute('data-title');
+                    openImageModal(target, title);
+                });
+            });
+
+            document.querySelectorAll('.view-file-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const target = btn.getAttribute('data-target');
+                    const title = btn.getAttribute('data-title');
+                    openImageModal(target, title);
+                });
+            });
+
+            // ========== 原有功能保留 ==========
+            // 移动端菜单切换
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            menuToggle.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // 平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // 关闭移动菜单（如果打开）
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80, // 考虑导航栏高度
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // 导航栏滚动效果
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('bg-white', 'shadow-md');
+                    navbar.classList.remove('bg-opacity-95');
+                } else {
+                    navbar.classList.remove('shadow-md');
+                    navbar.classList.add('bg-opacity-95');
+                }
+            });
+            
+            // 滚动动画
+            const fadeElements = document.querySelectorAll('.fade-in');
+            const fadeInOnScroll = () => {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementBottom = element.getBoundingClientRect().bottom;
+                    const isVisible = (elementTop < window.innerHeight - 100) && (elementBottom > 0);
+                    
+                    if (isVisible) {
+                        element.classList.add('active');
+                    }
+                });
+            };
+            
+            // 初始执行一次
+            fadeInOnScroll();
+            // 滚动时执行
+            window.addEventListener('scroll', fadeInOnScroll);
+            
+            // 回到顶部按钮
+            const backToTopBtn = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    backToTopBtn.classList.remove('opacity-0', 'invisible');
+                    backToTopBtn.classList.add('opacity-100', 'visible');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'invisible');
+                    backToTopBtn.classList.remove('opacity-100', 'visible');
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // 研究成果详情模态框（原有功能）
+            const researchModal = document.getElementById('research-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalContent = document.getElementById('modal-content');
+            const closeModal = document.getElementById('close-modal');
+            const viewResearchBtns = document.querySelectorAll('.view-research-btn');
+            
+            // 研究成果详情数据
+            const researchDetails = {
+                research1: {
+                    title: 'Scheduling of a Single-Arm Cluster Tool for Processing Two Types of Wafers with Parallel Processing',
+                    content: `
+                        <p class="text-gray-700">本研究针对单臂组合设备加工多品种晶圆的调度问题，提出了一种基于深度强化学习的调度策略。主要贡献包括：</p>
+                        <ul class="list-disc pl-6 text-gray-700 space-y-2 mt-4">
+                            <li>提出了一种新的状态表示方法，能够有效捕捉晶圆加工的动态特征</li>
+                            <li>设计了针对调度优化的奖励函数，平衡加工效率和设备利用率</li>
+                            <li>对比了DQN、PPO、A2C、SAC、TD3五种主流强化学习算法的性能</li>
+                            <li>实验结果表明，所提方法比传统启发式算法提升了15-20%的加工效率</li>
+                        </ul>
+                        <p class="text-gray-700 mt-4">该研究成果已被CCF C类国际会议录用，为半导体制造中的调度优化提供了新的解决方案。</p>
+                    `
+                },
+                research2: {
+                    title: 'Scheduling of Single-Arm Multicluster Tools for Multi-Type Wafers with Parallel Processing and Residency Time Constraints',
+                    content: `
+                        <p class="text-gray-700">本研究扩展了单臂调度问题到多组合设备场景，考虑了晶圆驻留时间约束，主要创新点包括：</p>
+                        <ul class="list-disc pl-6 text-gray-700 space-y-2 mt-4">
+                            <li>提出了多智能体强化学习框架，实现双组合设备的协作调度</li>
+                            <li>设计了基于Petri网的系统建模方法，准确描述设备间的交互关系</li>
+                            <li>引入图神经网络（GNN）捕捉设备间的拓扑结构和状态依赖</li>
+                            <li>在真实工业数据集上验证了方法的有效性和鲁棒性</li>
+                        </ul>
+                        <p class="text-gray-700 mt-4">该研究成果正在投稿SCI Top期刊，有望为半导体制造系统的智能化调度提供理论和技术支撑。</p>
+                    `
+                }
+            };
+            
+            // 打开研究成果详情模态框
+            viewResearchBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const researchId = this.getAttribute('data-id');
+                    const research = researchDetails[researchId];
+                    
+                    modalTitle.textContent = research.title;
+                    modalContent.innerHTML = research.content;
+                    researchModal.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            // 关闭研究成果详情模态框
+            closeModal.addEventListener('click', function() {
+                researchModal.classList.add('hidden');
+                document.body.style.overflow = '';
+            });
+            
+            // 点击模态框外部关闭
+            researchModal.addEventListener('click', function(e) {
+                if (e.target === researchModal) {
+                    researchModal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
