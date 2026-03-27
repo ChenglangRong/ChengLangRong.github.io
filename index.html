@@ -1,1247 +1,1601 @@
-<html lang="zh-CN"><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人学术主页</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
-    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <!-- GSAP 动画库 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#1a237e',
-                        secondary: '#283593',
-                        accent: '#0d6efd',
-                        light: '#f8f9fa',
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                    }
-                }
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>容程朗 | Personal Academic Homepage</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f4f7fb',
+              100: '#e8edf5',
+              200: '#d8e0eb',
+              300: '#bcc8da',
+              400: '#96a7c1',
+              500: '#6f86a8',
+              600: '#5b7091',
+              700: '#4a5d79',
+              800: '#3b4c64',
+              900: '#2f3d52'
             }
+          },
+          boxShadow: {
+            soft: '0 18px 60px rgba(15, 23, 42, 0.08)',
+            card: '0 10px 30px rgba(15, 23, 42, 0.08)'
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif']
+          }
         }
-    </script>
-    
-    <style type="text/tailwindcss">
-        @layer utilities {
-            .text-balance {
-                text-wrap: balance;
-            }
-            .card-shadow {
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            }
-            .nav-shadow {
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            }
-            /* 新增：拖拽排序样式 */
-            .draggable-item {
-                cursor: grab;
-                transition: all 0.2s ease;
-            }
-            .draggable-item:active {
-                cursor: grabbing;
-                opacity: 0.8;
-            }
-            .draggable-item.over {
-                border: 2px dashed #1a237e;
-                background-color: rgba(26, 35, 126, 0.05);
-            }
-            /* 新增：图片预览容器样式 */
-            .image-carousel {
-                position: relative;
-                width: 100%;
-                height: 60vh;
-            }
-            .carousel-img {
-                width: 100%;
-                height: 100%;
-                object-fit: contain;
-                border-radius: 8px;
-            }
-            .carousel-nav {
-                position: absolute;
-                bottom: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                display: flex;
-                gap: 8px;
-            }
-            .carousel-dot {
-                width: 12px;
-                height: 12px;
-                border-radius: 50%;
-                background-color: rgba(255, 255, 255, 0.5);
-                cursor: pointer;
-                transition: all 0.2s ease;
-            }
-            .carousel-dot.active {
-                background-color: #1a237e;
-                width: 24px;
-                border-radius: 6px;
-            }
-            .carousel-btn {
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                background-color: rgba(26, 35, 126, 0.8);
-                color: white;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                border: none;
-                z-index: 10;
-            }
-            .carousel-btn.prev {
-                left: 20px;
-            }
-            .carousel-btn.next {
-                right: 20px;
-            }
-        }
-    </style>
-    
-    <style>
-        /* 自定义滚动区域的自定义滚动条 */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-        
-        /* 平滑区域的动画 */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        
-        .fade-in.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* 导航栏滚动效果 */
-        .navbar-fixed {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 50;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        /* 卡片悬停效果 */
-        .card {
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-        }
-        
-        /* 时间线样式 */
-        .timeline {
-            position: relative;
-        }
-        
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 15px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background-color: #e5e7eb;
-        }
-        
-        .timeline-item {
-            position: relative;
-            padding-left: 45px;
-            margin-bottom: 30px;
-        }
-        
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: 8px;
-            top: 8px;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background-color: #1a237e;
-            border: 4px solid #e5e7eb;
-        }
-        
-        .timeline-item:last-child {
-            margin-bottom: 0;
-        }
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .section-anchor {
+        scroll-margin-top: 104px;
+      }
+      .text-gradient {
+        background: linear-gradient(135deg, #2f3d52 0%, #6f86a8 55%, #0f172a 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+    }
+  </style>
 
-        /* 加载提示样式 */
-        .pdf-loading {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 70vh;
-            color: #1a237e;
-        }
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #0f172a;
+      --muted: #475569;
+      --brand-deep: #40506a;
+      --brand-main: #5d6f8a;
+      --brand-soft: #96a7c1;
+      --cyan-soft: #b9c8d9;
+      --surface-strong: rgba(255, 255, 255, 0.82);
+      --surface-soft: rgba(248, 250, 255, 0.64);
+      --surface-shell: rgba(255, 255, 255, 0.66);
+      --border-glass: rgba(255, 255, 255, 0.62);
+      --border-line: rgba(148, 163, 184, 0.22);
+      --shadow-deep: 0 30px 90px rgba(15, 23, 42, 0.14);
+      --shadow-soft: 0 18px 48px rgba(15, 23, 42, 0.08);
+    }
 
-        /* 新增：图片排序容器样式 */
-        .image-sort-container {
-            padding: 20px;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-        .sortable-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-        .sortable-item {
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            position: relative;
-        }
-        .sortable-item img {
-            width: 100%;
-            height: 120px;
-            object-fit: cover;
-        }
-        .sortable-item .remove-btn {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background-color: rgba(255,0,0,0.8);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 12px;
-        }
-        .upload-area {
-            border: 2px dashed #e5e7eb;
-            border-radius: 8px;
-            padding: 32px;
-            text-align: center;
-            cursor: pointer;
-            margin-bottom: 24px;
-            transition: all 0.2s ease;
-        }
-        .upload-area:hover {
-            border-color: #1a237e;
-            background-color: rgba(26, 35, 126, 0.05);
-        }
-        .action-btns {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-    </style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      position: relative;
+      min-height: 100vh;
+      background:
+        radial-gradient(1200px 760px at -10% -10%, rgba(128, 142, 166, 0.16) 0%, transparent 58%),
+        radial-gradient(820px 620px at 108% 2%, rgba(178, 188, 200, 0.12) 0%, transparent 54%),
+        radial-gradient(900px 680px at 50% 48%, rgba(156, 168, 186, 0.08) 0%, transparent 62%),
+        linear-gradient(180deg, #f8f9fc 0%, #f1f4f8 26%, #f5f7fb 62%, #edf1f6 100%);
+      background-repeat: no-repeat;
+      color: var(--ink);
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(148, 163, 184, 0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(circle at 50% 24%, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.58) 40%, transparent 86%);
+      opacity: 0.58;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      right: -8rem;
+      bottom: -10rem;
+      width: 34rem;
+      height: 34rem;
+      border-radius: 9999px;
+      pointer-events: none;
+      z-index: 0;
+      background: radial-gradient(circle, rgba(128, 142, 166, 0.12) 0%, rgba(128, 142, 166, 0.05) 34%, transparent 68%);
+      filter: blur(18px);
+    }
+
+    header,
+    main,
+    footer {
+      position: relative;
+      z-index: 1;
+    }
+
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(226, 232, 240, 0.7);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, rgba(121, 136, 160, 0.62), rgba(94, 106, 124, 0.72));
+      border-radius: 999px;
+      border: 2px solid rgba(226, 232, 240, 0.7);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, rgba(95, 112, 138, 0.78), rgba(58, 70, 86, 0.82));
+    }
+
+    .site-header .header-shell {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(248, 250, 252, 0.58));
+      border-color: rgba(255, 255, 255, 0.68);
+      box-shadow:
+        0 20px 50px rgba(15, 23, 42, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(20px) saturate(165%);
+      transition:
+        background-color 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.3s ease;
+    }
+
+    .site-header.scrolled .header-shell {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(248, 250, 252, 0.72));
+      border-color: rgba(255, 255, 255, 0.76);
+      box-shadow:
+        0 24px 60px rgba(15, 23, 42, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.86);
+      transform: translateY(-1px);
+    }
+
+    #mobile-menu {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(248, 250, 252, 0.62));
+      backdrop-filter: blur(16px) saturate(150%);
+    }
+
+    #mobile-menu-button {
+      border-color: rgba(255, 255, 255, 0.72) !important;
+      background: rgba(255, 255, 255, 0.62) !important;
+      box-shadow:
+        0 12px 28px rgba(15, 23, 42, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(16px) saturate(150%);
+    }
+
+    .card-surface {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      border: 1px solid var(--border-glass);
+      background: linear-gradient(180deg, var(--surface-strong), var(--surface-soft));
+      box-shadow:
+        0 24px 72px rgba(15, 23, 42, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(18px) saturate(165%);
+      border-radius: 24px;
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+
+    .card-surface::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at top right, rgba(182, 191, 203, 0.12), transparent 26%),
+        radial-gradient(circle at bottom left, rgba(136, 149, 173, 0.10), transparent 30%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.22), transparent 38%);
+      opacity: 0.98;
+    }
+
+    .card-surface::after {
+      content: '';
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      top: 0;
+      height: 1px;
+      pointer-events: none;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.95), transparent);
+    }
+
+    .card-surface > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-surface:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 255, 255, 0.76);
+      box-shadow:
+        0 32px 84px rgba(15, 23, 42, 0.13),
+        inset 0 1px 0 rgba(255, 255, 255, 0.88);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.82);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(239, 246, 255, 0.68));
+      box-shadow:
+        0 10px 24px rgba(15, 23, 42, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.82);
+      padding: 0.4rem 0.95rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #334155;
+      backdrop-filter: blur(14px) saturate(150%);
+    }
+
+    .nav-link {
+      position: relative;
+      transition: color 0.25s ease;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 100%;
+      height: 2px;
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.25s ease;
+      background: linear-gradient(90deg, rgba(95, 112, 138, 0.10), rgba(95, 112, 138, 0.78), rgba(146, 161, 183, 0.62));
+      border-radius: 999px;
+      box-shadow: 0 0 12px rgba(95, 112, 138, 0.16);
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      transform: scaleX(1);
+    }
+
+    .nav-link.active {
+      color: var(--brand-deep);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #home {
+      position: relative;
+    }
+
+    #home::before {
+      content: '';
+      position: absolute;
+      left: -12rem;
+      top: -4rem;
+      width: 34rem;
+      height: 34rem;
+      border-radius: 9999px;
+      background: radial-gradient(circle, rgba(132, 146, 170, 0.14) 0%, transparent 70%);
+      filter: blur(8px);
+      pointer-events: none;
+    }
+
+    #home::after {
+      content: '';
+      position: absolute;
+      right: -10rem;
+      top: -2rem;
+      width: 38rem;
+      height: 38rem;
+      border-radius: 9999px;
+      background: radial-gradient(circle, rgba(182, 191, 203, 0.10) 0%, transparent 68%);
+      filter: blur(12px);
+      pointer-events: none;
+    }
+
+    #home h1 {
+      background: linear-gradient(135deg, #0f172a 0%, #566b86 48%, #7488a3 78%, #0f172a 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: none;
+    }
+
+    #home h1 + p {
+      color: rgba(15, 23, 42, 0.78);
+    }
+
+    .hero-grid::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 16% 20%, rgba(255, 255, 255, 0.88), transparent 24%),
+        radial-gradient(circle at 84% 14%, rgba(182, 191, 203, 0.12), transparent 18%),
+        linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.10) 1px, transparent 1px);
+      background-size: auto, auto, 72px 72px, 72px 72px;
+      mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.95) 18%, rgba(0, 0, 0, 0.78) 58%, transparent 95%);
+      pointer-events: none;
+      opacity: 1;
+    }
+
+    .hero-avatar-ring {
+      position: absolute;
+      inset: -18px;
+      border-radius: 1.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.62);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(179, 188, 201, 0.12), transparent 36%),
+        radial-gradient(circle at 78% 76%, rgba(132, 146, 170, 0.12), transparent 40%);
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.22),
+        0 34px 84px rgba(86, 101, 124, 0.16);
+      z-index: 0;
+    }
+
+    .hero-portrait-wrap {
+      width: min(100%, 18rem);
+    }
+
+    .hero-portrait-frame {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(244, 247, 255, 0.78));
+      padding: 0.6rem;
+      box-shadow:
+        0 28px 80px rgba(15, 23, 42, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(16px) saturate(155%);
+    }
+
+    .hero-portrait-frame::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.18), transparent 32%, rgba(181, 190, 201, 0.06));
+      pointer-events: none;
+    }
+
+    .hero-portrait-image {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      border-radius: 1.45rem;
+      object-fit: cover;
+      object-position: center 18%;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+    }
+
+    @media (max-width: 639px) {
+      .hero-portrait-wrap {
+        width: min(100%, 16rem);
+      }
+    }
+
+    @media (min-width: 640px) {
+      .hero-portrait-wrap {
+        width: 20rem;
+      }
+    }
+
+    main > section:not(#home) {
+      position: relative;
+    }
+
+    main > section:not(#home)::before {
+      content: '';
+      position: absolute;
+      inset: 1.5rem 0 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 8% 10%, rgba(132, 146, 170, 0.06), transparent 24%),
+        radial-gradient(circle at 92% 8%, rgba(181, 190, 201, 0.06), transparent 20%);
+    }
+
+    main > section:not(#home) > .mx-auto {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      border-radius: 36px;
+      border: 1px solid rgba(255, 255, 255, 0.62);
+      background: linear-gradient(180deg, var(--surface-shell), rgba(248, 250, 255, 0.54));
+      box-shadow:
+        0 28px 80px rgba(15, 23, 42, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(18px) saturate(160%);
+      padding-top: 2.75rem;
+      padding-bottom: 2.75rem;
+    }
+
+    main > section:not(#home) > .mx-auto::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at top right, rgba(128, 142, 166, 0.05), transparent 30%),
+        radial-gradient(circle at bottom left, rgba(181, 190, 201, 0.05), transparent 30%);
+    }
+
+    main > section:not(#home) > .mx-auto::after {
+      content: '';
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      top: 0;
+      height: 1px;
+      pointer-events: none;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.95), transparent);
+    }
+
+    main > section:not(#home) > .mx-auto > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    #home a[href="#research"]:not([data-nav-link]),
+    button[data-research-button],
+    #back-to-top {
+      border: 1px solid rgba(116, 131, 155, 0.22) !important;
+      background: linear-gradient(135deg, #40506a 0%, #5d6f8a 52%, #0f172a 100%) !important;
+      box-shadow:
+        0 18px 34px rgba(86, 101, 124, 0.18),
+        0 12px 36px rgba(15, 23, 42, 0.12);
+      color: #ffffff !important;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+    }
+
+    #home a[href="#research"]:not([data-nav-link]):hover,
+    button[data-research-button]:hover,
+    #back-to-top:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 22px 42px rgba(86, 101, 124, 0.22),
+        0 16px 44px rgba(15, 23, 42, 0.14);
+      filter: saturate(1.01);
+    }
+
+    #home a[href="#contact"],
+    button[data-open-group],
+    #copy-email,
+    #contact a.inline-flex {
+      border: 1px solid rgba(255, 255, 255, 0.76) !important;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.76), rgba(245, 247, 255, 0.58)) !important;
+      box-shadow:
+        0 14px 30px rgba(15, 23, 42, 0.07),
+        inset 0 1px 0 rgba(255, 255, 255, 0.84);
+      backdrop-filter: blur(16px) saturate(160%);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    #home a[href="#contact"]:hover,
+    button[data-open-group]:hover,
+    #copy-email:hover,
+    #contact a.inline-flex:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.86) !important;
+      box-shadow:
+        0 18px 36px rgba(15, 23, 42, 0.09),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    }
+
+    #back-to-top {
+      box-shadow:
+        0 18px 34px rgba(86, 101, 124, 0.18),
+        0 12px 36px rgba(15, 23, 42, 0.12);
+    }
+
+    .certificate-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      transition: transform 0.35s ease;
+    }
+
+    .certificate-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(180deg, transparent 36%, rgba(15, 23, 42, 0.18) 100%);
+      opacity: 0.72;
+      transition: opacity 0.35s ease;
+    }
+
+    .certificate-card img {
+      transition: transform 0.45s ease, box-shadow 0.45s ease;
+      box-shadow: 0 18px 36px rgba(15, 23, 42, 0.12);
+      border-color: rgba(255, 255, 255, 0.72) !important;
+    }
+
+    .certificate-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .certificate-card:hover::after {
+      opacity: 0.28;
+    }
+
+    .certificate-card:hover img {
+      transform: scale(1.03);
+      box-shadow: 0 24px 48px rgba(15, 23, 42, 0.16);
+    }
+
+
+    #research-modal-close,
+    #gallery-prev,
+    #gallery-next,
+    #gallery-close {
+      backdrop-filter: blur(16px) saturate(150%);
+      box-shadow:
+        0 14px 30px rgba(2, 6, 23, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    #research-modal-close {
+      border-color: rgba(255, 255, 255, 0.72) !important;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.84), rgba(245, 247, 255, 0.68)) !important;
+    }
+
+    .modal-copy p {
+      margin: 0 0 1rem;
+      line-height: 1.9;
+      color: #334155;
+    }
+
+    .modal-copy ul {
+      margin: 1rem 0 1.25rem;
+      padding-left: 1.35rem;
+      color: #334155;
+      list-style: disc;
+    }
+
+    .modal-copy li {
+      margin: 0.7rem 0;
+      line-height: 1.85;
+    }
+
+    .modal-copy h4 {
+      margin: 1.75rem 0 0.85rem;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    #research-modal > div:first-child {
+      background:
+        radial-gradient(circle at top, rgba(129, 144, 168, 0.10), transparent 30%),
+        linear-gradient(180deg, rgba(2, 6, 23, 0.58), rgba(2, 6, 23, 0.76));
+      backdrop-filter: blur(8px);
+    }
+
+    #research-modal .max-w-5xl {
+      border-color: rgba(255, 255, 255, 0.18) !important;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(244, 247, 255, 0.80)) !important;
+      backdrop-filter: blur(26px) saturate(165%);
+      box-shadow: 0 40px 120px rgba(15, 23, 42, 0.36);
+    }
+
+    #gallery-modal > div:first-child {
+      background:
+        radial-gradient(circle at 50% 8%, rgba(129, 144, 168, 0.10), transparent 28%),
+        linear-gradient(180deg, rgba(2, 6, 23, 0.84), rgba(2, 6, 23, 0.95));
+      backdrop-filter: blur(10px);
+    }
+
+    #gallery-modal figure > div {
+      border-color: rgba(255, 255, 255, 0.14) !important;
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.74), rgba(15, 23, 42, 0.48)) !important;
+      backdrop-filter: blur(20px) saturate(145%);
+      box-shadow: 0 40px 120px rgba(2, 6, 23, 0.42);
+    }
+
+    #gallery-caption,
+    #gallery-group,
+    #gallery-counter {
+      text-shadow: 0 8px 24px rgba(2, 6, 23, 0.34);
+    }
+
+    .floating-button {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(12px);
+      transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+    }
+
+    .floating-button.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .modal-open {
+      overflow: hidden;
+    }
+
+    footer {
+      position: relative;
+      overflow: hidden;
+      border-top-color: rgba(255, 255, 255, 0.14) !important;
+      background: linear-gradient(135deg, rgba(18, 26, 38, 0.98), rgba(33, 44, 59, 0.98) 54%, rgba(62, 78, 100, 0.94)) !important;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(128, 142, 166, 0.16), transparent 24%),
+        radial-gradient(circle at 92% 100%, rgba(177, 188, 201, 0.10), transparent 24%);
+    }
+
+    footer > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    footer h3,
+    footer .text-slate-900 {
+      color: #f8fafc !important;
+    }
+
+    footer p,
+    footer .text-slate-500 {
+      color: rgba(226, 232, 240, 0.76) !important;
+    }
+
+    footer a {
+      color: #e2e8f0 !important;
+      border-color: rgba(255, 255, 255, 0.12) !important;
+      background: rgba(255, 255, 255, 0.06) !important;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    footer a:hover {
+      background: rgba(255, 255, 255, 0.10) !important;
+      border-color: rgba(255, 255, 255, 0.18) !important;
+    }
+
+    footer .border-t {
+      border-color: rgba(255, 255, 255, 0.12) !important;
+    }
+
+    @media (max-width: 767px) {
+      main > section:not(#home) > .mx-auto {
+        border-radius: 28px;
+        padding-top: 2.2rem;
+        padding-bottom: 2.2rem;
+      }
+
+      .card-surface {
+        border-radius: 22px;
+      }
+
+      #home::before {
+        left: -16rem;
+      }
+
+      #home::after {
+        right: -16rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .reveal,
+      .certificate-card,
+      .certificate-card img,
+      .card-surface,
+      .floating-button,
+      .site-header .header-shell,
+      .nav-link::after,
+      #home a[href="#research"]:not([data-nav-link]),
+      button[data-research-button],
+      #back-to-top,
+      #home a[href="#contact"],
+      button[data-open-group],
+      #copy-email,
+      #contact a.inline-flex {
+        transition: none !important;
+      }
+    }
+  </style>
+
 </head>
-<body class="bg-light text-gray-800 font-sans">
-    <!-- 导航栏 -->
-    <nav id="navbar" class="navbar-fixed bg-white bg-opacity-95 nav-shadow py-4">
-        <div class="container mx-auto px-4 md:px-8">
-            <div class="flex justify-between items-center">
-                <a href="#" class="text-3xl font-normal text-primary">ChengLang Rong</a>
-                
-                <!-- 桌面导航 -->
-                <div class="hidden md:flex ml-auto space-x-8">
-                    <a href="#home" class="text-base text-gray-600 hover:text-primary transition-colors">首页</a>
-                    <a href="#research" class="text-base text-gray-600 hover:text-primary transition-colors">研究成果</a>
-                    <a href="#education" class="text-base text-gray-600 hover:text-primary transition-colors">教育经历</a>
-                    <a href="#awards" class="text-base text-gray-600 hover:text-primary transition-colors">荣誉奖项</a>
-                    <a href="#certificates" class="text-base text-gray-600 hover:text-primary transition-colors">证书展示</a>
-                    <a href="#contact" class="text-base text-gray-600 hover:text-primary transition-colors">联系方式</a>
-                </div>
-                
-                <!-- 移动端菜单按钮 -->
-                <button id="menu-toggle" class="md:hidden ml-auto text-primary focus:outline-none">
-                    <i class="fa fa-bars text-xl"></i>
-                </button>
+<body class="font-sans text-slate-800 antialiased">
+  <header id="site-header" class="site-header fixed inset-x-0 top-0 z-50">
+    <div class="mx-auto max-w-7xl px-4 pt-4 sm:px-6 lg:px-8">
+      <div class="header-shell rounded-2xl border">
+        <div class="flex items-center justify-between px-4 py-3 sm:px-6">
+          <a href="#home" class="flex items-center gap-3 text-brand-900">
+            <span class="inline-flex h-10 items-center justify-center rounded-full bg-brand-900/90 px-4 text-[11px] font-semibold tracking-[0.14em] text-white uppercase shadow-sm">Research</span>
+            <div>
+              <p class="text-sm font-semibold tracking-[0.12em] text-slate-500 uppercase">Academic Homepage</p>
+              <p class="text-lg font-semibold">ChengLang Rong</p>
             </div>
+          </a>
+
+          <nav class="hidden items-center gap-8 md:flex">
+            <a href="#home" class="nav-link text-sm font-medium text-slate-600" data-nav-link>首页</a>
+            <a href="#research" class="nav-link text-sm font-medium text-slate-600" data-nav-link>研究成果</a>
+            <a href="#awards" class="nav-link text-sm font-medium text-slate-600" data-nav-link>荣誉奖项</a>
+            <a href="#certificates" class="nav-link text-sm font-medium text-slate-600" data-nav-link>证书展示</a>
+            <a href="#education" class="nav-link text-sm font-medium text-slate-600" data-nav-link>教育经历</a>
+            <a href="#contact" class="nav-link text-sm font-medium text-slate-600" data-nav-link>联系方式</a>
+          </nav>
+
+          <button id="mobile-menu-button" type="button" class="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-white text-brand-900 shadow-sm md:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="打开菜单">
+            <i class="fa fa-bars text-lg"></i>
+          </button>
         </div>
-        
-        <!-- 移动端导航菜单 -->
-        <div id="mobile-menu" class="md:hidden bg-white hidden absolute top-full left-0 w-full border-t border-gray-100">
-            <div class="container mx-auto px-4 py-4">
-                <a href="#home" class="block py-2 text-gray-600 hover:text-primary">首页</a>
-                <a href="#research" class="block py-2 text-gray-600 hover:text-primary">研究成果</a>
-                <a href="#education" class="block py-2 text-gray-600 hover:text-primary">教育经历</a>
-                <a href="#awards" class="block py-2 text-gray-600 hover:text-primary">荣誉奖项</a>
-                <a href="#certificates" class="block py-2 text-gray-600 hover:text-primary">证书展示</a>
-                <a href="#contact" class="block py-2 text-gray-600 hover:text-primary">联系方式</a>
-            </div>
+
+        <div id="mobile-menu" class="hidden border-t border-slate-200 px-4 py-4 md:hidden sm:px-6">
+          <nav class="grid gap-1">
+            <a href="#home" class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100" data-mobile-link>首页</a>
+            <a href="#research" class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100" data-mobile-link>研究成果</a>
+            <a href="#awards" class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100" data-mobile-link>荣誉奖项</a>
+            <a href="#certificates" class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100" data-mobile-link>证书展示</a>
+            <a href="#education" class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100" data-mobile-link>教育经历</a>
+            <a href="#contact" class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100" data-mobile-link>联系方式</a>
+          </nav>
         </div>
-    </nav>
-
-    <!-- Hero 区域 -->
-    <section id="home" class="min-h-screen flex items-center pt-16">
-        <div class="container mx-auto px-4 py-16">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-12">
-                <!-- 左侧文字内容 -->
-                <div class="max-w-3xl md:w-2/3">
-                    <h1 class="text-6xl font-bold mb-6 leading-tight text-primary" style="font-size: 64px;">容程朗 </h1>
-                    <p class="text-xl text-gray-600 mb-8 leading-relaxed">
-                        研究方向：AI, Scheduling, Deep Reinforcement Learning, Deep Learning, Petri Net, Graph, GNN, Cluster Tool, Robotic Arm
-                    </p>
-                    <div class="flex flex-wrap gap-4">
-                        <a href="#research" class="px-6 py-3 bg-primary text-white font-medium rounded-md hover:bg-secondary transition duration-300">
-                            研究成果
-                        </a>
-                        <a href="#contact" class="px-6 py-3 border border-gray-300 text-primary font-medium rounded-md hover:bg-gray-100 transition duration-300">
-                            联系我
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- 右侧图片 -->
-                <div class="md:w-1/3 relative">
-                    <div class="rounded-lg overflow-hidden shadow-lg">
-                        <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/d9ff29f7d968494593e1cc7e3a1cbd59~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=20260323182936727AD79E14307CFBFE0E&amp;rrcfp=e75484ac&amp;x-expires=1774866577&amp;x-signature=4HqF5QMGz7dim2x75vaEkxECMjI%3D" alt="容程朗" class="w-full h-auto object-cover" style="border-radius: 500px; border: 1px solid rgba(0, 0, 0, 0.12); box-shadow: rgba(47, 53, 64, 0.02) 0px 0px 4px 0px, rgba(47, 53, 64, 0.1) 0px 6px 10px 0px;">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 研究成果区域 -->
-    <section id="research" class="py-24 bg-white">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold mb-16 text-center text-primary">研究成果</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- 研究成果1 -->
-                <div class="card bg-white rounded-lg overflow-hidden shadow-sm p-8 fade-in">
-                    <div class="flex items-start justify-between mb-4">
-                        <h3 class="text-xl font-semibold text-primary">Scheduling of a Single-Arm Cluster Tool for Processing Two Types of Wafers with Parallel Processing</h3>
-                    </div>
-                    <div class="mb-4">
-                        <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full mr-2 mb-2">Deep Reinforcement Learning</span>
-                        <span class="inline-block px-3 py-1 bg-green-100 text-green-800 text-sm font-medium rounded-full mr-2 mb-2">Scheduling</span>  
-                        <span class="inline-block px-3 py-1 bg-green-100 text-red-800 text-sm font-medium rounded-full mr-2 mb-2">Single Robot</span>
-                        <span class="inline-block px-3 py-1 bg-green-100 text-yellow-800 text-sm font-medium rounded-full mr-2 mb-2">Single Cluster Tool</span>
-                        <span class="inline-block px-3 py-1 bg-purple-100 text-purple-800 text-sm font-medium rounded-full mr-2 mb-2">CCF C Conference</span>
-                    </div>
-                    <p class="text-gray-600 mb-4">
-                        <strong>Time：</strong>2025.06-2026.1 | <strong>Role：</strong>课题总负责人
-                    </p>
-                    <p class="text-gray-700 mb-6 font-bold">
-                        简介：提出基于强化学习的单机械臂调度策略，解决了单臂单组合设备加工小批次多品种类型晶圆的调度问题，实验对比5种最流行的RL算法，以第一作者的身份录用了一篇CCF C类会议论文。
-                    </p>
-                    <div class="flex space-x-4">
-                        <button class="view-research-btn px-4 py-2 text-primary border border-primary rounded-md hover:bg-primary hover:text-white transition duration-300" data-id="research1">
-                            查看详情
-                        </button>
-
-
-                    </div>
-                </div>
-                
-                <!-- 研究成果2 -->
-                <div class="card bg-white rounded-lg overflow-hidden shadow-sm p-8 fade-in">
-                    <div class="flex items-start justify-between mb-4">
-                        <h3 class="text-xl font-semibold text-primary">Scheduling of Single-Arm Multicluster Tools for Multi-Type Wafers with Parallel Processing and Residency Time Constraints</h3>
-                    </div>
-                    <div class="mb-4">
-                        <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full mr-2 mb-2">Multi-Agent Reinforcement Learning</span>
-                        <span class="inline-block px-3 py-1 bg-green-100 text-green-800 text-sm font-medium rounded-full mr-2 mb-2">Scheduling</span>  
-                        <span class="inline-block px-3 py-1 bg-green-100 text-yellow-800 text-sm font-medium rounded-full mr-2 mb-2">Single Robot</span>
-                        <span class="inline-block px-3 py-1 bg-green-100 text-purple-800 text-sm font-medium rounded-full mr-2 mb-2">Dula Cluster Tool</span>
-                        <span class="inline-block px-3 py-1 bg-red-100 text-red-800 text-sm font-medium rounded-full mr-2 mb-2">SCI Top Journal</span>
-                    </div>
-                    <p class="text-gray-600 mb-4">
-                        <strong>Time：</strong>2025.11-2026.3 | <strong>Role：</strong>课题总负责人
-                    </p>
-                    <p class="text-gray-700 mb-6 font-bold">
-                        简介：提出基于多智能体强化学习的单机械臂调度策略，针对双组合设备中的双单臂的协作调度问题，研发了双组合设备加工多品种类型晶圆的协作调度策略，实验对比最前沿最流行的RL算法，以第二作者身份在投一篇高水平SCI期刊论文。
-                    </p>
-                    <div class="flex space-x-4">
-                        <button class="view-research-btn px-4 py-2 text-primary border border-primary rounded-md hover:bg-primary hover:text-white transition duration-300" data-id="research2">
-                            查看详情
-                        </button>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- 荣誉奖项区域 -->
-    <section id="awards" class="py-24 bg-white">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold mb-16 text-center text-primary">荣誉奖项</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- 奖项1 -->
-                <div class="card bg-white rounded-lg overflow-hidden shadow-sm p-6 fade-in">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mr-4">
-                            <i class="fa fa-trophy text-yellow-500 text-xl"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold text-primary">全国大学生数学建模大赛</h3>
-                    </div>
-                    <p class="text-gray-600 mb-2"><strong>等级：</strong>广东省分赛 二等奖</p>
-                    <p class="text-gray-600"><strong>时间：</strong>2024年</p>
-                    <div class="mt-4">
-
-                    </div>
-                </div>
-                
-                <!-- 奖项2 -->
-                <div class="card bg-white rounded-lg overflow-hidden shadow-sm p-6 fade-in">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                            <i class="fa fa-certificate text-blue-500 text-xl"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold text-primary">全国大学生数学竞赛</h3>
-                    </div>
-                    <p class="text-gray-600 mb-2"><strong>等级：</strong>广东省分赛 三等奖</p>
-                    <p class="text-gray-600"><strong>时间：</strong>2024年</p>
-                    <div class="mt-4">
-
-                    </div>
-                </div>
-                
-                <!-- 奖项3 -->
-                <div class="card bg-white rounded-lg overflow-hidden shadow-sm p-6 fade-in">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
-                            <i class="fa fa-robot text-green-500 text-xl"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold text-primary">中国机器人及人工智能大赛</h3>
-                    </div>
-                    <p class="text-gray-600 mb-2"><strong>赛道：</strong>人工智能创新赛</p>
-                    <p class="text-gray-600 mb-2"><strong>等级：</strong>广东赛区 三等奖</p>
-                    <p class="text-gray-600"><strong>时间：</strong>2025年</p>
-                    <div class="mt-4">
-                    </div>
-                </div>
-                
-                <!-- 奖项4 -->
-                <div class="card bg-white rounded-lg overflow-hidden shadow-sm p-6 fade-in">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
-                            <i class="fa fa-star text-purple-500 text-xl"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold text-primary">广东工业大学优秀学生奖学金</h3>
-                    </div>
-                    <p class="text-gray-600 mb-2"><strong>等级：</strong>三等奖学金</p>
-                    <p class="text-gray-600"><strong>时间：</strong>2023-2024学年</p>
-                    <div class="mt-4">
-                    </div>
-                </div>
-                
-                <!-- 奖项5 -->
-                <div class="card bg-white rounded-lg overflow-hidden shadow-sm p-6 fade-in">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
-                            <i class="fa fa-star text-red-500 text-xl"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold text-primary">广东工业大学优秀学生奖学金</h3>
-                    </div>
-                    <p class="text-gray-600 mb-2"><strong>等级：</strong>二等奖学金</p>
-                    <p class="text-gray-600"><strong>时间：</strong>2024-2025学年</p>
-                    <div class="mt-4">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-<!-- 论文及奖项证书排列区域 -->
-<section id="certificates" class="py-24 bg-white">
-    <div class="container mx-auto px-4">
-        <h2 class="text-4xl font-bold mb-16 text-center text-primary">论文及奖项证书</h2>
-        
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-            <!-- 个人头像照片 1-11 -->
-            <div class="card rounded-lg overflow-hidden shadow-sm fade-in">
-                <img src="https://p11-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/0f70a5f6ad2b4a1f83154010355d1fa2~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=2026032323111356499484C980B52ED42A&amp;rrcfp=e75484ac&amp;x-expires=1774883474&amp;x-signature=EQRooK7y3D7NdsvEJ%2FnOHqskETM%3D" alt="个人头像1" class="w-full h-48 object-cover">
-                <div class="p-4 text-center">
-                    <p class="text-gray-700 font-medium">2026 CSCWD</p>
-                </div>
-            </div>
-            <div class="card rounded-lg overflow-hidden shadow-sm fade-in">
-                <img src="https://p6-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/c657e0d3363d49a4afdc4c48d9997ff2~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=20260323231130EE5784F3EA0558225AFC&amp;rrcfp=e75484ac&amp;x-expires=1774883490&amp;x-signature=W7AnLczGO5HNLlwLScAtZ3t2o%2BY%3D" alt="个人头像2" class="w-full h-48 object-cover">
-                <div class="p-4 text-center">
-                    <p class="text-gray-700 font-medium">2026 CSCWD</p>
-                </div>
-            </div>
-            <div class="card rounded-lg overflow-hidden shadow-sm fade-in">
-                <img src="https://p11-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/cbab7e4098dc4ffa9d2522379e3368ce~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=20260323231149E71E957C8F541DB038BC&amp;rrcfp=e75484ac&amp;x-expires=1774883510&amp;x-signature=7nmNnRZoEMgarX6qV%2FiIfT7Yy6U%3D" alt="个人头像3" class="w-full h-48 object-cover">
-                <div class="p-4 text-center">
-                    <p class="text-gray-700 font-medium">2026 CSCWD</p>
-                </div>
-            </div>
-            <div class="card rounded-lg overflow-hidden shadow-sm fade-in">
-                <img src="https://p26-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/ca18782351824bff81d1b851650213ab~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=20260323231205E71E957C8F541DB03C08&amp;rrcfp=e75484ac&amp;x-expires=1774883526&amp;x-signature=VtPqzG3AcBCjxc4UCFbSe%2F5rVe8%3D" alt="个人头像4" class="w-full h-48 object-cover">
-                <div class="p-4 text-center">
-                    <p class="text-gray-700 font-medium">2026 CSCWD</p>
-                </div>
-            </div>
-            <div class="card rounded-lg overflow-hidden shadow-sm fade-in">
-                <img src="https://p26-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/bb4453f60f444c2c9042ac6346711230~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=20260323231224AE372EE56C15F12073A7&amp;rrcfp=e75484ac&amp;x-expires=1774883545&amp;x-signature=trmwVuGIWOp8U6xkyyarS%2FW0S1I%3D" alt="个人头像5" class="w-full h-48 object-cover">
-                <div class="p-4 text-center">
-                    <p class="text-gray-700 font-medium">2026 CSCWD</p>
-                </div>
-            </div>
-            <div class="card rounded-lg overflow-hidden shadow-sm fade-in">
-                <img src="https://p26-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/0194595cc14f401db5cd9bcb0e1cdeaa~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=2026032323123444C58D9492E6780BF52C&amp;rrcfp=e75484ac&amp;x-expires=1774883554&amp;x-signature=ZcTtM3Fee%2FqTHFSrV7f6J8%2BbOoE%3D" alt="个人头像6" class="w-full h-48 object-cover">
-                <div class="p-4 text-center">
-                    <p class="text-gray-700 font-medium">2026 CSCWD</p>
-                </div>
-            </div>
-            <div class="card rounded-lg overflow-hidden shadow-sm fade-in">
-                <img src="https://p6-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/64cb553ca0e54310b91468992730ced7~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=20260323231314D87C1D5A6A276F2F231C&amp;rrcfp=e75484ac&amp;x-expires=1774883594&amp;x-signature=zK3n1FoNrMlfo0V27IrQCpSP4ik%3D" alt="个人头像7" class="w-full h-48 object-cover">
-                <div class="p-4 text-center">
-                    <p class="text-gray-700 font-medium">数学建模</p>
-                </div>
-            </div>
-            <div class="card rounded-lg overflow-hidden shadow-sm fade-in">
-                <img src="https://p26-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/5fb85359295c4f78be7d42ea77431eaa~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=20260323231329E71E957C8F541DB04D37&amp;rrcfp=e75484ac&amp;x-expires=1774883609&amp;x-signature=VWBWYNtCJwQ%2B2pmm05auZBJ8GFE%3D" alt="个人头像8" class="w-full h-48 object-cover">
-                <div class="p-4 text-center">
-                    <p class="text-gray-700 font-medium">数学竞赛</p>
-                </div>
-            </div>
-            <div class="card rounded-lg overflow-hidden shadow-sm fade-in">
-                <img src="https://p26-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/a1adda41249a4dcbbcb81b993ed5e20c~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=202603232313422CB58FB0AD5087105EC4&amp;rrcfp=e75484ac&amp;x-expires=1774883623&amp;x-signature=DWaXz0tEm73l%2F%2BjeYuqhkCSeiAM%3D" alt="个人头像9" class="w-full h-48 object-cover">
-                <div class="p-4 text-center">
-                    <p class="text-gray-700 font-medium">机器人及人工智能大赛</p>
-                </div>
-            </div>
-            <div class="card rounded-lg overflow-hidden shadow-sm fade-in">
-                <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/90b2d477f58e48e78c20e4d3b66486fb~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=20260323233614F1D7E2617F060727426B&amp;rrcfp=e75484ac&amp;x-expires=1774884977&amp;x-signature=OozPNBhzMW8IDzs%2FWr3CGXsIUp0%3D" alt="个人头像10" class="w-full h-48 object-cover">
-                <div class="p-4 text-center">
-                    <p class="text-gray-700 font-medium">优秀学生二等奖学金</p>
-                </div>
-            </div>
-            <div class="card rounded-lg overflow-hidden shadow-sm fade-in">
-                <img src="https://p26-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/06aad95eb808470b94032fb190565b0b~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=20260323233634F1D7E2617F0607274632&amp;rrcfp=e75484ac&amp;x-expires=1774884997&amp;x-signature=6BSX0lTmow2QQlhKGHKWA9Zpj%2Bw%3D" alt="个人头像11" class="w-full h-48 object-cover">
-                <div class="p-4 text-center">
-                    <p class="text-gray-700 font-medium">优秀学生三等奖学金</p>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+  </header>
+
+  <main>
+    <section id="home" class="section-anchor relative overflow-hidden pt-32 sm:pt-36 lg:pt-40">
+      <div class="hero-grid absolute inset-0"></div>
+      <div class="mx-auto grid max-w-7xl gap-10 px-4 pb-20 sm:px-6 lg:grid-cols-[1.12fr_0.88fr] lg:items-center lg:px-8 lg:pb-24">
+        <div class="reveal relative z-10">
+          <span class="eyebrow">Personal Academic Website</span>
+          <h1 class="mt-6 text-5xl font-black tracking-tight text-slate-950 sm:text-6xl lg:text-7xl">容程朗</h1>
+          <p class="mt-4 text-xl font-semibold text-slate-700 sm:text-2xl">ChengLang Rong</p>
+          <p class="mt-6 max-w-3xl text-base leading-8 text-slate-600 sm:text-lg">
+            Research Interests: AI, Deep Reinforcement Learning, Deep Learning, Scheduling, Intelligent Multi-Robot Scheduling in Semiconductor Manufacturing Systems, Modeling and Scheduling Algorithms for Discrete-Event Systems
+          </p>
+
+          <div class="mt-8 flex flex-wrap gap-4">
+            <a href="#research" class="inline-flex items-center justify-center rounded-xl bg-brand-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-800">
+              查看研究成果
+            </a>
+            <a href="#contact" class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900">
+              联系方式
+            </a>
+          </div>
+
+          <div class="mt-10 grid gap-4 sm:grid-cols-3">
+            <div class="card-surface p-5">
+              <p class="text-sm font-medium text-slate-500">教育阶段</p>
+              <p class="mt-2 text-2xl font-bold text-slate-950">2023-2027</p>
+              <p class="mt-1 text-sm text-slate-600">Guangdong University of Technology</p>
+            </div>
+            <div class="card-surface p-5">
+              <p class="text-sm font-medium text-slate-500">GPA</p>
+              <p class="mt-2 text-2xl font-bold text-slate-950">3.654/5.0</p>
+              <p class="mt-1 text-sm text-slate-600">Artificial Intelligence Innovation Class (B.Eng.)</p>
+            </div>
+            <div class="card-surface p-5">
+              <p class="text-sm font-medium text-slate-500">研究项目</p>
+              <p class="mt-2 text-2xl font-bold text-slate-950">2 项</p>
+              <p class="mt-1 text-sm text-slate-600">单臂 / 多组合设备调度</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal relative z-10">
+          <div class="card-surface relative overflow-hidden p-6 sm:p-8">
+            <div class="absolute inset-x-0 top-0 h-24 bg-slate-100"></div>
+            <div class="relative pt-12">
+              <div class="mx-auto flex w-full max-w-sm justify-center">
+                <div class="hero-portrait-wrap relative">
+                  <div class="hero-avatar-ring"></div>
+                  <div class="hero-portrait-frame">
+                    <img
+                      src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/d9ff29f7d968494593e1cc7e3a1cbd59~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=20260323182936727AD79E14307CFBFE0E&amp;rrcfp=e75484ac&amp;x-expires=1774866577&amp;x-signature=4HqF5QMGz7dim2x75vaEkxECMjI%3D"
+                      alt="容程朗"
+                      class="hero-portrait-image"
+                      loading="eager"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-8 rounded-[24px] border border-slate-200 bg-slate-50 p-5">
+                <p class="text-sm font-semibold tracking-[0.16em] text-slate-500 uppercase">Profile Snapshot</p>
+                <div class="mt-4 grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <p class="text-sm text-slate-500">School / College</p>
+                    <p class="mt-1 max-w-xs font-semibold leading-6 text-slate-900">
+                      <span class="block">Guangdong University of Technology</span>
+                      <span class="block">School of Computer Science</span>
+                    </p>
+                  </div>
+                  <div>
+                    <p class="text-sm text-slate-500">Field</p>
+                    <p class="mt-1 max-w-xs font-semibold leading-6 text-slate-900">
+                      <span class="block">Computer Science and Technology</span>
+                      <span class="block">Artificial Intelligence</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="research" class="section-anchor py-24 sm:py-28">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+          <div class="max-w-3xl">
+            <span class="eyebrow">Research</span>
+            <h2 class="mt-5 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">研究成果</h2>
+            <p class="mt-4 text-base leading-8 text-slate-600">
+              Selected research projects on reinforcement learning and intelligent scheduling for semiconductor manufacturing systems.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-10 grid gap-6 xl:grid-cols-2">
+          <article class="reveal card-surface p-6 sm:p-8">
+            <div class="flex flex-wrap items-center gap-3">
+              <span class="rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-800 ring-1 ring-brand-100">Project 01</span>
+              <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">2025.06-2026.1</span>
+            </div>
+            <h3 class="mt-5 text-2xl font-bold leading-snug text-slate-950">Scheduling of a Single-Arm Cluster Tool for Processing Two Types of Wafers with Parallel Processing</h3>
+
+            <div class="mt-5 flex flex-wrap gap-2">
+              <span class="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">Deep Reinforcement Learning</span>
+              <span class="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">Scheduling</span>
+              <span class="rounded-full bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-700">Single Robot</span>
+              <span class="rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700">Single Cluster Tool</span>
+              <span class="rounded-full bg-violet-50 px-3 py-1 text-xs font-semibold text-violet-700">CCF C Conference</span>
+            </div>
+
+            <div class="mt-6 grid gap-4 sm:grid-cols-2">
+              <div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
+                <p class="text-sm text-slate-500">Time</p>
+                <p class="mt-2 font-semibold text-slate-900">2025.06-2026.1</p>
+              </div>
+              <div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
+                <p class="text-sm text-slate-500">Role</p>
+                <p class="mt-2 font-semibold text-slate-900">课题总负责人</p>
+              </div>
+            </div>
+
+            <p class="mt-6 text-base font-semibold leading-8 text-slate-700">
+              简介：提出基于强化学习的单机械臂调度策略，解决了单臂单组合设备加工小批次多品种类型晶圆的调度问题，实验对比5种最流行的RL算法，以第一作者的身份录用了一篇CCF C类会议论文。
+            </p>
+
+            <div class="mt-8 flex flex-wrap gap-3">
+              <button
+                type="button"
+                class="inline-flex items-center justify-center rounded-2xl bg-brand-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-800"
+                data-research-button
+                data-title="Scheduling of a Single-Arm Cluster Tool for Processing Two Types of Wafers with Parallel Processing"
+                data-template="detail-research1"
+              >
+                查看详情
+              </button>
+            </div>
+          </article>
+
+          <article class="reveal card-surface p-6 sm:p-8">
+            <div class="flex flex-wrap items-center gap-3">
+              <span class="rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-800 ring-1 ring-brand-100">Project 02</span>
+              <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">2025.11-2026.3</span>
+            </div>
+            <h3 class="mt-5 text-2xl font-bold leading-snug text-slate-950">Scheduling of Single-Arm Multicluster Tools for Multi-Type Wafers with Parallel Processing and Residency Time Constraints</h3>
+
+            <div class="mt-5 flex flex-wrap gap-2">
+              <span class="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">Multi-Agent Reinforcement Learning</span>
+              <span class="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">Scheduling</span>
+              <span class="rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700">Single Robot</span>
+              <span class="rounded-full bg-fuchsia-50 px-3 py-1 text-xs font-semibold text-fuchsia-700">Dula Cluster Tool</span>
+              <span class="rounded-full bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-700">SCI Top Journal</span>
+            </div>
+
+            <div class="mt-6 grid gap-4 sm:grid-cols-2">
+              <div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
+                <p class="text-sm text-slate-500">Time</p>
+                <p class="mt-2 font-semibold text-slate-900">2025.11-2026.3</p>
+              </div>
+              <div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
+                <p class="text-sm text-slate-500">Role</p>
+                <p class="mt-2 font-semibold text-slate-900">课题总负责人</p>
+              </div>
+            </div>
+
+            <p class="mt-6 text-base font-semibold leading-8 text-slate-700">
+              简介：提出基于多智能体强化学习的单机械臂调度策略，针对双组合设备中的双单臂的协作调度问题，研发了双组合设备加工多品种类型晶圆的协作调度策略，实验对比最前沿最流行的RL算法，以第二作者身份在投一篇高水平SCI期刊论文。
+            </p>
+
+            <div class="mt-8 flex flex-wrap gap-3">
+              <button
+                type="button"
+                class="inline-flex items-center justify-center rounded-2xl bg-brand-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-800"
+                data-research-button
+                data-title="Scheduling of Single-Arm Multicluster Tools for Multi-Type Wafers with Parallel Processing and Residency Time Constraints"
+                data-template="detail-research2"
+              >
+                查看详情
+              </button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="awards" class="section-anchor py-24 sm:py-28">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal max-w-3xl">
+          <span class="eyebrow">Awards</span>
+          <h2 class="mt-5 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">荣誉奖项</h2>
+        </div>
+
+        <div class="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <article class="reveal card-surface p-6">
+            <div class="flex items-start gap-4">
+              <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-yellow-50 text-yellow-600 ring-1 ring-yellow-100">
+                <i class="fa fa-area-chart text-2xl"></i>
+              </div>
+              <div class="min-w-0 flex-1">
+                <h3 class="text-lg font-bold leading-7 text-slate-950">全国大学生数学建模大赛</h3>
+                <span class="mt-3 inline-flex rounded-full bg-slate-100 px-3.5 py-1.5 text-xs font-semibold text-slate-600">2024</span>
+              </div>
+            </div>
+            <div class="mt-5 space-y-2 text-sm leading-7 text-slate-600">
+              <p><span class="font-semibold text-slate-900">等级：</span>广东省分赛 二等奖</p>
+            </div>
+          </article>
+
+          <article class="reveal card-surface p-6">
+            <div class="flex items-start gap-4">
+              <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 ring-1 ring-blue-100">
+                <i class="fa fa-superscript text-2xl"></i>
+              </div>
+              <div class="min-w-0 flex-1">
+                <h3 class="text-lg font-bold leading-7 text-slate-950">全国大学生数学竞赛</h3>
+                <span class="mt-3 inline-flex rounded-full bg-slate-100 px-3.5 py-1.5 text-xs font-semibold text-slate-600">2024</span>
+              </div>
+            </div>
+            <div class="mt-5 space-y-2 text-sm leading-7 text-slate-600">
+              <p><span class="font-semibold text-slate-900">等级：</span>广东省分赛 三等奖</p>
+            </div>
+          </article>
+
+          <article class="reveal card-surface p-6">
+            <div class="flex items-start gap-4">
+              <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 ring-1 ring-emerald-100">
+                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" class="h-7 w-7" aria-hidden="true">
+                  <path d="M13 55h38" />
+                  <path d="M20 55V42" />
+                  <rect x="15" y="34" width="10" height="8" rx="2" />
+                  <path d="M25 38h9" />
+                  <circle cx="36" cy="38" r="4" />
+                  <path d="M39 35l10-11" />
+                  <circle cx="52" cy="21" r="4" />
+                  <path d="M55 18l4-6" />
+                  <path d="M59 12l2 6" />
+                  <path d="M49 24l-4 8" />
+                </svg>
+              </div>
+              <div class="min-w-0 flex-1">
+                <h3 class="text-lg font-bold leading-7 text-slate-950">中国机器人及人工智能大赛</h3>
+                <span class="mt-3 inline-flex rounded-full bg-slate-100 px-3.5 py-1.5 text-xs font-semibold text-slate-600">2025</span>
+              </div>
+            </div>
+            <div class="mt-5 space-y-2 text-sm leading-7 text-slate-600">
+              <p><span class="font-semibold text-slate-900">赛道：</span>人工智能创新赛</p>
+              <p><span class="font-semibold text-slate-900">等级：</span>广东赛区 三等奖</p>
+            </div>
+          </article>
+
+          <article class="reveal card-surface p-6">
+            <div class="flex items-start gap-4">
+              <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-violet-50 text-violet-600 ring-1 ring-violet-100">
+                <i class="fa fa-graduation-cap text-2xl"></i>
+              </div>
+              <div class="min-w-0 flex-1">
+                <h3 class="text-lg font-bold leading-7 text-slate-950">广东工业大学优秀学生奖学金</h3>
+                <span class="mt-3 inline-flex rounded-full bg-slate-100 px-3.5 py-1.5 text-xs font-semibold text-slate-600">2023–2024 Academic Year</span>
+              </div>
+            </div>
+            <div class="mt-5 space-y-2 text-sm leading-7 text-slate-600">
+              <p><span class="font-semibold text-slate-900">等级：</span>三等奖学金</p>
+            </div>
+          </article>
+
+          <article class="reveal card-surface p-6 md:col-span-2 xl:col-span-1">
+            <div class="flex items-start gap-4">
+              <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-rose-50 text-rose-600 ring-1 ring-rose-100">
+                <i class="fa fa-graduation-cap text-2xl"></i>
+              </div>
+              <div class="min-w-0 flex-1">
+                <h3 class="text-lg font-bold leading-7 text-slate-950">广东工业大学优秀学生奖学金</h3>
+                <span class="mt-3 inline-flex rounded-full bg-slate-100 px-3.5 py-1.5 text-xs font-semibold text-slate-600">2024–2025 Academic Year</span>
+              </div>
+            </div>
+            <div class="mt-5 space-y-2 text-sm leading-7 text-slate-600">
+              <p><span class="font-semibold text-slate-900">等级：</span>二等奖学金</p>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    
+<section id="certificates" class="section-anchor py-24 sm:py-28">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="reveal max-w-3xl">
+      <span class="eyebrow">Figures & Certificates</span>
+      <h2 class="mt-5 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">论文图片与获奖证书</h2>
+      <p class="mt-4 text-base leading-8 text-slate-600">
+        Selected paper figures and award certificates are organized in compact grouped galleries.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-8 lg:grid-cols-2">
+      <article class="reveal card-surface p-6 sm:p-8">
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <p class="text-sm font-semibold tracking-[0.16em] text-slate-500 uppercase">Paper Figures</p>
+            <h3 class="mt-2 text-2xl font-bold text-slate-950">2026 CSCWD</h3>
+            <p class="mt-2 text-sm text-slate-500">6 images</p>
+          </div>
+          <button
+            type="button"
+            class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900"
+            data-open-group="paper-cscwd"
+          >
+            Open Gallery
+          </button>
+        </div>
+
+        <div class="mt-6 grid grid-cols-3 gap-3">
+          <button type="button" class="certificate-card text-left" data-gallery-item data-gallery-group="paper-cscwd" data-gallery-order="1" data-image="https://p11-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/0f70a5f6ad2b4a1f83154010355d1fa2~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=2026032323111356499484C980B52ED42A&amp;rrcfp=e75484ac&amp;x-expires=1774883474&amp;x-signature=EQRooK7y3D7NdsvEJ%2FnOHqskETM%3D" data-caption="2026 CSCWD · Figure 1" data-group="2026 CSCWD">
+            <img src="https://p11-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/0f70a5f6ad2b4a1f83154010355d1fa2~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=2026032323111356499484C980B52ED42A&amp;rrcfp=e75484ac&amp;x-expires=1774883474&amp;x-signature=EQRooK7y3D7NdsvEJ%2FnOHqskETM%3D" alt="2026 CSCWD 图片 1" class="h-40 w-full rounded-xl border border-slate-200 object-cover object-top" loading="lazy" />
+          </button>
+
+          <button type="button" class="certificate-card text-left" data-gallery-item data-gallery-group="paper-cscwd" data-gallery-order="2" data-image="https://p6-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/c657e0d3363d49a4afdc4c48d9997ff2~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=20260323231130EE5784F3EA0558225AFC&amp;rrcfp=e75484ac&amp;x-expires=1774883490&amp;x-signature=W7AnLczGO5HNLlwLScAtZ3t2o%2BY%3D" data-caption="2026 CSCWD · Figure 2" data-group="2026 CSCWD">
+            <img src="https://p6-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/c657e0d3363d49a4afdc4c48d9997ff2~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=20260323231130EE5784F3EA0558225AFC&amp;rrcfp=e75484ac&amp;x-expires=1774883490&amp;x-signature=W7AnLczGO5HNLlwLScAtZ3t2o%2BY%3D" alt="2026 CSCWD 图片 2" class="h-40 w-full rounded-xl border border-slate-200 object-cover object-top" loading="lazy" />
+          </button>
+
+          <button type="button" class="certificate-card text-left" data-gallery-item data-gallery-group="paper-cscwd" data-gallery-order="3" data-image="https://p11-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/cbab7e4098dc4ffa9d2522379e3368ce~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=20260323231149E71E957C8F541DB038BC&amp;rrcfp=e75484ac&amp;x-expires=1774883510&amp;x-signature=7nmNnRZoEMgarX6qV%2FiIfT7Yy6U%3D" data-caption="2026 CSCWD · Figure 3" data-group="2026 CSCWD">
+            <img src="https://p11-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/cbab7e4098dc4ffa9d2522379e3368ce~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=20260323231149E71E957C8F541DB038BC&amp;rrcfp=e75484ac&amp;x-expires=1774883510&amp;x-signature=7nmNnRZoEMgarX6qV%2FiIfT7Yy6U%3D" alt="2026 CSCWD 图片 3" class="h-40 w-full rounded-xl border border-slate-200 object-cover object-top" loading="lazy" />
+          </button>
+        </div>
+
+        <div class="mt-4 text-sm leading-7 text-slate-600">
+          Accepted paper materials and related figures are grouped into a single gallery for compact browsing.
+        </div>
+
+        <div class="hidden">
+          <button type="button" data-gallery-item data-gallery-group="paper-cscwd" data-gallery-order="4" data-image="https://p26-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/ca18782351824bff81d1b851650213ab~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=20260323231205E71E957C8F541DB03C08&amp;rrcfp=e75484ac&amp;x-expires=1774883526&amp;x-signature=VtPqzG3AcBCjxc4UCFbSe%2F5rVe8%3D" data-caption="2026 CSCWD · Figure 4" data-group="2026 CSCWD"></button>
+          <button type="button" data-gallery-item data-gallery-group="paper-cscwd" data-gallery-order="5" data-image="https://p26-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/bb4453f60f444c2c9042ac6346711230~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=20260323231224AE372EE56C15F12073A7&amp;rrcfp=e75484ac&amp;x-expires=1774883545&amp;x-signature=trmwVuGIWOp8U6xkyyarS%2FW0S1I%3D" data-caption="2026 CSCWD · Figure 5" data-group="2026 CSCWD"></button>
+          <button type="button" data-gallery-item data-gallery-group="paper-cscwd" data-gallery-order="6" data-image="https://p26-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/0194595cc14f401db5cd9bcb0e1cdeaa~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=2026032323123444C58D9492E6780BF52C&amp;rrcfp=e75484ac&amp;x-expires=1774883554&amp;x-signature=ZcTtM3Fee%2FqTHFSrV7f6J8%2BbOoE%3D" data-caption="2026 CSCWD · Figure 6" data-group="2026 CSCWD"></button>
+        </div>
+      </article>
+
+      <article class="reveal card-surface p-6 sm:p-8">
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <p class="text-sm font-semibold tracking-[0.16em] text-slate-500 uppercase">Award Certificates</p>
+            <h3 class="mt-2 text-2xl font-bold text-slate-950">获奖证书</h3>
+            <p class="mt-2 text-sm text-slate-500">5 images</p>
+          </div>
+          <button
+            type="button"
+            class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900"
+            data-open-group="award-certificates"
+          >
+            Open Gallery
+          </button>
+        </div>
+
+        <div class="mt-6 grid grid-cols-3 gap-3">
+          <button type="button" class="certificate-card text-left" data-gallery-item data-gallery-group="award-certificates" data-gallery-order="1" data-image="https://p6-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/64cb553ca0e54310b91468992730ced7~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=20260323231314D87C1D5A6A276F2F231C&amp;rrcfp=e75484ac&amp;x-expires=1774883594&amp;x-signature=zK3n1FoNrMlfo0V27IrQCpSP4ik%3D" data-caption="数学建模" data-group="获奖证书">
+            <img src="https://p6-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/64cb553ca0e54310b91468992730ced7~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=20260323231314D87C1D5A6A276F2F231C&amp;rrcfp=e75484ac&amp;x-expires=1774883594&amp;x-signature=zK3n1FoNrMlfo0V27IrQCpSP4ik%3D" alt="数学建模证书" class="h-40 w-full rounded-xl border border-slate-200 object-cover" loading="lazy" />
+          </button>
+
+          <button type="button" class="certificate-card text-left" data-gallery-item data-gallery-group="award-certificates" data-gallery-order="2" data-image="https://p26-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/5fb85359295c4f78be7d42ea77431eaa~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=20260323231329E71E957C8F541DB04D37&amp;rrcfp=e75484ac&amp;x-expires=1774883609&amp;x-signature=VWBWYNtCJwQ%2B2pmm05auZBJ8GFE%3D" data-caption="数学竞赛" data-group="获奖证书">
+            <img src="https://p26-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/5fb85359295c4f78be7d42ea77431eaa~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=20260323231329E71E957C8F541DB04D37&amp;rrcfp=e75484ac&amp;x-expires=1774883609&amp;x-signature=VWBWYNtCJwQ%2B2pmm05auZBJ8GFE%3D" alt="数学竞赛证书" class="h-40 w-full rounded-xl border border-slate-200 object-cover" loading="lazy" />
+          </button>
+
+          <button type="button" class="certificate-card text-left" data-gallery-item data-gallery-group="award-certificates" data-gallery-order="3" data-image="https://p26-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/a1adda41249a4dcbbcb81b993ed5e20c~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=202603232313422CB58FB0AD5087105EC4&amp;rrcfp=e75484ac&amp;x-expires=1774883623&amp;x-signature=DWaXz0tEm73l%2F%2BjeYuqhkCSeiAM%3D" data-caption="机器人及人工智能大赛" data-group="获奖证书">
+            <img src="https://p26-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/a1adda41249a4dcbbcb81b993ed5e20c~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=202603232313422CB58FB0AD5087105EC4&amp;rrcfp=e75484ac&amp;x-expires=1774883623&amp;x-signature=DWaXz0tEm73l%2F%2BjeYuqhkCSeiAM%3D" alt="机器人及人工智能大赛证书" class="h-40 w-full rounded-xl border border-slate-200 object-cover" loading="lazy" />
+          </button>
+        </div>
+
+        <div class="mt-4 text-sm leading-7 text-slate-600">
+          Certificates are preserved in full and displayed through a compact gallery entry rather than a long thumbnail list.
+        </div>
+
+        <div class="hidden">
+          <button type="button" data-gallery-item data-gallery-group="award-certificates" data-gallery-order="4" data-image="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/90b2d477f58e48e78c20e4d3b66486fb~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=20260323233614F1D7E2617F060727426B&amp;rrcfp=e75484ac&amp;x-expires=1774884977&amp;x-signature=OozPNBhzMW8IDzs%2FWr3CGXsIUp0%3D" data-caption="优秀学生二等奖学金" data-group="获奖证书"></button>
+          <button type="button" data-gallery-item data-gallery-group="award-certificates" data-gallery-order="5" data-image="https://p26-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/06aad95eb808470b94032fb190565b0b~tplv-a9rns2rl98-image.image?lk3s=8e244e95&amp;rcl=20260323233634F1D7E2617F0607274632&amp;rrcfp=e75484ac&amp;x-expires=1774884997&amp;x-signature=6BSX0lTmow2QQlhKGHKWA9Zpj%2Bw%3D" data-caption="优秀学生三等奖学金" data-group="获奖证书"></button>
+        </div>
+      </article>
+    </div>
+  </div>
 </section>
 
-    
-    <!-- 教育经历区域 -->
-    <section id="education" class="py-24 bg-light">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold mb-16 text-center text-primary">教育经历</h2>
-            
-            <div class="max-w-3xl mx-auto">
-                <div class="timeline fade-in">
-                    <!-- 教育经历1 -->
-                    <div class="timeline-item">
-                        <div class="bg-white p-6 rounded-lg shadow-sm">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-xl font-semibold text-primary">广东工业大学</h3>
-                                <span class="text-sm text-gray-500">2023-2027</span>
-                            </div>
-                            <p class="text-gray-600 mb-2"><strong>专业：</strong>人工智能创新班（本科）</p>
-                            <p class="text-gray-600 mb-2"><strong>GPA：</strong>3.654/5.0</p>
-                            <div class="mt-4">
-                                <h4 class="font-medium text-gray-800 mb-2">主修课程：</h4>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">人工智能导论</span>
-                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">机器学习</span>
-                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">深度学习</span>
-                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">强化学习</span>
-                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">数据结构与算法</span>
-                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">计算机网络</span>
-                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">操作系统</span>
-                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">计算机组成原理</span>
-                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">工科数学分析</span>
-                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">线性代数</span>
-                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">离散数学</span>
-                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">数值计算方法</span>
-                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">软件工程</span>
-                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">程序设计</span>
-                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">数据库系统</span>
-                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">数字逻辑及系统设计</span>
-                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">最优化方法</span>
-                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">Linux技术</span>
-                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">大数据技术原理与应用</span>
-                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">编译原理</span>
-                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">自然语言处理</span>
-                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">高性能计算</span>
-                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">知识工程与知识图谱</span>
-                                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">半导体制造工艺与设备</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<section id="education"
+ class="section-anchor py-24 sm:py-28">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal max-w-3xl">
+          <span class="eyebrow">Education</span>
+          <h2 class="mt-5 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">教育经历</h2>
         </div>
-    </section>
-    
-    <!-- 联系方式区域 -->
-    <section id="contact" class="py-24 bg-light">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold mb-16 text-center text-primary">联系方式</h2>
-            
-            <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-sm p-8 fade-in">
-                <div>
-                    <h3 class="text-xl font-semibold mb-6 text-primary">联系信息</h3>
-                    <div class="space-y-4">
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                                <i class="fa fa-envelope text-blue-500"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm text-gray-500">邮箱</p>
-                                <p class="text-gray-800">3123004845@mail2.gdut.edu.cn</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center mr-4">
-                                <i class="fa fa-github text-gray-500"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm text-gray-500">GitHub</p>
-                                <a href="https://github.com/ChenglangRong" class="text-primary hover:underline" target="_blank">ChenglangRong</a>
-                            </div>
-                        </div>
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                                <i class="fa fa-university text-blue-500"></i>
-                            </div>
-                            <div>
-                                <p class="text-sm text-gray-500">学校</p>
-                                <p class="text-gray-800">广东工业大学 计算机学院</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+        <div class="mt-10 grid gap-6 xl:grid-cols-[0.92fr_1.08fr]">
+          <article class="reveal card-surface p-8">
+            <div class="flex flex-wrap items-start justify-between gap-4">
+              <div>
+                <p class="text-sm font-semibold tracking-[0.16em] text-slate-500 uppercase">Education Timeline</p>
+                <h3 class="mt-3 max-w-md text-3xl font-bold leading-snug text-slate-950">Guangdong University of Technology</h3>
+              </div>
+              <span class="rounded-full bg-brand-50 px-4 py-1.5 text-sm font-semibold text-brand-800 ring-1 ring-brand-100">2023-2027</span>
             </div>
+            <div class="mt-8 space-y-5">
+              <div class="rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200">
+                <p class="text-sm text-slate-500">Program</p>
+                <p class="mt-2 max-w-md text-lg font-semibold leading-7 text-slate-900">Artificial Intelligence Innovation Class (B.Eng.)</p>
+              </div>
+              <div class="rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200">
+                <p class="text-sm text-slate-500">GPA</p>
+                <p class="mt-2 text-lg font-semibold text-slate-900">3.654/5.0</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="reveal card-surface p-8">
+            <div class="flex items-center justify-between gap-4">
+              <div>
+                <p class="text-sm font-semibold tracking-[0.16em] text-slate-500 uppercase">Coursework</p>
+                <h3 class="mt-3 text-2xl font-bold text-slate-950">主修课程</h3>
+              </div>
+            </div>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">人工智能导论</span>
+              <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">机器学习</span>
+              <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">深度学习</span>
+              <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">强化学习</span>
+              <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">数据结构与算法</span>
+              <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">计算机网络</span>
+              <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">操作系统</span>
+              <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">计算机组成原理</span>
+              <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">工科数学分析</span>
+              <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">线性代数</span>
+              <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">离散数学</span>
+              <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">数值计算方法</span>
+              <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">软件工程</span>
+              <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">程序设计</span>
+              <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">数据库系统</span>
+              <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">数字逻辑及系统设计</span>
+              <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">最优化方法</span>
+              <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">Linux技术</span>
+              <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">大数据技术原理与应用</span>
+              <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">编译原理</span>
+              <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">自然语言处理</span>
+              <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">高性能计算</span>
+              <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">知识工程与知识图谱</span>
+              <span class="rounded-full bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700">半导体制造工艺与设备</span>
+            </div>
+          </article>
         </div>
+      </div>
     </section>
 
-
-
-    <!-- 页脚 -->
-    <footer class="py-12 bg-primary text-white">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-6 md:mb-0">
-                    <h3 class="text-2xl font-bold">容程朗 | ChengLang Rong</h3>
-                    <p class="text-gray-300 mt-2">计算机科学与技术 人工智能 研究学者</p>
-                </div>
-                
-                <div class="flex space-x-6">
-                    <a href="https://github.com/ChenglangRong" class="text-gray-300 hover:text-white transition duration-300" target="_blank">
-                        <i class="fa fa-github text-xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-300 hover:text-white transition duration-300">
-                        <i class="fa fa-google text-xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-300 hover:text-white transition duration-300">
-                        <i class="fa fa-linkedin text-xl"></i>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300 text-sm">
-                <p>© 2026 容程朗 | 学术主页. 保留所有权利.</p>
-            </div>
+    <section id="contact" class="section-anchor py-24 sm:py-28">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="reveal max-w-3xl">
+          <span class="eyebrow">Contact</span>
+          <h2 class="mt-5 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">联系方式</h2>
         </div>
-    </footer>
 
-    <!-- 研究成果详情模态框 -->
-    <div id="research-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
-        <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div class="p-8">
-                <div class="flex justify-between items-start mb-6">
-                    <h3 id="modal-title" class="text-2xl font-semibold text-primary"></h3>
-                    <button id="close-modal" class="text-gray-500 hover:text-gray-700 focus:outline-none">
-                        <i class="fa fa-times text-xl"></i>
-                    </button>
-                </div>
-                <div id="modal-content" class="space-y-6">
-                    <!-- 内容将通过JavaScript动态填充 -->
-                </div>
+        <div class="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <article class="reveal card-surface p-6">
+            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 ring-1 ring-blue-100">
+              <i class="fa fa-envelope text-2xl"></i>
             </div>
+            <p class="mt-6 text-sm font-semibold tracking-[0.14em] text-slate-500 uppercase">邮箱</p>
+            <a href="mailto:3123004845@mail2.gdut.edu.cn" class="mt-3 block break-all text-lg font-semibold text-slate-950 hover:text-brand-900">3123004845@mail2.gdut.edu.cn</a>
+            <button id="copy-email" type="button" data-email="3123004845@mail2.gdut.edu.cn" class="mt-5 inline-flex items-center justify-center rounded-2xl border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-brand-200 hover:text-brand-900">
+              复制邮箱
+            </button>
+          </article>
+
+          <article class="reveal card-surface p-6">
+            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-700 ring-1 ring-slate-200">
+              <i class="fa fa-github text-2xl"></i>
+            </div>
+            <p class="mt-6 text-sm font-semibold tracking-[0.14em] text-slate-500 uppercase">GitHub</p>
+            <a href="https://github.com/ChenglangRong" target="_blank" rel="noreferrer" class="mt-3 block text-lg font-semibold text-slate-950 hover:text-brand-900">ChenglangRong</a>
+            <a href="https://github.com/ChenglangRong" target="_blank" rel="noreferrer" class="mt-5 inline-flex items-center justify-center rounded-2xl border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-brand-200 hover:text-brand-900">
+              访问 GitHub
+            </a>
+          </article>
+
+          <article class="reveal card-surface p-6 md:col-span-2 xl:col-span-1">
+            <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-50 text-brand-800 ring-1 ring-brand-100">
+              <i class="fa fa-university text-2xl"></i>
+            </div>
+            <p class="mt-6 text-sm font-semibold tracking-[0.14em] text-slate-500 uppercase">School / College</p>
+            <p class="mt-3 max-w-xs text-lg font-semibold leading-7 text-slate-950"><span class="block">Guangdong University of Technology</span><span class="block">School of Computer Science</span></p>
+          </article>
         </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-slate-200 bg-white py-10 text-slate-900">
+    <div class="mx-auto flex max-w-7xl flex-col gap-6 px-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+      <div>
+        <h3 class="text-2xl font-bold">容程朗 | ChengLang Rong</h3>
+        <p class="mt-2 text-sm text-slate-500">Computer Science and Technology · Artificial Intelligence Research</p>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="https://github.com/ChenglangRong" target="_blank" rel="noreferrer" class="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 text-slate-600 transition hover:border-slate-300 hover:bg-slate-100 hover:text-slate-900" aria-label="GitHub">
+          <i class="fa fa-github"></i>
+        </a>
+      </div>
     </div>
-
-    <!-- 改造：自定义图片模态框（排序+预览） -->
-    <div id="image-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
-        <div class="bg-white rounded-lg max-w-6xl w-full max-h-[95vh] overflow-hidden flex flex-col">
-            <!-- 模态框头部 -->
-            <div class="p-6 border-b flex justify-between items-center">
-                <h3 id="image-modal-title" class="text-2xl font-semibold text-primary"></h3>
-                <div class="flex gap-4">
-                    <button id="edit-sort-btn" class="px-4 py-2 border border-primary text-primary rounded-md hover:bg-primary hover:text-white transition">
-                        <i class="fa fa-sort mr-2"></i>编辑排序
-                    </button>
-                    <button id="close-image-modal" class="text-gray-500 hover:text-gray-700 focus:outline-none">
-                        <i class="fa fa-times text-xl"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- 排序模式容器 -->
-            <div id="sort-mode-container" class="hidden flex-1 p-6 overflow-y-auto">
-                <div class="image-sort-container">
-                    <h4 class="text-lg font-medium mb-4 text-gray-800">上传/排序图片（最多6张）</h4>
-                    
-                    <!-- 上传区域 -->
-                    <div class="upload-area" id="upload-area">
-                        <input type="file" id="image-upload" accept="image/*" multiple="" hidden="">
-                        <i class="fa fa-cloud-upload text-4xl text-primary mb-2"></i>
-                        <p class="text-gray-600">点击或拖拽图片到此处上传</p>
-                        <p class="text-gray-400 text-sm mt-1">支持JPG/PNG格式，最多上传6张</p>
-                    </div>
-                    
-                    <!-- 图片排序网格 -->
-                    <div class="sortable-grid" id="sortable-grid">
-                        <!-- 图片项将动态生成 -->
-                    </div>
-                    
-                    <div class="action-btns">
-                        <button id="save-sort-btn" class="px-6 py-2 bg-primary text-white rounded-md hover:bg-secondary transition">
-                            保存排序并预览
-                        </button>
-                        <button id="cancel-sort-btn" class="px-6 py-2 border border-gray-300 text-gray-600 rounded-md hover:bg-gray-100 transition">
-                            取消
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 预览模式容器 -->
-            <div id="preview-mode-container" class="flex-1 relative">
-                <!-- 图片轮播 -->
-                <div class="image-carousel">
-                    <img id="carousel-main-img" src="" alt="预览图片" class="carousel-img">
-                    <!-- 上一张/下一张按钮 -->
-                    <button class="carousel-btn prev" id="prev-img">
-                        <i class="fa fa-chevron-left"></i>
-                    </button>
-                    <button class="carousel-btn next" id="next-img">
-                        <i class="fa fa-chevron-right"></i>
-                    </button>
-                    <!-- 轮播指示器 -->
-                    <div class="carousel-nav" id="carousel-dots">
-                        <!-- 指示器将动态生成 -->
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="mx-auto mt-8 max-w-7xl border-t border-slate-200 px-4 pt-6 text-sm text-slate-500 sm:px-6 lg:px-8">
+      © 2026 容程朗 | 学术主页. 保留所有权利.
     </div>
+  </footer>
 
-    <!-- 回到顶部按钮 -->
-    <button id="back-to-top" class="fixed bottom-8 right-8 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300">
-        <i class="fa fa-arrow-up"></i>
-    </button>
+  <div id="research-modal" class="fixed inset-0 z-[70] hidden" aria-hidden="true">
+    <div class="absolute inset-0 bg-slate-950/70"></div>
+    <div class="relative flex min-h-full items-center justify-center p-4 sm:p-6">
+      <div class="w-full max-w-5xl overflow-hidden rounded-[32px] border border-slate-200 bg-white shadow-2xl">
+        <div class="flex items-start justify-between gap-4 border-b border-slate-200 px-6 py-5 sm:px-8">
+          <div>
+            <p class="text-sm font-semibold tracking-[0.16em] text-slate-500 uppercase">Research Detail</p>
+            <h3 id="research-modal-title" class="mt-2 text-2xl font-bold leading-snug text-slate-950"></h3>
+          </div>
+          <button id="research-modal-close" type="button" class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 text-slate-600 transition hover:bg-slate-100" aria-label="关闭研究详情">
+            <i class="fa fa-times text-lg"></i>
+          </button>
+        </div>
+        <div id="research-modal-body" class="modal-copy max-h-[72vh] overflow-y-auto px-6 py-6 sm:px-8 sm:py-8"></div>
+      </div>
+    </div>
+  </div>
 
-    <script>
-        // 页面加载完成后执行
-        document.addEventListener('DOMContentLoaded', function() {
-            // ========== 核心改造：图片排序+预览功能 ==========
-            // 全局变量
-            const imageModal = document.getElementById('image-modal');
-            const imageModalTitle = document.getElementById('image-modal-title');
-            const sortModeContainer = document.getElementById('sort-mode-container');
-            const previewModeContainer = document.getElementById('preview-mode-container');
-            const editSortBtn = document.getElementById('edit-sort-btn');
-            const closeImageModal = document.getElementById('close-image-modal');
-            const uploadArea = document.getElementById('upload-area');
-            const imageUpload = document.getElementById('image-upload');
-            const sortableGrid = document.getElementById('sortable-grid');
-            const saveSortBtn = document.getElementById('save-sort-btn');
-            const cancelSortBtn = document.getElementById('cancel-sort-btn');
-            const carouselMainImg = document.getElementById('carousel-main-img');
-            const prevImgBtn = document.getElementById('prev-img');
-            const nextImgBtn = document.getElementById('next-img');
-            const carouselDots = document.getElementById('carousel-dots');
-            
-            // 图片数据存储（按target分组）
-            const imageData = {
-                pdf1: [], // 论文1图片
-                pdf2: [], // 论文2图片
-                award1: [], // 奖项1图片
-                award2: [], // 奖项2图片
-                award3: [], // 奖项3图片
-                award4: [], // 奖项4图片
-                award5: []  // 奖项5图片
-            };
-            let currentTarget = ''; // 当前操作的目标（pdf1/award1等）
-            let currentImgIndex = 0; // 当前预览的图片索引
+  <div id="gallery-modal" class="fixed inset-0 z-[80] hidden" aria-hidden="true">
+    <div class="absolute inset-0 bg-slate-950/90"></div>
+    <div class="relative flex min-h-full items-center justify-center p-4 sm:p-6">
+      <button id="gallery-close" type="button" class="absolute right-5 top-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/10 text-white transition hover:bg-white/20" aria-label="关闭图片预览">
+        <i class="fa fa-times text-lg"></i>
+      </button>
+      <button id="gallery-prev" type="button" class="absolute left-4 top-1/2 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-2xl border border-white/10 bg-white/10 text-white transition hover:bg-white/20 sm:left-6" aria-label="上一张">
+        <i class="fa fa-chevron-left"></i>
+      </button>
+      <figure class="w-full max-w-6xl px-10 sm:px-16">
+        <div class="overflow-hidden rounded-[32px] border border-white/10 bg-slate-900/60 p-3 shadow-2xl sm:p-4">
+          <img id="gallery-image" src="" alt="" class="max-h-[78vh] w-full rounded-[24px] bg-white object-contain" />
+        </div>
+        <figcaption class="mt-5 flex flex-col gap-3 text-white sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p id="gallery-group" class="text-xs font-semibold uppercase tracking-[0.18em] text-white/60"></p>
+            <p id="gallery-caption" class="mt-2 text-xl font-semibold"></p>
+          </div>
+          <p id="gallery-counter" class="text-sm text-white/65"></p>
+        </figcaption>
+      </figure>
+      <button id="gallery-next" type="button" class="absolute right-4 top-1/2 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-2xl border border-white/10 bg-white/10 text-white transition hover:bg-white/20 sm:right-6" aria-label="下一张">
+        <i class="fa fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
 
-            // 1. 打开图片模态框（论文/证书按钮点击）
-            const openImageModal = (target, title) => {
-                currentTarget = target;
-                imageModalTitle.textContent = title;
-                imageModal.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-                
-                // 初始化预览模式
-                sortModeContainer.classList.add('hidden');
-                previewModeContainer.classList.remove('hidden');
-                
-                // 如果有图片，加载预览；否则默认进入编辑模式
-                if (imageData[currentTarget].length > 0) {
-                    renderCarousel();
-                } else {
-                    switchToSortMode();
-                }
-            };
+  <button id="back-to-top" type="button" class="floating-button fixed bottom-6 right-6 z-40 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-900 text-white transition hover:bg-brand-800" aria-label="回到顶部">
+    <i class="fa fa-arrow-up"></i>
+  </button>
 
-            // 2. 切换到排序模式
-            const switchToSortMode = () => {
-                previewModeContainer.classList.add('hidden');
-                sortModeContainer.classList.remove('hidden');
-                // 渲染已上传的图片
-                renderSortableGrid();
-            };
+  <template id="detail-research1">
+    <h4>中文介绍</h4>
+    <p>本研究针对单臂单组合设备加工多品种晶圆且包含晶圆驻留时间约束的调度问题，提出了一种基于深度强化学习的调度策略。主要内容和贡献包括：</p>
+    <ul>
+      <li>这篇论文研究的是单机械臂 cluster tool 在加工两类晶圆时的调度优化问题。与传统只考虑稳态调度的研究不同，我关注的是启动阶段、稳态阶段和收尾阶段的全流程调度，同时考虑了并行工艺模块、共享模块竞争以及晶圆驻留时间约束。这类问题的难点在于：机器人一次只能搬运一片晶圆，但不同类型晶圆的路径可能重叠，共享模块会带来资源竞争，而驻留时间限制又要求晶圆加工后必须在规定时间内被及时移出，否则就会报废。</li>
+      <li>针对这个问题，我首先将调度过程建模为一个马尔可夫决策过程，定义了系统状态、机器人动作和奖励函数；然后在 TD3 的基础上做了有针对性的改进，包括：动态噪声探索，保证前期充分搜索、后期稳定收敛；动态优先经验回放，提高高价值样本利用率；自适应循环学习率，加快关键调度策略学习；注意力机制，增强状态与动作之间的关联学习；面向 makespan 最小化的奖励设计；以及状态特征标准化，减少不同量纲带来的训练干扰。</li>
+      <li>在实验部分，我设计了四类典型场景，包括是否存在共享 PM、是否存在并行路径等情况，并将改进 TD3 与传统 TD3、DDPG、DQN 进行对比。结果显示，改进 TD3 在多数场景下取得了更优的最小 makespan，例如在 Env1 和 Env4 中优势尤其明显，同时收敛速度更快，泛化性也更强。</li>
+      <li>这篇工作的意义在于，它证明了深度强化学习可以有效处理具有强约束、强耦合和动态性的半导体装备调度问题，并且相比传统启发式或静态优化方法，更适合处理多类型晶圆、小批量制造以及复杂工艺路径带来的实时决策需求。</li>
+    </ul>
+    <p>该研究成果已被CCF C类国际会议录用，为半导体制造中的调度优化提供了新的解决方案。</p>
 
-            // 3. 渲染排序网格
-            const renderSortableGrid = () => {
-                sortableGrid.innerHTML = '';
-                const images = imageData[currentTarget];
-                
-                if (images.length === 0) {
-                    sortableGrid.innerHTML = '<p class="text-gray-500 text-center col-span-full">暂无上传的图片</p>';
-                    return;
-                }
-                
-                images.forEach((img, index) => {
-                    const item = document.createElement('div');
-                    item.className = 'sortable-item draggable-item';
-                    item.setAttribute('data-index', index);
-                    item.innerHTML = `
-                        <img src="${img}" alt="图片${index+1}">
-                        <div class="remove-btn" data-index="${index}">×</div>
-                    `;
-                    sortableGrid.appendChild(item);
-                });
+    <h4>English Summary</h4>
+    <p>This study focuses on the scheduling problem of a single-arm cluster tool processing multiple types of wafers under wafer residency time constraints, and proposes a scheduling strategy based on deep reinforcement learning. The main contents and contributions are as follows:</p>
+    <ul>
+      <li>This paper studies the scheduling problem of a single-arm cluster tool processing two wafer types. Unlike many existing studies that focus only on steady-state scheduling, my work considers the entire production cycle, including the startup transient, steady-state, and close-down transient phases. At the same time, it incorporates parallel processing modules, shared module competition, and wafer residency time constraints. The challenge is that a single robotic arm can move only one wafer at a time, while different wafer routes may overlap and share modules, and wafers must be removed from modules within a strict time limit after processing.</li>
+      <li>To address this, I formulated the problem as an MDP and developed an improved TD3 algorithm tailored to this scheduling environment. The main technical contributions include dynamic noise exploration, dynamic prioritized replay, adaptive cyclic learning rate, an attention mechanism, a makespan-oriented reward function, and normalized state features. These designs improve both training stability and policy quality.</li>
+      <li>In the experiments, I designed four representative scenarios with and without shared PMs and parallel paths, and compared the proposed method against traditional TD3, DDPG, and DQN. The results show that my improved TD3 achieves better minimum makespan and faster convergence in most scenarios, demonstrating stronger robustness and generalization capability.</li>
+      <li>The significance of this work is that it demonstrates the feasibility of using deep reinforcement learning for complex, highly constrained, and dynamically coupled scheduling problems in semiconductor manufacturing. It provides a more flexible and practical alternative to conventional rule-based or static optimization approaches.</li>
+    </ul>
+    <p>This research has been accepted by a CCF-C international conference and provides a novel solution for scheduling optimization in semiconductor manufacturing.</p>
+  </template>
 
-                // 绑定拖拽排序事件
-                initDragAndDrop();
-                // 绑定删除事件
-                bindRemoveEvents();
-            };
+  <template id="detail-research2">
+    <h4>中文介绍</h4>
+    <p>本研究将单臂调度问题拓展到了多组合设备场景，在晶圆驻留时间约束和加工多品种晶圆的背景下，提出了一种基于多智能体的深度强化学习的调度策略。主要内容和贡献包括：</p>
+    <ul>
+      <li>这篇论文进一步研究了single-arm multicluster tool 的调度问题。与单一 cluster tool 相比，multicluster tool 由多个 cluster tool 串联组成，相邻设备之间通过共享缓冲模块 BM 连接，因此系统耦合更强、调度更复杂。论文中重点研究了两类或三类晶圆并行加工的情况，同时考虑共享 BM、并行 PM、晶圆驻留时间约束以及系统死锁风险。这使问题从单机器人决策扩展为多机器人协同决策问题。</li>
+      <li>在这个工作里，我把系统建模为多智能体强化学习问题，为两个机械臂分别设计智能体，并提出了MA-QMIX-PPO 算法。这个算法把 QMIX 的价值分解能力和 PPO 的稳定策略优化能力结合起来，核心设计包括：用 QMIX 的混合网络解决多智能体协同中的信用分配问题；用动作掩码约束非法动作，减少无效探索；用带指数衰减的 ε-greedy 提升探索效率；用 PPO clipping 保证策略更新稳定；用异步联合更新提升 actor 与 critic 的训练效果；再结合目标网络软更新和状态标准化，增强整体收敛稳定性。</li>
+      <li>实验部分设置了两类代表性场景：一个是两类晶圆按 1:1 比例并行加工，另一个是三类晶圆按 1:1:1 比例并行加工。结果显示，MA-QMIX-PPO 在最小 makespan 指标上优于 MAQMIX、MAPPO、MADDPG、MATD3 和 MACTD4；同时，论文还通过甘特图和训练曲线展示了算法在复杂约束场景下的稳定性和协同性。</li>
+      <li>这篇工作的意义在于，它进一步说明：当半导体制造装备从单设备扩展到多设备串联、从单智能体扩展到多智能体时，强化学习仍然能够成为可行且有效的调度求解框架。这对未来更复杂的多机台协同调度、更多晶圆类型生产以及更真实的工业系统落地都有很强的参考价值。</li>
+    </ul>
+    <p>该研究成果正在投稿SCI Top期刊，有望为半导体制造系统的智能化调度提供理论和技术支撑。</p>
 
-            // 4. 初始化拖拽排序
-            const initDragAndDrop = () => {
-                const items = document.querySelectorAll('.draggable-item');
-                let draggedItem = null;
+    <h4>English Summary</h4>
+    <p>This study extends the single-arm scheduling problem to a multi-cluster tool scenario and, in the context of wafer residency time constraints and multi-type wafer processing, proposes a scheduling strategy based on multi-agent deep reinforcement learning. The main contents and contributions are as follows:</p>
+    <ul>
+      <li>This paper studies a more challenging setting: single-arm multicluster tools. Compared with a single cluster tool, a multicluster tool consists of multiple interconnected cluster tools linked by shared buffer modules, which introduces stronger coupling, more severe resource competition, and a higher risk of deadlock. This work focuses on concurrent processing of two or three wafer types, while considering shared BMs, parallel PMs, wafer residency time constraints, and full-cycle scheduling.</li>
+      <li>To solve this problem, I formulated it as a multi-agent reinforcement learning problem and proposed a MA-QMIX-PPO algorithm. In this framework, each robot is controlled by an independent agent, while coordination is achieved through centralized training and decentralized execution. The key designs include QMIX-based value decomposition, action masking for invalid actions, epsilon-greedy exploration with exponential decay, PPO clipping for stable policy updates, asynchronous actor-critic updates, soft target-network updates, and state normalization.</li>
+      <li>In the experiments, I evaluated the method on representative scenarios for two-type wafer processing at a 1:1 ratio and three-type wafer processing at a 1:1:1 ratio. The proposed MA-QMIX-PPO achieved the best or tied-best minimum makespan compared with MAQMIX, MAPPO, MADDPG, MATD3, and MACTD4, while also showing strong coordination ability and stable training behavior.</li>
+      <li>The significance of this work is that it extends intelligent scheduling from a single-equipment setting to a multi-equipment collaborative setting, showing that multi-agent reinforcement learning can effectively handle real-world semiconductor systems with shared resources, strong coupling, and deadlock constraints. It provides a strong foundation for future work on larger-scale and more realistic manufacturing systems.</li>
+    </ul>
+    <p>This research is currently under submission to a top-tier SCI journal and is expected to provide theoretical and technical support for intelligent scheduling in semiconductor manufacturing systems.</p>
+  </template>
 
-                items.forEach(item => {
-                    item.addEventListener('dragstart', (e) => {
-                        draggedItem = item;
-                        setTimeout(() => item.classList.add('opacity-0'), 0);
-                    });
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const body = document.body;
+      const header = document.getElementById('site-header');
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileLinks = document.querySelectorAll('[data-mobile-link]');
+      const navLinks = document.querySelectorAll('[data-nav-link]');
+      const sections = document.querySelectorAll('section[id]');
+      const backToTop = document.getElementById('back-to-top');
+      const copyEmailBtn = document.getElementById('copy-email');
 
-                    item.addEventListener('dragend', () => {
-                        draggedItem = null;
-                        item.classList.remove('opacity-0');
-                    });
+      const researchModal = document.getElementById('research-modal');
+      const researchModalTitle = document.getElementById('research-modal-title');
+      const researchModalBody = document.getElementById('research-modal-body');
+      const researchModalClose = document.getElementById('research-modal-close');
+      const researchButtons = document.querySelectorAll('[data-research-button]');
 
-                    item.addEventListener('dragover', (e) => {
-                        e.preventDefault();
-                    });
+      const galleryModal = document.getElementById('gallery-modal');
+      const galleryImage = document.getElementById('gallery-image');
+      const galleryCaption = document.getElementById('gallery-caption');
+      const galleryCounter = document.getElementById('gallery-counter');
+      const galleryGroup = document.getElementById('gallery-group');
+      const galleryClose = document.getElementById('gallery-close');
+      const galleryPrev = document.getElementById('gallery-prev');
+      const galleryNext = document.getElementById('gallery-next');
+      const galleryItems = Array.from(document.querySelectorAll('[data-gallery-item]'));
+      const galleryLaunchers = Array.from(document.querySelectorAll('[data-open-group]'));
 
-                    item.addEventListener('dragenter', (e) => {
-                        e.preventDefault();
-                        if (item !== draggedItem) {
-                            item.classList.add('over');
-                        }
-                    });
+      let activeGalleryItems = [];
+      let currentGalleryIndex = 0;
 
-                    item.addEventListener('dragleave', () => {
-                        item.classList.remove('over');
-                    });
+      const setBodyLock = () => {
+        const modalVisible = !researchModal.classList.contains('hidden') || !galleryModal.classList.contains('hidden');
+        body.classList.toggle('modal-open', modalVisible);
+      };
 
-                    item.addEventListener('drop', (e) => {
-                        e.preventDefault();
-                        item.classList.remove('over');
-                        
-                        if (draggedItem) {
-                            const draggedIndex = parseInt(draggedItem.getAttribute('data-index'));
-                            const targetIndex = parseInt(item.getAttribute('data-index'));
-                            
-                            // 交换数组中的图片
-                            const temp = imageData[currentTarget][draggedIndex];
-                            imageData[currentTarget][draggedIndex] = imageData[currentTarget][targetIndex];
-                            imageData[currentTarget][targetIndex] = temp;
-                            
-                            // 重新渲染网格
-                            renderSortableGrid();
-                        }
-                    });
-                });
-            };
+      const updateHeaderState = () => {
+        header.classList.toggle('scrolled', window.scrollY > 12);
+        backToTop.classList.toggle('show', window.scrollY > 360);
+      };
 
-            // 5. 绑定删除图片事件
-            const bindRemoveEvents = () => {
-                const removeBtns = document.querySelectorAll('.remove-btn');
-                removeBtns.forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const index = parseInt(btn.getAttribute('data-index'));
-                        imageData[currentTarget].splice(index, 1);
-                        renderSortableGrid();
-                    });
-                });
-            };
+      const updateActiveNav = () => {
+        let currentId = 'home';
+        const offset = window.scrollY + 140;
 
-            // 6. 渲染轮播预览
-            const renderCarousel = () => {
-                const images = imageData[currentTarget];
-                if (images.length === 0) return;
-
-                // 设置当前图片
-                carouselMainImg.src = images[currentImgIndex];
-                
-                // 渲染指示器
-                carouselDots.innerHTML = '';
-                images.forEach((_, index) => {
-                    const dot = document.createElement('div');
-                    dot.className = `carousel-dot ${index === currentImgIndex ? 'active' : ''}`;
-                    dot.setAttribute('data-index', index);
-                    dot.addEventListener('click', () => {
-                        currentImgIndex = index;
-                        renderCarousel();
-                    });
-                    carouselDots.appendChild(dot);
-                });
-
-                // 禁用/启用翻页按钮
-                prevImgBtn.disabled = currentImgIndex === 0;
-                nextImgBtn.disabled = currentImgIndex === images.length - 1;
-            };
-
-            // 7. 上传图片处理
-            uploadArea.addEventListener('click', () => {
-                imageUpload.click();
-            });
-
-            uploadArea.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                uploadArea.classList.add('border-primary', 'bg-primary/5');
-            });
-
-            uploadArea.addEventListener('dragleave', () => {
-                uploadArea.classList.remove('border-primary', 'bg-primary/5');
-            });
-
-            uploadArea.addEventListener('drop', (e) => {
-                e.preventDefault();
-                uploadArea.classList.remove('border-primary', 'bg-primary/5');
-                
-                const files = e.dataTransfer.files;
-                handleImageFiles(files);
-            });
-
-            imageUpload.addEventListener('change', () => {
-                const files = imageUpload.files;
-                handleImageFiles(files);
-            });
-
-            // 8. 处理上传的图片文件
-            const handleImageFiles = (files) => {
-                const images = imageData[currentTarget];
-                const maxCount = 6;
-                const remaining = maxCount - images.length;
-                
-                if (remaining <= 0) {
-                    alert('最多只能上传6张图片！');
-                    return;
-                }
-
-                // 过滤图片文件
-                const imageFiles = Array.from(files).filter(file => file.type.startsWith('image/'));
-                if (imageFiles.length === 0) {
-                    alert('请选择图片文件（JPG/PNG）！');
-                    return;
-                }
-
-                // 限制上传数量
-                const uploadCount = Math.min(imageFiles.length, remaining);
-                for (let i = 0; i < uploadCount; i++) {
-                    const file = imageFiles[i];
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        images.push(e.target.result);
-                        renderSortableGrid();
-                    };
-                    reader.readAsDataURL(file);
-                }
-            };
-
-            // 9. 保存排序并切换到预览
-            saveSortBtn.addEventListener('click', () => {
-                if (imageData[currentTarget].length === 0) {
-                    alert('请至少上传一张图片！');
-                    return;
-                }
-                currentImgIndex = 0;
-                sortModeContainer.classList.add('hidden');
-                previewModeContainer.classList.remove('hidden');
-                renderCarousel();
-            });
-
-            // 10. 取消排序编辑
-            cancelSortBtn.addEventListener('click', () => {
-                if (imageData[currentTarget].length > 0) {
-                    sortModeContainer.classList.add('hidden');
-                    previewModeContainer.classList.remove('hidden');
-                    renderCarousel();
-                } else {
-                    closeImageModal.click();
-                }
-            });
-
-            // 11. 轮播翻页
-            prevImgBtn.addEventListener('click', () => {
-                if (currentImgIndex > 0) {
-                    currentImgIndex--;
-                    renderCarousel();
-                }
-            });
-
-            nextImgBtn.addEventListener('click', () => {
-                if (currentImgIndex < imageData[currentTarget].length - 1) {
-                    currentImgIndex++;
-                    renderCarousel();
-                }
-            });
-
-            // 12. 关闭图片模态框
-            closeImageModal.addEventListener('click', () => {
-                imageModal.classList.add('hidden');
-                document.body.style.overflow = '';
-                // 重置状态
-                currentTarget = '';
-                currentImgIndex = 0;
-            });
-
-            // 13. 点击模态框外部关闭
-            imageModal.addEventListener('click', (e) => {
-                if (e.target === imageModal) {
-                    closeImageModal.click();
-                }
-            });
-
-            // 14. 编辑排序按钮点击
-            editSortBtn.addEventListener('click', switchToSortMode);
-
-            // 15. 绑定论文/证书按钮点击事件
-            document.querySelectorAll('.read-pdf-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const target = btn.getAttribute('data-target');
-                    const title = btn.getAttribute('data-title');
-                    openImageModal(target, title);
-                });
-            });
-
-            document.querySelectorAll('.view-file-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const target = btn.getAttribute('data-target');
-                    const title = btn.getAttribute('data-title');
-                    openImageModal(target, title);
-                });
-            });
-
-            // ========== 原有功能保留 ==========
-            // 移动端菜单切换
-            const menuToggle = document.getElementById('menu-toggle');
-            const mobileMenu = document.getElementById('mobile-menu');
-            
-            menuToggle.addEventListener('click', function() {
-                mobileMenu.classList.toggle('hidden');
-            });
-            
-            // 平滑滚动
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // 关闭移动菜单（如果打开）
-                    if (!mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden');
-                    }
-                    
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80, // 考虑导航栏高度
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-            
-            // 导航栏滚动效果
-            const navbar = document.getElementById('navbar');
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('bg-white', 'shadow-md');
-                    navbar.classList.remove('bg-opacity-95');
-                } else {
-                    navbar.classList.remove('shadow-md');
-                    navbar.classList.add('bg-opacity-95');
-                }
-            });
-            
-            // 滚动动画
-            const fadeElements = document.querySelectorAll('.fade-in');
-            const fadeInOnScroll = () => {
-                fadeElements.forEach(element => {
-                    const elementTop = element.getBoundingClientRect().top;
-                    const elementBottom = element.getBoundingClientRect().bottom;
-                    const isVisible = (elementTop < window.innerHeight - 100) && (elementBottom > 0);
-                    
-                    if (isVisible) {
-                        element.classList.add('active');
-                    }
-                });
-            };
-            
-            // 初始执行一次
-            fadeInOnScroll();
-            // 滚动时执行
-            window.addEventListener('scroll', fadeInOnScroll);
-            
-            // 回到顶部按钮
-            const backToTopBtn = document.getElementById('back-to-top');
-            
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 300) {
-                    backToTopBtn.classList.remove('opacity-0', 'invisible');
-                    backToTopBtn.classList.add('opacity-100', 'visible');
-                } else {
-                    backToTopBtn.classList.add('opacity-0', 'invisible');
-                    backToTopBtn.classList.remove('opacity-100', 'visible');
-                }
-            });
-            
-            backToTopBtn.addEventListener('click', function() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-            
-            // 研究成果详情模态框（原有功能）
-            const researchModal = document.getElementById('research-modal');
-            const modalTitle = document.getElementById('modal-title');
-            const modalContent = document.getElementById('modal-content');
-            const closeModal = document.getElementById('close-modal');
-            const viewResearchBtns = document.querySelectorAll('.view-research-btn');
-            
-            // 研究成果详情数据
-            const researchDetails = {
-                research1: {
-                    title: 'Scheduling of a Single-Arm Cluster Tool for Processing Two Types of Wafers with Parallel Processing',
-                    content: `
-                        <p class="text-gray-700">本研究针对单臂单组合设备加工多品种晶圆且包含晶圆驻留时间约束的调度问题，提出了一种基于深度强化学习的调度策略。主要内容和贡献包括：</p>
-                        <ul class="list-disc pl-6 text-gray-700 space-y-2 mt-4">
-                            <li>这篇论文研究的是单机械臂 cluster tool 在加工两类晶圆时的调度优化问题。与传统只考虑稳态调度的研究不同，我关注的是启动阶段、稳态阶段和收尾阶段的全流程调度，同时考虑了并行工艺模块、共享模块竞争以及晶圆驻留时间约束。这类问题的难点在于：机器人一次只能搬运一片晶圆，但不同类型晶圆的路径可能重叠，共享模块会带来资源竞争，而驻留时间限制又要求晶圆加工后必须在规定时间内被及时移出，否则就会报废</li>
-                            <li>针对这个问题，我首先将调度过程建模为一个马尔可夫决策过程，定义了系统状态、机器人动作和奖励函数；然后在 TD3 的基础上做了有针对性的改进，包括：动态噪声探索，保证前期充分搜索、后期稳定收敛；动态优先经验回放，提高高价值样本利用率；自适应循环学习率，加快关键调度策略学习；注意力机制，增强状态与动作之间的关联学习；面向 makespan 最小化的奖励设计；以及状态特征标准化，减少不同量纲带来的训练干扰。</li>
-                            <li>在实验部分，我设计了四类典型场景，包括是否存在共享 PM、是否存在并行路径等情况，并将改进 TD3 与传统 TD3、DDPG、DQN 进行对比。结果显示，改进 TD3 在多数场景下取得了更优的最小 makespan，例如在 Env1 和 Env4 中优势尤其明显，同时收敛速度更快，泛化性也更强。</li>
-                            <li>这篇工作的意义在于，它证明了深度强化学习可以有效处理具有强约束、强耦合和动态性的半导体装备调度问题，并且相比传统启发式或静态优化方法，更适合处理多类型晶圆、小批量制造以及复杂工艺路径带来的实时决策需求。</li>
-                        </ul>
-                        <p class="text-gray-700 mt-4">该研究成果已被CCF C类国际会议录用，为半导体制造中的调度优化提供了新的解决方案。</p>
-
-                        <p class="text-gray-700">This study focuses on the scheduling problem of a single-arm cluster tool processing multiple types of wafers under wafer residency time constraints, and proposes a scheduling strategy based on deep reinforcement learning. The main contents and contributions are as follows:</p>
-                        <ul class="list-disc pl-6 text-gray-700 space-y-2 mt-4">
-                            <li>This paper studies the scheduling problem of a single-arm cluster tool processing two wafer types. Unlike many existing studies that focus only on steady-state scheduling, my work considers the entire production cycle, including the startup transient, steady-state, and close-down transient phases. At the same time, it incorporates parallel processing modules, shared module competition, and wafer residency time constraints. The challenge is that a single robotic arm can move only one wafer at a time, while different wafer routes may overlap and share modules, and wafers must be removed from modules within a strict time limit after processing.</li>
-                            <li>To address this, I formulated the problem as an MDP and developed an improved TD3 algorithm tailored to this scheduling environment. The main technical contributions include dynamic noise exploration, dynamic prioritized replay, adaptive cyclic learning rate, an attention mechanism, a makespan-oriented reward function, and normalized state features. These designs improve both training stability and policy quality.</li>
-                            <li>In the experiments, I designed four representative scenarios with and without shared PMs and parallel paths, and compared the proposed method against traditional TD3, DDPG, and DQN. The results show that my improved TD3 achieves better minimum makespan and faster convergence in most scenarios, demonstrating stronger robustness and generalization capability.</li>
-                            <li>The significance of this work is that it demonstrates the feasibility of using deep reinforcement learning for complex, highly constrained, and dynamically coupled scheduling problems in semiconductor manufacturing. It provides a more flexible and practical alternative to conventional rule-based or static optimization approaches.</li>
-                        </ul>
-                        <p class="text-gray-700 mt-4">This research has been accepted by a CCF-C international conference and provides a novel solution for scheduling optimization in semiconductor manufacturing.</p>
-                    `
-                },
-                research2: {
-                    title: 'Scheduling of Single-Arm Multicluster Tools for Multi-Type Wafers with Parallel Processing and Residency Time Constraints',
-                    content: `
-                        <p class="text-gray-700">本研究将单臂调度问题拓展到了多组合设备场景，在晶圆驻留时间约束和加工多品种晶圆的背景下，提出了一种基于多智能体的深度强化学习的调度策略。主要内容和贡献包括：</p>
-                        <ul class="list-disc pl-6 text-gray-700 space-y-2 mt-4">
-                            <li>这篇论文进一步研究了single-arm multicluster tool 的调度问题。与单一 cluster tool 相比，multicluster tool 由多个 cluster tool 串联组成，相邻设备之间通过共享缓冲模块 BM 连接，因此系统耦合更强、调度更复杂。论文中重点研究了两类或三类晶圆并行加工的情况，同时考虑共享 BM、并行 PM、晶圆驻留时间约束以及系统死锁风险。这使问题从单机器人决策扩展为多机器人协同决策问题。</li>
-                            <li>在这个工作里，我把系统建模为多智能体强化学习问题，为两个机械臂分别设计智能体，并提出了MA-QMIX-PPO 算法。这个算法把 QMIX 的价值分解能力和 PPO 的稳定策略优化能力结合起来，核心设计包括：用 QMIX 的混合网络解决多智能体协同中的信用分配问题；用动作掩码约束非法动作，减少无效探索；用带指数衰减的 ε-greedy 提升探索效率；用 PPO clipping 保证策略更新稳定；用异步联合更新提升 actor 与 critic 的训练效果；再结合目标网络软更新和状态标准化，增强整体收敛稳定性。</li>
-                            <li>实验部分设置了两类代表性场景：一个是两类晶圆按 1:1 比例并行加工，另一个是三类晶圆按 1:1:1 比例并行加工。结果显示，MA-QMIX-PPO 在最小 makespan 指标上优于 MAQMIX、MAPPO、MADDPG、MATD3 和 MACTD4；同时，论文还通过甘特图和训练曲线展示了算法在复杂约束场景下的稳定性和协同性。</li>
-                            <li>这篇工作的意义在于，它进一步说明：当半导体制造装备从单设备扩展到多设备串联、从单智能体扩展到多智能体时，强化学习仍然能够成为可行且有效的调度求解框架。这对未来更复杂的多机台协同调度、更多晶圆类型生产以及更真实的工业系统落地都有很强的参考价值。</li>
-                        </ul>
-                        <p class="text-gray-700 mt-4">该研究成果正在投稿SCI Top期刊，有望为半导体制造系统的智能化调度提供理论和技术支撑。</p>
-
-                        <p class="text-gray-700">This study extends the single-arm scheduling problem to a multi-cluster tool scenario and, in the context of wafer residency time constraints and multi-type wafer processing, proposes a scheduling strategy based on multi-agent deep reinforcement learning. The main contents and contributions are as follows:
-</p>
-                        <ul class="list-disc pl-6 text-gray-700 space-y-2 mt-4">
-                            <li>This paper studies a more challenging setting: single-arm multicluster tools. Compared with a single cluster tool, a multicluster tool consists of multiple interconnected cluster tools linked by shared buffer modules, which introduces stronger coupling, more severe resource competition, and a higher risk of deadlock. This work focuses on concurrent processing of two or three wafer types, while considering shared BMs, parallel PMs, wafer residency time constraints, and full-cycle scheduling.</li>
-                            <li>To solve this problem, I formulated it as a multi-agent reinforcement learning problem and proposed a MA-QMIX-PPO algorithm. In this framework, each robot is controlled by an independent agent, while coordination is achieved through centralized training and decentralized execution. The key designs include QMIX-based value decomposition, action masking for invalid actions, epsilon-greedy exploration with exponential decay, PPO clipping for stable policy updates, asynchronous actor-critic updates, soft target-network updates, and state normalization.</li>
-                            <li>In the experiments, I evaluated the method on representative scenarios for two-type wafer processing at a 1:1 ratio and three-type wafer processing at a 1:1:1 ratio. The proposed MA-QMIX-PPO achieved the best or tied-best minimum makespan compared with MAQMIX, MAPPO, MADDPG, MATD3, and MACTD4, while also showing strong coordination ability and stable training behavior.</li>
-                            <li>The significance of this work is that it extends intelligent scheduling from a single-equipment setting to a multi-equipment collaborative setting, showing that multi-agent reinforcement learning can effectively handle real-world semiconductor systems with shared resources, strong coupling, and deadlock constraints. It provides a strong foundation for future work on larger-scale and more realistic manufacturing systems.</li>
-                        </ul>
-                        <p class="text-gray-700 mt-4">This research is currently under submission to a top-tier SCI journal and is expected to provide theoretical and technical support for intelligent scheduling in semiconductor manufacturing systems.
-</p>
-                        
-                    `
-                }
-            };
-            
-            // 打开研究成果详情模态框
-            viewResearchBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const researchId = this.getAttribute('data-id');
-                    const research = researchDetails[researchId];
-                    
-                    modalTitle.textContent = research.title;
-                    modalContent.innerHTML = research.content;
-                    researchModal.classList.remove('hidden');
-                    document.body.style.overflow = 'hidden';
-                });
-            });
-            
-            // 关闭研究成果详情模态框
-            closeModal.addEventListener('click', function() {
-                researchModal.classList.add('hidden');
-                document.body.style.overflow = '';
-            });
-            
-            // 点击模态框外部关闭
-            researchModal.addEventListener('click', function(e) {
-                if (e.target === researchModal) {
-                    researchModal.classList.add('hidden');
-                    document.body.style.overflow = '';
-                }
-            });
+        sections.forEach((section) => {
+          if (offset >= section.offsetTop) {
+            currentId = section.id;
+          }
         });
-    </script>
 
-</body></html>
+        navLinks.forEach((link) => {
+          const isActive = link.getAttribute('href') === `#${currentId}`;
+          link.classList.toggle('active', isActive);
+        });
+      };
+
+      mobileMenuButton.addEventListener('click', () => {
+        const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+        mobileMenuButton.setAttribute('aria-expanded', String(!isExpanded));
+        mobileMenu.classList.toggle('hidden');
+      });
+
+      mobileLinks.forEach((link) => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          mobileMenuButton.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element));
+
+      researchButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const templateId = button.dataset.template;
+          const template = document.getElementById(templateId);
+          researchModalTitle.textContent = button.dataset.title || '';
+          researchModalBody.innerHTML = template ? template.innerHTML : '';
+          researchModal.classList.remove('hidden');
+          setBodyLock();
+        });
+      });
+
+      const closeResearchModal = () => {
+        researchModal.classList.add('hidden');
+        researchModalBody.innerHTML = '';
+        setBodyLock();
+      };
+
+      researchModalClose.addEventListener('click', closeResearchModal);
+      researchModal.addEventListener('click', (event) => {
+        if (event.target === researchModal || event.target === researchModal.firstElementChild) {
+          closeResearchModal();
+        }
+      });
+
+      const getGalleryItemsByGroup = (groupKey) => (
+        galleryItems
+          .filter((item) => item.dataset.galleryGroup === groupKey)
+          .sort((a, b) => Number(a.dataset.galleryOrder) - Number(b.dataset.galleryOrder))
+      );
+
+      const renderGallery = () => {
+        const item = activeGalleryItems[currentGalleryIndex];
+        if (!item) return;
+        galleryImage.src = item.dataset.image || '';
+        galleryImage.alt = item.dataset.caption || '图片预览';
+        galleryCaption.textContent = item.dataset.caption || '';
+        galleryGroup.textContent = item.dataset.group || '';
+        galleryCounter.textContent = `${currentGalleryIndex + 1} / ${activeGalleryItems.length}`;
+      };
+
+      const openGalleryFromItems = (items, index = 0) => {
+        if (!items.length) return;
+        activeGalleryItems = items;
+        currentGalleryIndex = index;
+        renderGallery();
+        galleryModal.classList.remove('hidden');
+        setBodyLock();
+      };
+
+      const openGalleryByGroup = (groupKey) => {
+        const items = getGalleryItemsByGroup(groupKey);
+        openGalleryFromItems(items, 0);
+      };
+
+      const openGalleryFromItem = (item) => {
+        const items = getGalleryItemsByGroup(item.dataset.galleryGroup || '');
+        const index = items.findIndex((entry) => entry === item);
+        openGalleryFromItems(items, Math.max(index, 0));
+      };
+
+      const closeGallery = () => {
+        galleryModal.classList.add('hidden');
+        galleryImage.src = '';
+        activeGalleryItems = [];
+        currentGalleryIndex = 0;
+        setBodyLock();
+      };
+
+      galleryLaunchers.forEach((button) => {
+        button.addEventListener('click', () => openGalleryByGroup(button.dataset.openGroup || ''));
+      });
+
+      galleryItems.forEach((item) => {
+        item.addEventListener('click', () => openGalleryFromItem(item));
+      });
+
+      galleryPrev.addEventListener('click', () => {
+        if (!activeGalleryItems.length) return;
+        currentGalleryIndex = (currentGalleryIndex - 1 + activeGalleryItems.length) % activeGalleryItems.length;
+        renderGallery();
+      });
+
+      galleryNext.addEventListener('click', () => {
+        if (!activeGalleryItems.length) return;
+        currentGalleryIndex = (currentGalleryIndex + 1) % activeGalleryItems.length;
+        renderGallery();
+      });
+
+      galleryClose.addEventListener('click', closeGallery);
+      galleryModal.addEventListener('click', (event) => {
+        if (event.target === galleryModal || event.target === galleryModal.firstElementChild) {
+          closeGallery();
+        }
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          if (!galleryModal.classList.contains('hidden')) {
+            closeGallery();
+            return;
+          }
+          if (!researchModal.classList.contains('hidden')) {
+            closeResearchModal();
+          }
+        }
+
+        if (!galleryModal.classList.contains('hidden') && activeGalleryItems.length) {
+          if (event.key === 'ArrowLeft') {
+            currentGalleryIndex = (currentGalleryIndex - 1 + activeGalleryItems.length) % activeGalleryItems.length;
+            renderGallery();
+          }
+          if (event.key === 'ArrowRight') {
+            currentGalleryIndex = (currentGalleryIndex + 1) % activeGalleryItems.length;
+            renderGallery();
+          }
+        }
+      });
+
+      if (copyEmailBtn) {
+        const initialText = copyEmailBtn.textContent;
+        copyEmailBtn.addEventListener('click', async () => {
+          const email = copyEmailBtn.dataset.email || '';
+          try {
+            await navigator.clipboard.writeText(email);
+            copyEmailBtn.textContent = '已复制';
+            setTimeout(() => {
+              copyEmailBtn.textContent = initialText;
+            }, 1600);
+          } catch (error) {
+            window.prompt('请手动复制邮箱：', email);
+          }
+        });
+      }
+
+      backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      window.addEventListener('scroll', () => {
+        updateHeaderState();
+        updateActiveNav();
+      }, { passive: true });
+
+      updateHeaderState();
+      updateActiveNav();
+    });
+  </script>
+</body>
+</html>
