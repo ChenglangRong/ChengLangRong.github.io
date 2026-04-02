@@ -13,16 +13,16 @@
         extend: {
           colors: {
             brand: {
-              50: '#f4f7fb',
-              100: '#e8edf5',
-              200: '#d8e0eb',
-              300: '#bcc8da',
-              400: '#96a7c1',
-              500: '#6f86a8',
-              600: '#5b7091',
-              700: '#4a5d79',
-              800: '#3b4c64',
-              900: '#2f3d52'
+              50: '#effaf7',
+              100: '#d8f2ea',
+              200: '#b8e6d9',
+              300: '#88d4c1',
+              400: '#54bca5',
+              500: '#339683',
+              600: '#27796a',
+              700: '#215f54',
+              800: '#1f4d46',
+              900: '#1d403c'
             }
           },
           boxShadow: {
@@ -41,12 +41,12 @@
       color-scheme: light;
       --ink: #0f172a;
       --muted: #475569;
-      --brand-deep: #40506a;
-      --brand-main: #5d6f8a;
-      --surface-strong: rgba(255, 255, 255, 0.82);
-      --surface-soft: rgba(248, 250, 255, 0.64);
-      --surface-shell: rgba(255, 255, 255, 0.66);
-      --border-glass: rgba(255, 255, 255, 0.62);
+      --brand-deep: #215f54;
+      --brand-main: #339683;
+      --surface-strong: rgba(255, 255, 255, 0.86);
+      --surface-soft: rgba(241, 249, 246, 0.74);
+      --surface-shell: rgba(255, 255, 255, 0.74);
+      --border-glass: rgba(214, 235, 228, 0.84);
     }
 
     html { scroll-behavior: smooth; }
@@ -54,10 +54,10 @@
       position: relative;
       min-height: 100vh;
       background:
-        radial-gradient(1200px 760px at -10% -10%, rgba(128, 142, 166, 0.16) 0%, transparent 58%),
-        radial-gradient(820px 620px at 108% 2%, rgba(178, 188, 200, 0.12) 0%, transparent 54%),
-        radial-gradient(900px 680px at 50% 48%, rgba(156, 168, 186, 0.08) 0%, transparent 62%),
-        linear-gradient(180deg, #f8f9fc 0%, #f1f4f8 26%, #f5f7fb 62%, #edf1f6 100%);
+        radial-gradient(1120px 760px at -10% -10%, rgba(77, 170, 151, 0.18) 0%, transparent 56%),
+        radial-gradient(760px 560px at 108% 4%, rgba(244, 198, 128, 0.15) 0%, transparent 52%),
+        radial-gradient(920px 680px at 50% 42%, rgba(91, 132, 168, 0.08) 0%, transparent 60%),
+        linear-gradient(180deg, #f7fcfa 0%, #f1f9f6 26%, #f5fbfd 62%, #edf4f4 100%);
       background-repeat: no-repeat;
       color: var(--ink);
     }
@@ -69,32 +69,87 @@
       pointer-events: none;
       z-index: 0;
       background-image:
-        linear-gradient(rgba(148, 163, 184, 0.055) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
+        linear-gradient(rgba(102, 140, 134, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(102, 140, 134, 0.04) 1px, transparent 1px);
       background-size: 72px 72px;
       mask-image: radial-gradient(circle at 50% 24%, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.58) 40%, transparent 86%);
-      opacity: 0.58;
+      opacity: 0.42;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      right: -10rem;
+      bottom: -12rem;
+      width: 34rem;
+      height: 34rem;
+      border-radius: 9999px;
+      pointer-events: none;
+      z-index: 0;
+      background: radial-gradient(circle, rgba(51, 150, 131, 0.16) 0%, rgba(51, 150, 131, 0.06) 34%, transparent 68%);
+      filter: blur(12px);
     }
 
     header, main, footer { position: relative; z-index: 1; }
+    main { padding-bottom: 1.5rem; }
 
     .section-anchor { scroll-margin-top: 104px; }
 
-    .site-header .header-shell {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(248, 250, 252, 0.58));
-      border-color: rgba(255, 255, 255, 0.68);
+    .section-shell {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.76);
+      border-radius: 2rem;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.64), rgba(243, 249, 247, 0.82)),
+        radial-gradient(circle at top right, rgba(84, 188, 165, 0.12), transparent 30%),
+        radial-gradient(circle at bottom left, rgba(244, 198, 128, 0.12), transparent 28%);
       box-shadow:
-        0 20px 50px rgba(15, 23, 42, 0.10),
+        0 26px 72px rgba(15, 23, 42, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(16px) saturate(150%);
+      padding-top: clamp(1.5rem, 2vw, 2.25rem);
+      padding-bottom: clamp(1.75rem, 2.4vw, 2.5rem);
+    }
+
+    .section-shell::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent 22%, transparent 78%, rgba(202, 226, 220, 0.16)),
+        radial-gradient(circle at 14% 12%, rgba(255, 255, 255, 0.34), transparent 24%);
+    }
+
+    .section-shell > * { position: relative; z-index: 1; }
+
+    .card-balanced {
+      display: flex;
+      height: 100%;
+      flex-direction: column;
+    }
+
+    .card-action {
+      margin-top: auto;
+      padding-top: 1.5rem;
+    }
+
+    .site-header .header-shell {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(240, 249, 246, 0.64));
+      border-color: rgba(255, 255, 255, 0.74);
+      box-shadow:
+        0 20px 50px rgba(15, 23, 42, 0.08),
         inset 0 1px 0 rgba(255, 255, 255, 0.82);
       backdrop-filter: blur(20px) saturate(165%);
       transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
     }
 
     .site-header.scrolled .header-shell {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(248, 250, 252, 0.72));
-      border-color: rgba(255, 255, 255, 0.76);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(239, 248, 245, 0.78));
+      border-color: rgba(255, 255, 255, 0.8);
       box-shadow:
-        0 24px 60px rgba(15, 23, 42, 0.12),
+        0 24px 60px rgba(15, 23, 42, 0.1),
         inset 0 1px 0 rgba(255, 255, 255, 0.86);
       transform: translateY(-1px);
     }
@@ -106,7 +161,7 @@
       border: 1px solid var(--border-glass);
       background: linear-gradient(180deg, var(--surface-strong), var(--surface-soft));
       box-shadow:
-        0 24px 72px rgba(15, 23, 42, 0.10),
+        0 24px 72px rgba(15, 23, 42, 0.09),
         inset 0 1px 0 rgba(255, 255, 255, 0.82);
       backdrop-filter: blur(18px) saturate(165%);
       border-radius: 24px;
@@ -119,8 +174,8 @@
       inset: 0;
       pointer-events: none;
       background:
-        radial-gradient(circle at top right, rgba(182, 191, 203, 0.12), transparent 26%),
-        radial-gradient(circle at bottom left, rgba(136, 149, 173, 0.10), transparent 30%),
+        radial-gradient(circle at top right, rgba(84, 188, 165, 0.12), transparent 26%),
+        radial-gradient(circle at bottom left, rgba(244, 198, 128, 0.08), transparent 30%),
         linear-gradient(135deg, rgba(255, 255, 255, 0.22), transparent 38%);
     }
 
@@ -138,7 +193,7 @@
       gap: 0.5rem;
       border-radius: 9999px;
       border: 1px solid rgba(255, 255, 255, 0.82);
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(239, 246, 255, 0.68));
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(235, 249, 245, 0.72));
       box-shadow:
         0 10px 24px rgba(15, 23, 42, 0.06),
         inset 0 1px 0 rgba(255, 255, 255, 0.82);
@@ -147,7 +202,7 @@
       font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: #334155;
+      color: #25594f;
       backdrop-filter: blur(14px) saturate(150%);
     }
 
@@ -165,7 +220,7 @@
       transform: scaleX(0);
       transform-origin: center;
       transition: transform 0.25s ease;
-      background: linear-gradient(90deg, rgba(95, 112, 138, 0.10), rgba(95, 112, 138, 0.78), rgba(146, 161, 183, 0.62));
+      background: linear-gradient(90deg, rgba(51, 150, 131, 0.1), rgba(51, 150, 131, 0.78), rgba(244, 198, 128, 0.52));
       border-radius: 999px;
     }
     .nav-link:hover::after,
@@ -189,11 +244,11 @@
       border-radius: 1.75rem;
       border: 1px solid rgba(255, 255, 255, 0.62);
       background:
-        radial-gradient(circle at 20% 20%, rgba(179, 188, 201, 0.12), transparent 36%),
-        radial-gradient(circle at 78% 76%, rgba(132, 146, 170, 0.12), transparent 40%);
+        radial-gradient(circle at 20% 20%, rgba(84, 188, 165, 0.12), transparent 36%),
+        radial-gradient(circle at 78% 76%, rgba(244, 198, 128, 0.12), transparent 40%);
       box-shadow:
         0 0 0 1px rgba(255, 255, 255, 0.22),
-        0 34px 84px rgba(86, 101, 124, 0.16);
+        0 34px 84px rgba(39, 121, 106, 0.12);
       z-index: 0;
     }
     .hero-portrait-frame {
@@ -201,10 +256,10 @@
       overflow: hidden;
       border-radius: 1.75rem;
       border: 1px solid rgba(255, 255, 255, 0.75);
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(244, 247, 255, 0.78));
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(241, 249, 246, 0.82));
       padding: 0.6rem;
       box-shadow:
-        0 28px 80px rgba(15, 23, 42, 0.18),
+        0 28px 80px rgba(15, 23, 42, 0.14),
         inset 0 1px 0 rgba(255, 255, 255, 0.88);
       backdrop-filter: blur(16px) saturate(155%);
     }
@@ -282,9 +337,9 @@
     }
 
     .certificate-placeholder {
-      border: 1px dashed rgba(93, 111, 138, 0.35);
+      border: 1px dashed rgba(39, 121, 106, 0.35);
       border-radius: 20px;
-      background: linear-gradient(180deg, rgba(248, 250, 252, 0.95), rgba(241, 245, 249, 0.8));
+      background: linear-gradient(180deg, rgba(248, 252, 251, 0.95), rgba(239, 247, 245, 0.82));
       padding: 1.4rem;
     }
 
@@ -312,6 +367,36 @@
       width: 100%;
       border-radius: 0.75rem;
       display: block;
+    }
+
+    .section-shell .bg-slate-50,
+    .section-shell .bg-slate-50\/90 {
+      background: linear-gradient(180deg, rgba(249, 252, 251, 0.95), rgba(238, 246, 243, 0.88)) !important;
+    }
+
+    .section-shell .bg-slate-100 {
+      background: rgba(231, 244, 240, 0.92) !important;
+    }
+
+    .section-shell .ring-slate-200,
+    .section-shell .ring-slate-100 {
+      --tw-ring-color: rgba(200, 223, 217, 0.92) !important;
+    }
+
+    .section-shell .border-slate-200,
+    .section-shell .border-slate-300 {
+      border-color: rgba(198, 219, 213, 0.92) !important;
+    }
+
+    footer {
+      border-color: rgba(202, 226, 220, 0.88) !important;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(241, 249, 246, 0.94)) !important;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82);
+    }
+
+    @media (max-width: 640px) {
+      .section-shell { border-radius: 1.75rem; }
+      .card-action { padding-top: 1.25rem; }
     }
 
 @media (prefers-reduced-motion: reduce) {
@@ -356,8 +441,8 @@
 </div>
 </header>
 <main>
-<section class="section-anchor relative overflow-hidden pt-32 sm:pt-36 lg:pt-40" id="home">
-<div class="mx-auto grid max-w-7xl gap-10 px-4 pb-20 sm:px-6 lg:grid-cols-[1.12fr_0.88fr] lg:items-center lg:px-8 lg:pb-24">
+<section class="section-anchor relative overflow-hidden pt-28 sm:pt-32 lg:pt-36" id="home">
+<div class="mx-auto grid max-w-7xl gap-8 px-4 pb-14 sm:gap-10 sm:px-6 sm:pb-16 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:gap-8 lg:px-8 lg:pb-20">
 <div class="reveal relative z-10">
 <span class="eyebrow">Personal Academic Website</span>
 <h1 class="mt-6 text-5xl font-black tracking-tight text-slate-950 sm:text-6xl lg:text-7xl">容程朗</h1>
@@ -384,8 +469,8 @@
 </div>
 <div class="card-surface p-5">
 <p class="text-sm font-medium text-slate-500">Research Projects</p>
-<p class="mt-2 text-2xl font-bold text-slate-950">2</p>
-<p class="mt-1 text-sm text-slate-600">Single-Arm / Multi-Cluster Tool Scheduling</p>
+<p class="mt-2 text-2xl font-bold text-slate-950">4</p>
+<p class="mt-1 text-sm text-slate-600">AI / Intelligent Scheduling</p>
 </div>
 </div>
 </div>
@@ -425,35 +510,38 @@
 </div>
 </div>
 </section>
-<section class="section-anchor py-24 sm:py-28" id="research">
-<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<section class="section-anchor py-16 sm:py-20" id="research">
+<div class="section-shell mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 <div class="reveal flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
 <div class="max-w-3xl">
 <span class="eyebrow">Research</span>
 <h2 class="mt-5 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">Research Projects</h2>
 <p class="mt-4 text-base leading-8 text-slate-600">
-              Selected undergraduate research projects on reinforcement learning and intelligent scheduling for semiconductor manufacturing systems.
+              Selected undergraduate research projects on reinforcement learning and intelligent scheduling for semiconductor manufacturing and central air-conditioning systems.
             </p>
 </div>
 </div>
-<div class="mt-10 grid gap-6 xl:grid-cols-2">
-<article class="reveal card-surface p-6 sm:p-8">
+<div class="mt-10 grid gap-5 xl:grid-cols-2">
+<article class="reveal card-balanced card-surface p-6 sm:p-8">
 <div class="flex flex-wrap items-center gap-3">
 <span class="rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-800 ring-1 ring-brand-100">Project 01</span>
-<span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">2025.06-2026.01</span>
+<span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">2025.11-Present</span>
 </div>
-<h3 class="mt-5 text-2xl font-bold leading-snug text-slate-950">Scheduling of a Single-Arm Cluster Tool for Processing Two Types of Wafers with Parallel Processing</h3>
+<h3 class="mt-5 text-2xl font-bold leading-snug text-slate-950">Scheduling of Single-Arm Multicluster Tools for Multi-Type Wafers with Parallel Processing, Residency Time Constraints, and Reentrant Buffer Cooling Operations</h3>
 <div class="mt-5 flex flex-wrap gap-2">
-<span class="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">Deep Reinforcement Learning</span>
-<span class="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">Scheduling</span>
-<span class="rounded-full bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-700">Single Robot</span>
-<span class="rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700">Single Cluster Tool</span>
-<span class="rounded-full bg-violet-50 px-3 py-1 text-xs font-semibold text-violet-700">CCF-C Conference</span>
+<span class="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">CP-SAT</span>
+<span class="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">Domain LNS</span>
+<span class="rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700">GNN + RL</span>
+<span class="rounded-full bg-cyan-50 px-3 py-1 text-xs font-semibold text-cyan-700">Scheduling</span>
+<span class="rounded-full bg-teal-50 px-3 py-1 text-xs font-semibold text-teal-700">Single Robot</span>
+<span class="rounded-full bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-700">Dual Cluster Tool</span>
+<span class="rounded-full bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-700">Reentrant Buffer Cooling</span>
+<span class="rounded-full bg-violet-50 px-3 py-1 text-xs font-semibold text-violet-700">In Progress</span>
 </div>
 <div class="mt-6 grid gap-4 sm:grid-cols-2">
 <div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
 <p class="text-sm text-slate-500">Time</p>
-<p class="mt-2 font-semibold text-slate-900">2025.06-2026.01</p>
+<p class="mt-2 font-semibold text-slate-900">2025.11-Present</p>
 </div>
 <div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
 <p class="text-sm text-slate-500">Role</p>
@@ -461,15 +549,15 @@
 </div>
 </div>
 <p class="mt-6 text-base font-semibold leading-8 text-slate-700">
-              Proposed a reinforcement-learning-based scheduling strategy for a single robotic arm in a single cluster tool, targeting small-batch and multi-type wafer scheduling with parallel processing.
+              Developing an ongoing scheduling framework for single-arm multicluster tools that process multiple wafer types under parallel-processing, residency-time, and reentrant buffer cooling constraints, with breakthrough progress already achieved in exact modeling, neighborhood search, and learning-guided optimization.
             </p>
-<div class="mt-8 flex flex-wrap gap-3">
-<button class="inline-flex items-center justify-center rounded-2xl bg-brand-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-800" data-modal-button="" data-template="detail-research1" data-title="Research Detail" type="button">
+<div class="card-action flex flex-wrap gap-3">
+<button class="inline-flex items-center justify-center rounded-2xl bg-brand-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-800" data-modal-button="" data-template="detail-research4" data-title="Research Detail" type="button">
                 View Details
               </button>
 </div>
 </article>
-<article class="reveal card-surface p-6 sm:p-8">
+<article class="reveal card-balanced card-surface p-6 sm:p-8">
 <div class="flex flex-wrap items-center gap-3">
 <span class="rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-800 ring-1 ring-brand-100">Project 02</span>
 <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">2025.11-2026.03</span>
@@ -495,8 +583,72 @@
 <p class="mt-6 text-base font-semibold leading-8 text-slate-700">
               Proposed a multi-agent reinforcement-learning-based scheduling strategy for cooperative scheduling in multi-cluster tools under residency time constraints and parallel processing.
             </p>
-<div class="mt-8 flex flex-wrap gap-3">
+<div class="card-action flex flex-wrap gap-3">
 <button class="inline-flex items-center justify-center rounded-2xl bg-brand-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-800" data-modal-button="" data-template="detail-research2" data-title="Research Detail" type="button">
+                View Details
+              </button>
+</div>
+</article>
+<article class="reveal card-balanced card-surface p-6 sm:p-8">
+<div class="flex flex-wrap items-center gap-3">
+<span class="rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-800 ring-1 ring-brand-100">Project 03</span>
+<span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">2025.06-2026.01</span>
+</div>
+<h3 class="mt-5 text-2xl font-bold leading-snug text-slate-950">Scheduling of a Single-Arm Cluster Tool for Processing Two Types of Wafers with Parallel Processing</h3>
+<div class="mt-5 flex flex-wrap gap-2">
+<span class="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">Deep Reinforcement Learning</span>
+<span class="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">Scheduling</span>
+<span class="rounded-full bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-700">Single Robot</span>
+<span class="rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700">Single Cluster Tool</span>
+<span class="rounded-full bg-violet-50 px-3 py-1 text-xs font-semibold text-violet-700">CCF-C Conference</span>
+</div>
+<div class="mt-6 grid gap-4 sm:grid-cols-2">
+<div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
+<p class="text-sm text-slate-500">Time</p>
+<p class="mt-2 font-semibold text-slate-900">2025.06-2026.01</p>
+</div>
+<div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
+<p class="text-sm text-slate-500">Role</p>
+<p class="mt-2 font-semibold text-slate-900">Project Lead</p>
+</div>
+</div>
+<p class="mt-6 text-base font-semibold leading-8 text-slate-700">
+              Proposed a reinforcement-learning-based scheduling strategy for a single robotic arm in a single cluster tool, targeting small-batch and multi-type wafer scheduling with parallel processing.
+            </p>
+<div class="card-action flex flex-wrap gap-3">
+<button class="inline-flex items-center justify-center rounded-2xl bg-brand-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-800" data-modal-button="" data-template="detail-research1" data-title="Research Detail" type="button">
+                View Details
+              </button>
+</div>
+</article>
+<article class="reveal card-balanced card-surface p-6 sm:p-8">
+<div class="flex flex-wrap items-center gap-3">
+<span class="rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-800 ring-1 ring-brand-100">Project 04</span>
+<span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">2024.09-2025.07</span>
+</div>
+<h3 class="mt-5 text-2xl font-bold leading-snug text-slate-950">Intelligent Scheduling System for Central Air Conditioning</h3>
+<div class="mt-5 flex flex-wrap gap-2">
+<span class="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">Neural Networks</span>
+<span class="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">DDPG</span>
+<span class="rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700">HVAC Control</span>
+<span class="rounded-full bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-700">Power Regulation</span>
+<span class="rounded-full bg-violet-50 px-3 py-1 text-xs font-semibold text-violet-700">Guangdong Regional Third Prize</span>
+</div>
+<div class="mt-6 grid gap-4 sm:grid-cols-2">
+<div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
+<p class="text-sm text-slate-500">Time</p>
+<p class="mt-2 font-semibold text-slate-900">2024.09-2025.07</p>
+</div>
+<div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
+<p class="text-sm text-slate-500">Role</p>
+<p class="mt-2 font-semibold text-slate-900">Project Participant</p>
+</div>
+</div>
+<p class="mt-6 text-base font-semibold leading-8 text-slate-700">
+              Based on the operating principles of central air-conditioning systems, this project studied how to coordinate multiple components, used neural-network-based models to predict post-frequency-regulation power under constrained external conditions, and developed an adaptive intelligent scheduling system with a DDPG-based control algorithm. The project won Third Prize in the Guangdong Regional Competition of the China Robot and Artificial Intelligence Competition.
+            </p>
+<div class="card-action flex flex-wrap gap-3">
+<button class="inline-flex items-center justify-center rounded-2xl bg-brand-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-800" data-modal-button="" data-template="detail-research3" data-title="Research Detail" type="button">
                 View Details
               </button>
 </div>
@@ -504,14 +656,42 @@
 </div>
 </div>
 </section>
-<section class="section-anchor py-24 sm:py-28" id="awards">
-<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<section class="section-anchor py-16 sm:py-20" id="awards">
+<div class="section-shell mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 <div class="reveal max-w-3xl">
 <span class="eyebrow">Awards</span>
 <h2 class="mt-5 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">Honors and Awards</h2>
 </div>
+<article class="reveal mt-8 card-surface p-6 sm:p-7">
+<div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+<div class="max-w-3xl">
+<span class="inline-flex rounded-full bg-brand-50 px-3.5 py-1.5 text-xs font-semibold tracking-[0.16em] text-brand-800 uppercase ring-1 ring-brand-100">Current Focus</span>
+<h3 class="mt-4 text-2xl font-bold tracking-tight text-slate-950">Competitions in Preparation</h3>
+<p class="mt-3 text-sm leading-7 text-slate-600">I am currently preparing several major competitions that are in progress or approaching submission and final evaluation.</p>
+</div>
+<span class="inline-flex w-fit rounded-full bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-700 ring-1 ring-emerald-100">In Progress</span>
+</div>
+<div class="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+<div class="rounded-2xl bg-slate-50/90 p-4 ring-1 ring-slate-200">
+<p class="text-base font-semibold leading-7 text-slate-900">China Robot and Artificial Intelligence Competition</p>
+<p class="mt-2 text-sm leading-7 text-slate-600">Currently advancing toward a national-level award after the regional competition stage.</p>
+</div>
+<div class="rounded-2xl bg-slate-50/90 p-4 ring-1 ring-slate-200">
+<p class="text-base font-semibold leading-7 text-slate-900">China Statistical Modeling Competition</p>
+<p class="mt-2 text-sm leading-7 text-slate-600">Preparing modeling work, data analysis, and competition materials for the upcoming round.</p>
+</div>
+<div class="rounded-2xl bg-slate-50/90 p-4 ring-1 ring-slate-200">
+<p class="text-base font-semibold leading-7 text-slate-900">Network Technology Challenge</p>
+<p class="mt-2 text-sm leading-7 text-slate-600">Currently organizing technical preparation and solution design for the next competition stage.</p>
+</div>
+<div class="rounded-2xl bg-slate-50/90 p-4 ring-1 ring-slate-200">
+<p class="text-base font-semibold leading-7 text-slate-900">Challenge Cup Special Competition</p>
+<p class="mt-2 text-sm leading-7 text-slate-600">Developing project materials and implementation details for submission and final presentation.</p>
+</div>
+</div>
+</article>
 <div class="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-<article class="reveal card-surface p-6">
+<article class="reveal card-balanced card-surface p-6 sm:p-7">
 <div class="flex items-start gap-4">
 <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-yellow-50 text-yellow-600 ring-1 ring-yellow-100">
 <i class="fa fa-area-chart text-2xl"></i>
@@ -524,9 +704,9 @@
 <div class="mt-5 space-y-2 text-sm leading-7 text-slate-600">
 <p><span class="font-semibold text-slate-900">Award:</span> Second Prize, Guangdong Provincial Division</p>
 </div>
-<button class="mt-6 inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" data-modal-button="" data-template="detail-award1" data-title="Award Detail" type="button">View Details</button>
+<button class="card-action inline-flex w-fit items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" data-modal-button="" data-template="detail-award1" data-title="Award Detail" type="button">View Details</button>
 </article>
-<article class="reveal card-surface p-6">
+<article class="reveal card-balanced card-surface p-6 sm:p-7">
 <div class="flex items-start gap-4">
 <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 ring-1 ring-blue-100">
 <i class="fa fa-superscript text-2xl"></i>
@@ -539,9 +719,9 @@
 <div class="mt-5 space-y-2 text-sm leading-7 text-slate-600">
 <p><span class="font-semibold text-slate-900">Award:</span> Third Prize, Guangdong Provincial Division</p>
 </div>
-<button class="mt-6 inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" data-modal-button="" data-template="detail-award2" data-title="Award Detail" type="button">View Details</button>
+<button class="card-action inline-flex w-fit items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" data-modal-button="" data-template="detail-award2" data-title="Award Detail" type="button">View Details</button>
 </article>
-<article class="reveal card-surface p-6">
+<article class="reveal card-balanced card-surface p-6 sm:p-7">
 <div class="flex items-start gap-4">
 <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 ring-1 ring-emerald-100">
 <i class="fa fa-android text-2xl"></i>
@@ -555,9 +735,9 @@
 <p><span class="font-semibold text-slate-900">Track:</span> AI Innovation</p>
 <p><span class="font-semibold text-slate-900">Award:</span> Third Prize, Guangdong Regional Competition</p>
 </div>
-<button class="mt-6 inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" data-modal-button="" data-template="detail-award3" data-title="Award Detail" type="button">View Details</button>
+<button class="card-action inline-flex w-fit items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" data-modal-button="" data-template="detail-award3" data-title="Award Detail" type="button">View Details</button>
 </article>
-<article class="reveal card-surface p-6">
+<article class="reveal card-balanced card-surface p-6 sm:p-7">
 <div class="flex items-start gap-4">
 <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-violet-50 text-violet-600 ring-1 ring-violet-100">
 <i class="fa fa-graduation-cap text-2xl"></i>
@@ -570,9 +750,9 @@
 <div class="mt-5 space-y-2 text-sm leading-7 text-slate-600">
 <p><span class="font-semibold text-slate-900">Award:</span> Third-Class Scholarship</p>
 </div>
-<button class="mt-6 inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" data-modal-button="" data-template="detail-award4" data-title="Award Detail" type="button">View Details</button>
+<button class="card-action inline-flex w-fit items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" data-modal-button="" data-template="detail-award4" data-title="Award Detail" type="button">View Details</button>
 </article>
-<article class="reveal card-surface p-6 md:col-span-2 xl:col-span-1">
+<article class="reveal card-balanced card-surface p-6 sm:p-7">
 <div class="flex items-start gap-4">
 <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-rose-50 text-rose-600 ring-1 ring-rose-100">
 <i class="fa fa-graduation-cap text-2xl"></i>
@@ -585,18 +765,33 @@
 <div class="mt-5 space-y-2 text-sm leading-7 text-slate-600">
 <p><span class="font-semibold text-slate-900">Award:</span> Second-Class Scholarship</p>
 </div>
-<button class="mt-6 inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" data-modal-button="" data-template="detail-award5" data-title="Award Detail" type="button">View Details</button>
+<button class="card-action inline-flex w-fit items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" data-modal-button="" data-template="detail-award5" data-title="Award Detail" type="button">View Details</button>
+</article>
+<article class="reveal card-balanced card-surface p-6 sm:p-7">
+<div class="flex items-start gap-4">
+<div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-orange-50 text-orange-600 ring-1 ring-orange-100">
+<i class="fa fa-users text-2xl"></i>
+</div>
+<div class="min-w-0 flex-1">
+<h3 class="text-lg font-bold leading-7 text-slate-950">Outstanding Class Monitor and Student Cadre, Guangdong University of Technology</h3>
+<span class="mt-3 inline-flex rounded-full bg-slate-100 px-3.5 py-1.5 text-xs font-semibold text-slate-600">2024-2025</span>
+</div>
+</div>
+<div class="mt-5 space-y-2 text-sm leading-7 text-slate-600">
+<p><span class="font-semibold text-slate-900">Award:</span> First-Class Scholarship</p>
+</div>
+<button class="card-action inline-flex w-fit items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" data-modal-button="" data-template="detail-award6" data-title="Award Detail" type="button">View Details</button>
 </article>
 </div>
 </div>
 </section>
-<section class="section-anchor py-24 sm:py-28" id="education">
-<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<section class="section-anchor py-16 sm:py-20" id="education">
+<div class="section-shell mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 <div class="reveal max-w-3xl">
 <span class="eyebrow">Education</span>
 <h2 class="mt-5 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">Education</h2>
 </div>
-<div class="mt-10 grid gap-6 xl:grid-cols-[0.92fr_1.08fr]">
+<div class="mt-10 grid gap-5 xl:grid-cols-[0.94fr_1.06fr]">
 <article class="reveal card-surface p-8">
 <div class="flex flex-wrap items-start justify-between gap-4">
 <div>
@@ -613,6 +808,23 @@
 <div class="rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200">
 <p class="text-sm text-slate-500">GPA</p>
 <p class="mt-2 text-lg font-semibold text-slate-900">3.536 / 5.0 (First Five Semesters)</p>
+</div>
+<div class="rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200">
+<p class="text-sm text-slate-500">English Proficiency</p>
+<div class="mt-3 space-y-3">
+<div class="flex flex-wrap items-center justify-between gap-3">
+<p class="text-base font-semibold text-slate-900">IELTS</p>
+<p class="text-sm font-medium text-slate-600">Target Band 7.0 (In Preparation)</p>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-3">
+<p class="text-base font-semibold text-slate-900">CET-4</p>
+<p class="text-sm font-medium text-slate-600">Score: 465</p>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-3">
+<p class="text-base font-semibold text-slate-900">CET-6</p>
+<p class="text-sm font-medium text-slate-600">Score: 466</p>
+</div>
+</div>
 </div>
 </div>
 </article>
@@ -653,34 +865,34 @@
 </div>
 </div>
 </section>
-<section class="section-anchor py-24 sm:py-28" id="contact">
-<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<section class="section-anchor py-16 sm:py-20" id="contact">
+<div class="section-shell mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 <div class="reveal max-w-3xl">
 <span class="eyebrow">Contact</span>
 <h2 class="mt-5 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">Contact</h2>
 </div>
-<div class="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-<article class="reveal card-surface p-6">
+<div class="mt-10 grid gap-5 md:grid-cols-2">
+<article class="reveal card-balanced card-surface p-6 sm:p-7">
 <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 ring-1 ring-blue-100">
 <i class="fa fa-envelope text-2xl"></i>
 </div>
 <p class="mt-6 text-sm font-semibold tracking-[0.14em] text-slate-500 uppercase">Email</p>
 <a class="mt-3 block break-all text-lg font-semibold text-slate-950 hover:text-brand-900" href="mailto:3123004845@mail2.gdut.edu.cn">3123004845@mail2.gdut.edu.cn</a>
-<button class="mt-5 inline-flex items-center justify-center rounded-2xl border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-brand-200 hover:text-brand-900" data-email="3123004845@mail2.gdut.edu.cn" id="copy-email" type="button">
+<button class="card-action inline-flex w-fit items-center justify-center rounded-2xl border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-brand-200 hover:text-brand-900" data-email="3123004845@mail2.gdut.edu.cn" id="copy-email" type="button">
               Copy Email
             </button>
 </article>
-<article class="reveal card-surface p-6">
+<article class="reveal card-balanced card-surface p-6 sm:p-7">
 <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-700 ring-1 ring-slate-200">
 <i class="fa fa-github text-2xl"></i>
 </div>
 <p class="mt-6 text-sm font-semibold tracking-[0.14em] text-slate-500 uppercase">GitHub</p>
 <a class="mt-3 block text-lg font-semibold text-slate-950 hover:text-brand-900" href="https://github.com/ChenglangRong" rel="noreferrer" target="_blank">ChenglangRong</a>
-<a class="mt-5 inline-flex items-center justify-center rounded-2xl border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-brand-200 hover:text-brand-900" href="https://github.com/ChenglangRong" rel="noreferrer" target="_blank">
+<a class="card-action inline-flex w-fit items-center justify-center rounded-2xl border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-brand-200 hover:text-brand-900" href="https://github.com/ChenglangRong" rel="noreferrer" target="_blank">
               Visit GitHub
             </a>
 </article>
-<article class="reveal card-surface p-6 md:col-span-2 xl:col-span-1">
+<article class="reveal card-surface p-6 sm:p-7 md:col-span-2">
 <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-50 text-brand-800 ring-1 ring-brand-100">
 <i class="fa fa-university text-2xl"></i>
 </div>
@@ -728,26 +940,66 @@
 <i class="fa fa-arrow-up"></i>
 </button>
 <template id="detail-research1">
-<h4>Project Summary</h4>
-<p>This project studies single-arm cluster-tool scheduling for processing two wafer types with parallel processing. The work models startup, steady-state, and close-down phases within a unified scheduling formulation.</p>
-<ul>
-<li>Formulated the scheduling process as a Markov decision process.</li>
-<li>Improved TD3 with dynamic noise exploration, prioritized replay, adaptive cyclic learning rates, attention mechanisms, and normalized state features.</li>
-<li>Designed experiments covering multiple representative scenarios involving shared process modules and parallel paths.</li>
-<li>Observed better minimum makespan and faster convergence than baseline RL methods in most test scenarios.</li>
-</ul>
-<p>Status: accepted by a CCF-C international conference as first author.</p>
+<h4>涓枃浠嬬粛</h4>
+<p>鏈爺绌堕拡瀵瑰崟鑷傚崟缁勫悎璁惧鍔犲伐澶氬搧绉嶆櫠鍦嗕笖鍖呭惈鏅跺渾椹荤暀鏃堕棿绾︽潫鐨勮皟搴﹂棶棰橈紝鎻愬嚭浜嗕竴绉嶅熀浜庢繁搴﹀己鍖栧涔犵殑璋冨害绛栫暐銆備富瑕佸唴瀹瑰拰璐＄尞鍖呮嫭锛?/p>
+<p>杩欑瘒璁烘枃鐮旂┒鐨勬槸鍗曟満姊拌噦 cluster tool 鍦ㄥ姞宸ヤ袱绫绘櫠鍦嗘椂鐨勮皟搴︿紭鍖栭棶棰樸€備笌浼犵粺鍙€冭檻绋虫€佽皟搴︾殑鐮旂┒涓嶅悓锛屾垜鍏虫敞鐨勬槸鍚姩闃舵銆佺ǔ鎬侀樁娈靛拰鏀跺熬闃舵鐨勫叏娴佺▼璋冨害锛屽悓鏃惰€冭檻浜嗗苟琛屽伐鑹烘ā鍧椼€佸叡浜ā鍧楃珵浜変互鍙婃櫠鍦嗛┗鐣欐椂闂寸害鏉熴€傝繖绫婚棶棰樼殑闅剧偣鍦ㄤ簬锛氭満鍣ㄤ汉涓€娆″彧鑳芥惉杩愪竴鐗囨櫠鍦嗭紝浣嗕笉鍚岀被鍨嬫櫠鍦嗙殑璺緞鍙兘閲嶅彔锛屽叡浜ā鍧椾細甯︽潵璧勬簮绔炰簤锛岃€岄┗鐣欐椂闂撮檺鍒跺張瑕佹眰鏅跺渾鍔犲伐鍚庡繀椤诲湪瑙勫畾鏃堕棿鍐呰鍙婃椂绉诲嚭锛屽惁鍒欏氨浼氭姤搴熴€?/p>
+<p>閽堝杩欎釜闂锛屾垜棣栧厛灏嗚皟搴﹁繃绋嬪缓妯′负涓€涓┈灏斿彲澶喅绛栬繃绋嬶紝瀹氫箟浜嗙郴缁熺姸鎬併€佹満鍣ㄤ汉鍔ㄤ綔鍜屽鍔卞嚱鏁帮紱鐒跺悗鍦?TD3 鐨勫熀纭€涓婂仛浜嗘湁閽堝鎬х殑鏀硅繘锛屽寘鎷細鍔ㄦ€佸櫔澹版帰绱紝淇濊瘉鍓嶆湡鍏呭垎鎼滅储銆佸悗鏈熺ǔ瀹氭敹鏁涳紱鍔ㄦ€佷紭鍏堢粡楠屽洖鏀撅紝鎻愰珮楂樹环鍊兼牱鏈埄鐢ㄧ巼锛涜嚜閫傚簲寰幆瀛︿範鐜囷紝鍔犲揩鍏抽敭璋冨害绛栫暐瀛︿範锛涙敞鎰忓姏鏈哄埗锛屽寮虹姸鎬佷笌鍔ㄤ綔涔嬮棿鐨勫叧鑱斿涔狅紱闈㈠悜 makespan 鏈€灏忓寲鐨勫鍔辫璁★紱浠ュ強鐘舵€佺壒寰佹爣鍑嗗寲锛屽噺灏戜笉鍚岄噺绾插甫鏉ョ殑璁粌骞叉壈銆?/p>
+<p>鍦ㄥ疄楠岄儴鍒嗭紝鎴戣璁′簡鍥涚被鍏稿瀷鍦烘櫙锛屽寘鎷槸鍚﹀瓨鍦ㄥ叡浜?PM銆佹槸鍚﹀瓨鍦ㄥ苟琛岃矾寰勭瓑鎯呭喌锛屽苟灏嗘敼杩?TD3 涓庝紶缁?TD3銆丏DPG銆丏QN 杩涜瀵规瘮銆傜粨鏋滄樉绀猴紝鏀硅繘 TD3 鍦ㄥ鏁板満鏅笅鍙栧緱浜嗘洿浼樼殑鏈€灏?makespan锛屼緥濡傚湪 Env1 鍜?Env4 涓紭鍔垮挨鍏舵槑鏄撅紝鍚屾椂鏀舵暃閫熷害鏇村揩锛屾硾鍖栨€т篃鏇村己銆?/p>
+<p>杩欑瘒宸ヤ綔鐨勬剰涔夊湪浜庯紝瀹冭瘉鏄庝簡娣卞害寮哄寲瀛︿範鍙互鏈夋晥澶勭悊鍏锋湁寮虹害鏉熴€佸己鑰﹀悎鍜屽姩鎬佹€х殑鍗婂浣撹澶囪皟搴﹂棶棰橈紝骞朵笖鐩告瘮浼犵粺鍚彂寮忔垨闈欐€佷紭鍖栨柟娉曪紝鏇撮€傚悎澶勭悊澶氱被鍨嬫櫠鍦嗐€佸皬鎵归噺鍒堕€犱互鍙婂鏉傚伐鑹鸿矾寰勫甫鏉ョ殑瀹炴椂鍐崇瓥闇€姹傘€?/p>
+<p>璇ョ爺绌舵垚鏋滃凡琚獵CF C绫诲浗闄呬細璁綍鐢紝涓哄崐瀵间綋鍒堕€犱腑鐨勮皟搴︿紭鍖栨彁渚涗簡鏂扮殑瑙ｅ喅鏂规銆?/p>
+<h4>English Summary</h4>
+<p>This study focuses on the scheduling problem of a single-arm cluster tool processing multiple types of wafers under wafer residency time constraints, and proposes a scheduling strategy based on deep reinforcement learning. The main contents and contributions are as follows:</p>
+<p>This paper studies the scheduling problem of a single-arm cluster tool processing two wafer types. Unlike many existing studies that focus only on steady-state scheduling, my work considers the entire production cycle, including the startup transient, steady-state, and close-down transient phases. At the same time, it incorporates parallel processing modules, shared module competition, and wafer residency time constraints. The challenge is that a single robotic arm can move only one wafer at a time, while different wafer routes may overlap and share modules, and wafers must be removed from modules within a strict time limit after processing.</p>
+<p>To address this, I formulated the problem as an MDP and developed an improved TD3 algorithm tailored to this scheduling environment. The main technical contributions include dynamic noise exploration, dynamic prioritized replay, adaptive cyclic learning rate, an attention mechanism, a makespan-oriented reward function, and normalized state features. These designs improve both training stability and policy quality.</p>
+<p>In the experiments, I designed four representative scenarios with and without shared PMs and parallel paths, and compared the proposed method against traditional TD3, DDPG, and DQN. The results show that my improved TD3 achieves better minimum makespan and faster convergence in most scenarios, demonstrating stronger robustness and generalization capability.</p>
+<p>The significance of this work is that it demonstrates the feasibility of using deep reinforcement learning for complex, highly constrained, and dynamically coupled scheduling problems in semiconductor manufacturing. It provides a more flexible and practical alternative to conventional rule-based or static optimization approaches.</p>
+<p>This research has been accepted by a CCF-C international conference and provides a novel solution for scheduling optimization in semiconductor manufacturing.</p>
 </template>
 <template id="detail-research2">
-<h4>Project Summary</h4>
-<p>This project extends the scheduling problem from a single cluster tool to a multi-cluster tool environment with wafer residency time constraints, shared modules, and stronger system coupling.</p>
-<ul>
-<li>Formulated the problem as a multi-agent reinforcement learning task for cooperative robotic scheduling.</li>
-<li>Designed a MA-QMIX-PPO framework combining value decomposition and stable policy optimization.</li>
-<li>Integrated action masking, epsilon-decay exploration, asynchronous actor-critic updates, soft target-network updates, and state normalization.</li>
-<li>Benchmarked against several multi-agent RL baselines and obtained competitive makespan performance with stable training behavior.</li>
-</ul>
-<p>Status: under submission to a high-level SCI journal as second author.</p>
+<h4>涓枃浠嬬粛</h4>
+<p>鏈爺绌跺皢鍗曡噦璋冨害闂鎷撳睍鍒颁簡澶氱粍鍚堣澶囧満鏅紝鍦ㄦ櫠鍦嗛┗鐣欐椂闂寸害鏉熷拰鍔犲伐澶氬搧绉嶆櫠鍦嗙殑鑳屾櫙涓嬶紝鎻愬嚭浜嗕竴绉嶅熀浜庡鏅鸿兘浣撶殑娣卞害寮哄寲瀛︿範鐨勮皟搴︾瓥鐣ャ€備富瑕佸唴瀹瑰拰璐＄尞鍖呮嫭锛?/p>
+<p>杩欑瘒璁烘枃杩涗竴姝ョ爺绌朵簡single-arm multicluster tool 鐨勮皟搴﹂棶棰樸€備笌鍗曚竴 cluster tool 鐩告瘮锛宮ulticluster tool 鐢卞涓?cluster tool 涓茶仈缁勬垚锛岀浉閭昏澶囦箣闂撮€氳繃鍏变韩缂撳啿妯″潡 BM 杩炴帴锛屽洜姝ょ郴缁熻€﹀悎鏇村己銆佽皟搴︽洿澶嶆潅銆傝鏂囦腑閲嶇偣鐮旂┒浜嗕袱绫绘垨涓夌被鏅跺渾骞惰鍔犲伐鐨勬儏鍐碉紝鍚屾椂鑰冭檻鍏变韩 BM銆佸苟琛?PM銆佹櫠鍦嗛┗鐣欐椂闂寸害鏉熶互鍙婄郴缁熸閿侀闄┿€傝繖浣块棶棰樹粠鍗曟満鍣ㄤ汉鍐崇瓥鎵╁睍涓哄鏈哄櫒浜哄崗鍚屽喅绛栭棶棰樸€?/p>
+<p>鍦ㄨ繖涓伐浣滈噷锛屾垜鎶婄郴缁熷缓妯′负澶氭櫤鑳戒綋寮哄寲瀛︿範闂锛屼负涓や釜鏈烘鑷傚垎鍒璁℃櫤鑳戒綋锛屽苟鎻愬嚭浜哅A-QMIX-PPO 绠楁硶銆傝繖涓畻娉曟妸 QMIX 鐨勪环鍊煎垎瑙ｈ兘鍔涘拰 PPO 鐨勭ǔ瀹氱瓥鐣ヤ紭鍖栬兘鍔涚粨鍚堣捣鏉ワ紝鏍稿績璁捐鍖呮嫭锛氱敤 QMIX 鐨勬贩鍚堢綉缁滆В鍐冲鏅鸿兘浣撳崗鍚屼腑鐨勪俊鐢ㄥ垎閰嶉棶棰橈紱鐢ㄥ姩浣滄帺鐮佺害鏉熼潪娉曞姩浣滐紝鍑忓皯鏃犳晥鎺㈢储锛涚敤甯︽寚鏁拌“鍑忕殑 蔚-greedy 鎻愬崌鎺㈢储鏁堢巼锛涚敤 PPO clipping 淇濊瘉绛栫暐鏇存柊绋冲畾锛涚敤寮傛鑱斿悎鏇存柊鎻愬崌 actor 涓?critic 鐨勮缁冩晥鏋滐紱鍐嶇粨鍚堢洰鏍囩綉缁滆蒋鏇存柊鍜岀姸鎬佹爣鍑嗗寲锛屽寮烘暣浣撴敹鏁涚ǔ瀹氭€с€?/p>
+<p>瀹為獙閮ㄥ垎璁剧疆浜嗕袱绫讳唬琛ㄦ€у満鏅細涓€涓槸涓ょ被鏅跺渾鎸?1:1 姣斾緥骞惰鍔犲伐锛屽彟涓€涓槸涓夌被鏅跺渾鎸?1:1:1 姣斾緥骞惰鍔犲伐銆傜粨鏋滄樉绀猴紝MA-QMIX-PPO 鍦ㄦ渶灏?makespan 鎸囨爣涓婁紭浜?MAQMIX銆丮APPO銆丮ADDPG銆丮ATD3 鍜?MACTD4锛涘悓鏃讹紝璁烘枃杩橀€氳繃鐢樼壒鍥惧拰璁粌鏇茬嚎灞曠ず浜嗙畻娉曞湪澶嶆潅绾︽潫鍦烘櫙涓嬬殑绋冲畾鎬у拰鍗忓悓鎬с€?/p>
+<p>杩欑瘒宸ヤ綔鐨勬剰涔夊湪浜庯紝瀹冭繘涓€姝ヨ鏄庯細褰撳崐瀵间綋鍒堕€犺澶囦粠鍗曡澶囨墿灞曞埌澶氳澶囦覆鑱斻€佷粠鍗曟櫤鑳戒綋鎵╁睍鍒板鏅鸿兘浣撴椂锛屽己鍖栧涔犱粛鐒惰兘澶熸垚涓哄彲琛屼笖鏈夋晥鐨勮皟搴︽眰瑙ｆ鏋躲€傝繖瀵规湭鏉ユ洿澶嶆潅鐨勫鏈哄彴鍗忓悓璋冨害銆佹洿澶氭櫠鍦嗙被鍨嬬敓浜т互鍙婃洿鐪熷疄鐨勫伐涓氱郴缁熻惤鍦伴兘鏈夊緢寮虹殑鍙傝€冧环鍊笺€?/p>
+<p>璇ョ爺绌舵垚鏋滄鍦ㄦ姇绋縎CI Top鏈熷垔锛屾湁鏈涗负鍗婂浣撳埗閫犵郴缁熺殑鏅鸿兘鍖栬皟搴︽彁渚涚悊璁哄拰鎶€鏈敮鎾戙€?/p>
+<h4>English Summary</h4>
+<p>This study extends the single-arm scheduling problem to a multi-cluster tool scenario and, in the context of wafer residency time constraints and multi-type wafer processing, proposes a scheduling strategy based on multi-agent deep reinforcement learning. The main contents and contributions are as follows:</p>
+<p>This paper studies a more challenging setting: single-arm multicluster tools. Compared with a single cluster tool, a multicluster tool consists of multiple interconnected cluster tools linked by shared buffer modules, which introduces stronger coupling, more severe resource competition, and a higher risk of deadlock. This work focuses on concurrent processing of two or three wafer types, while considering shared BMs, parallel PMs, wafer residency time constraints, and full-cycle scheduling.</p>
+<p>To solve this problem, I formulated it as a multi-agent reinforcement learning problem and proposed a MA-QMIX-PPO algorithm. In this framework, each robot is controlled by an independent agent, while coordination is achieved through centralized training and decentralized execution. The key designs include QMIX-based value decomposition, action masking for invalid actions, epsilon-greedy exploration with exponential decay, PPO clipping for stable policy updates, asynchronous actor-critic updates, soft target-network updates, and state normalization.</p>
+<p>In the experiments, I evaluated the method on representative scenarios for two-type wafer processing at a 1:1 ratio and three-type wafer processing at a 1:1:1 ratio. The proposed MA-QMIX-PPO achieved the best or tied-best minimum makespan compared with MAQMIX, MAPPO, MADDPG, MATD3, and MACTD4, while also showing strong coordination ability and stable training behavior.</p>
+<p>The significance of this work is that it extends intelligent scheduling from a single-equipment setting to a multi-equipment collaborative setting, showing that multi-agent reinforcement learning can effectively handle real-world semiconductor systems with shared resources, strong coupling, and deadlock constraints. It provides a strong foundation for future work on larger-scale and more realistic manufacturing systems.</p>
+<p>This research is currently under submission to a top-tier SCI journal and is expected to provide theoretical and technical support for intelligent scheduling in semiconductor manufacturing systems.</p>
+</template>
+<template id="detail-research3">
+<h4>涓枃浠嬬粛</h4>
+<p>鏈」鐩洿缁曚腑澶┖璋冪殑鏅鸿兘璋冨害绯荤粺灞曞紑鐮旂┒锛屾椂闂翠负 2024.09-2025.07锛屾垜鍦ㄩ」鐩腑鎷呬换椤圭洰鍙備笌鑰呫€傜爺绌朵互涓ぎ绌鸿皟绯荤粺鐨勫伐浣滃師鐞嗕负鍩虹锛岄噸鐐瑰垎鏋愪簡鍐锋満銆佹按娉点€侀鏈哄強鐩稿叧杈呭姪閮ㄤ欢涔嬮棿鐨勫崗鍚岃繍琛屾満鍒讹紝鎺㈢储鍦ㄤ笉鍚屽鐣岀幆澧冨拰杩愯鏉′欢涓嬶紝鍚勭粍鎴愰儴鍒嗗浣曢€氳繃鍚堢悊璋冨害瀹炵幇鏁翠綋楂樻晥銆佺ǔ瀹氳繍琛屻€?/p>
+<p>椤圭洰鐨勪竴涓牳蹇冨唴瀹规槸鐮旂┒涓ぎ绌鸿皟鍚勯儴浠朵箣闂寸殑鑰﹀悎鍏崇郴涓庡崗璋冨伐浣滄ā寮忋€備笌鍙叧娉ㄥ崟涓€璁惧鎺у埗鐨勬柟娉曚笉鍚岋紝鏈」鐩皢涓ぎ绌鸿皟瑙嗕负涓€涓璁惧鍗忓悓绯荤粺锛岄噸鐐瑰垎鏋愪笉鍚岄儴浠剁殑鍔熺巼鍙樺寲銆佸搷搴旂壒鎬т互鍙婄浉浜掑奖鍝嶅叧绯伙紝浠庣郴缁熷眰闈㈠鎵惧吋椤捐兘鑰椼€佺ǔ瀹氭€у拰鎺у埗鏁堟灉鐨勮皟搴︾瓥鐣ャ€?/p>
+<p>鍦ㄥ缓妯′笌棰勬祴鏂归潰锛岄」鐩埄鐢ㄧ缁忕綉缁滄妧鏈紝瀵归檺瀹氬鐣岀幆澧冩潯浠朵笅杩愯鐨勪腑澶┖璋冭澶囧湪鎵ц璋冮鎺у埗鍚庣殑宸ヤ綔鍔熺巼杩涜杈冧负鍑嗙‘鐨勬ā鎷熶笌棰勬祴銆傝棰勬祴妯″瀷涓哄悗缁皟搴﹀喅绛栨彁渚涗簡鏁版嵁鏀拺锛屼娇绯荤粺鑳藉鍦ㄦ帶鍒跺墠鏇村ソ鍦拌瘎浼颁笉鍚岃皟鑺傛柟妗堝璁惧鍔熺巼鍜屾暣浣撹繍琛岀姸鎬佺殑褰卞搷銆?/p>
+<p>鍦ㄦ鍩虹涓婏紝椤圭洰鍩轰簬寮哄寲瀛︿範涓殑 DDPG 绠楁硶锛岃璁″苟缂栧啓浜嗕竴涓兘澶熻嚜閫傚簲鐜鍙樺寲鍜屽悇閮ㄤ欢宸ヤ綔鍔熺巼鍙樺寲鐨勪腑澶┖璋冩櫤鑳借皟搴︾畻娉曚笌绯荤粺銆傝鏂规硶鑳藉鏍规嵁鐜鐘舵€佸拰璁惧鍙嶉鍔ㄦ€佽皟鏁磋皟搴︾瓥鐣ワ紝浠庤€屾彁鍗囩郴缁熷湪澶嶆潅宸ュ喌涓嬬殑鑷€傚簲鑳藉姏鍜岃繍琛屾晥鐜囷紝鐩歌緝浜庝紶缁熻鍒欏紡鎺у埗鏂规硶鍏锋湁鏇村己鐨勭伒娲绘€с€?/p>
+<p>璇ラ」鐩渶缁堣幏寰椾簡涓浗鏈哄櫒浜哄強浜哄伐鏅鸿兘澶ц禌骞夸笢璧涘尯涓夌瓑濂栵紝浣撶幇浜嗛」鐩湪鎶€鏈疄鐜板拰搴旂敤浠峰€间笂鐨勭患鍚堣〃鐜般€傛暣浣撹€岃█锛岃繖椤瑰伐浣滃睍绀轰簡灏嗙缁忕綉缁滈娴嬩笌寮哄寲瀛︿範鎺у埗缁撳悎锛岀敤浜庝腑澶┖璋冩櫤鑳借皟搴︾郴缁熻璁＄殑鍙鎬э紝涔熶负鏅烘収寤虹瓚涓庤兘婧愮鐞嗗満鏅笅鐨勬櫤鑳芥帶鍒剁爺绌舵彁渚涗簡鏈変环鍊肩殑鍙傝€冦€?/p>
+<h4>English Summary</h4>
+<p>This project focused on the intelligent scheduling of a central air-conditioning system from September 2024 to July 2025. Starting from the operating principles of the system, we studied how major components such as chillers, pumps, fans, and auxiliary control units could be scheduled in a coordinated manner so that the entire system could respond efficiently to changing environmental and operating conditions.</p>
+<p>A core part of the work was to analyze the coupling relationships among different devices and identify scheduling patterns that balance system stability, energy efficiency, and control responsiveness. Instead of optimizing each component independently, the project treated central air conditioning as a collaborative multi-device system and explored how equipment-level decisions affect the overall operating state.</p>
+<p>To support intelligent decision-making, we applied neural network techniques to model and predict the power consumption of central air-conditioning equipment after frequency regulation under constrained external conditions. This prediction module provided a relatively accurate estimate of how each device would respond after control adjustments, which created a practical data-driven basis for subsequent scheduling and optimization.</p>
+<p>On top of the predictive model, we designed and implemented an intelligent scheduling algorithm and system based on the DDPG reinforcement learning framework. The algorithm was built to adapt to environmental changes and dynamic variations in device power, enabling the scheduler to continuously adjust control actions and improve the coordination strategy in real time. This made the system more adaptive than conventional rule-based scheduling approaches.</p>
+<p>The project was recognized with Third Prize in the Guangdong Regional Competition of the China Robot and Artificial Intelligence Competition, which highlighted both its technical completeness and its practical value. Overall, this work demonstrated how neural-network-based power prediction and reinforcement-learning-based control can be integrated into an end-to-end intelligent scheduling system for central air conditioning, providing a useful reference for energy management and smart building applications.</p>
+</template>
+<template id="detail-research4">
+<h4>涓枃浠嬬粛</h4>
+<p>鏈」鐩嚜 2025 骞?11 鏈堟寔缁嚦浠婏紝鍥寸粫鍗曡噦鍙岀粍鍚堣澶囦腑澶氬搧绉嶆櫠鍦嗗湪骞跺彂鍔犲伐銆侀┗鐣欐椂闂寸害鏉熶互鍙婇噸鍏ョ紦鍐插尯鍐峰嵈绾︽潫涓嬬殑璋冨害闂灞曞紑鐮旂┒锛屾垜鍦ㄩ」鐩腑鎷呬换鎬昏礋璐ｄ汉銆傝椤圭洰鐩墠浠嶅浜庢寔缁帹杩涢樁娈碉紝灏氭湭鏈€缁堝畬鎴愶紝浣嗗凡缁忓湪寤烘ā銆佹悳绱㈢瓥鐣ヨ璁″拰鍒濇瀹為獙缁撴灉鏂归潰鍙栧緱浜嗚緝涓虹獊鍑虹殑闃舵鎬х獊鐮淬€?/p>
+<p>鐮旂┒瀵硅薄鐢变袱鍙板崟鏈烘鑷傘€佸涓伐鑹鸿厰浠ュ強涓や釜缂撳啿鑵旂粍鎴愶紝涓嶅悓绫诲瀷鏅跺渾鍏锋湁涓嶅悓鍔犲伐璺緞銆傚叾涓紝C 绫绘櫠鍦嗗湪鍔犲伐杩囩▼涓渶瑕侀噸鍏?BM1 杩涜浜屾绛夊緟涓庡喎鍗达紝杩欎竴閲嶅叆缂撳啿鍖烘搷浣滀細鐩存帴褰卞搷 cooling time 鐨勫彲琛屾€э紝鍥犳 BM1 涓嶅啀鍙槸鏅€氳繃娓＄紦鍐插尯锛岃€屾槸鍚屾椂鎵胯浇鎺掗槦銆佸喎鍗村拰鑺傛媿鍗忚皟鐨勫叧閿摱棰堣祫婧愩€?/p>
+<p>璇ラ棶棰樼殑闅剧偣涓嶅湪浜庤矾寰勯€夋嫨锛岃€屽湪浜庡浐瀹氬伐鑹鸿矾寰勪笅鎵€鏈夋搷浣滅殑绮剧‘鏃堕棿瀹夋帓銆傝皟搴︾粨鏋滃繀椤诲悓鏃舵弧瓒虫満姊拌噦銆佸伐鑹鸿厰鍜岀紦鍐茶厰鐨勮祫婧愪簰鏂ョ害鏉燂紝鍚屼竴鏅跺渾鍐呴儴鐨勫伐鑹哄厛鍚庣害鏉燂紝閮ㄥ垎宸ュ簭瀹屾垚鍚庡椹荤暀鏃堕棿鐨勪笂鐣岃姹傦紝浠ュ強缂撳啿鍖哄喎鍗寸瓑寰呮椂闂寸殑涓嬬晫瑕佹眰銆傚绫荤‖绾︽潫鍦ㄥ悓涓€绯荤粺鍐呭己鑰﹀悎锛屼娇璇ラ棶棰樻垚涓轰竴涓叿鏈夊叡浜祫婧愮珵浜夈€佹椂闂寸獥鍙ｉ檺鍒跺拰鏄惧紡鍐峰嵈閫昏緫鐨勫鏉傜粍鍚堜紭鍖栭棶棰樸€?/p>
+<p>鍥寸粫杩欎竴闂锛岄」鐩凡缁忓缓绔嬩簡鍒嗗眰鎶€鏈矾绾裤€傚簳灞傞噰鐢?CP-SAT 鍖洪棿璋冨害妯″瀷锛屽皢鐗╃悊宸ヨ壓娴佺▼杞寲涓虹粺涓€涓斿彲楠岃瘉鐨勫彉閲忎笌绾︽潫浣撶郴锛屼繚璇佺敓鎴愭帓绋嬬殑涓ユ牸鍙鎬э紱涓眰閲囩敤缁撳悎璁惧缁撴瀯鐗瑰緛鐨?Domain LNS锛屽鐡堕璧勬簮閾俱€侀┗鐣欓闄╅摼銆丅M1 鐩稿叧鎿嶄綔閾句互鍙?C 绫绘櫠鍦嗗喎鍗撮摼绛夊叧閿眬閮ㄥ尯鍩熻繘琛?destroy-repair 寮忛噸浼樺寲锛涗笂灞傝繘涓€姝ュ紩鍏?GNN 涓庡己鍖栧涔犳帶鍒跺櫒锛屽皢褰撳墠鎺掔▼缂栫爜涓哄姩鎬佸浘缁撴瀯锛屽涔犱笅涓€杞簲閫夋嫨鐨勯偦鍩熺畻瀛愬拰鏉惧紱瑙勬ā銆?/p>
+<p>鐩墠锛岄」鐩凡缁忓畬鎴愮粺涓€绮剧‘妯″瀷鐨勬惌寤猴紝褰㈡垚浜嗚嫢骞插叿鏈夐鍩熼拡瀵规€х殑閭诲煙绠楀瓙锛屽苟瀹炵幇浜嗗涔犲紩瀵兼悳绱笌浼樺寲娴佺▼鐨勫垵姝ヨ仈閫氥€傚凡鏈夊疄楠岀幇璞¤〃鏄庯紝闈㈠悜缁撴瀯鐗瑰緛璁捐鐨勬悳绱㈢瓥鐣ョ浉杈冪煭鏃剁簿纭熀绾胯兘澶熻繘涓€姝ユ彁鍗囨帓绋嬭川閲忥紝鑰屽涔犲紩瀵肩増鏈湪鏇村ぇ瑙勬ā銆佹洿寮虹害鏉熷疄渚嬩笂涔熷睍鐜板嚭杩涗竴姝ユ敼杩涚殑娼滃姏銆傝繖浜涚粨鏋滆鏄庯紝铏界劧椤圭洰灏氭湭鏀跺熬锛屼絾宸茬粡浜у嚭浜嗗叿鏈夊疄璐ㄤ环鍊肩殑绐佺牬鎬ц繘灞曘€?/p>
+<p>鎺ヤ笅鏉ョ殑宸ヤ綔灏嗙户缁洿缁曞疄楠岃ˉ鍏呫€佷笉鍚屾柟娉曟椂闂撮绠楀榻愪互鍙婂涔犳帶鍒跺櫒鐨勮繘涓€姝ヤ紭鍖栧睍寮€銆傛€讳綋鑰岃█锛岃椤圭洰鐩墠浠嶅湪娣卞叆鎺ㄨ繘涔嬩腑锛屼絾宸茬粡涓洪潰鍚戦噸鍏ョ紦鍐插尯鍐峰嵈绾︽潫鐨勫崐瀵间綋鏅鸿兘璋冨害寤虹珛浜嗘竻鏅般€佹墡瀹炰笖鍏锋湁鎵╁睍鎬х殑鐮旂┒鍩虹銆?/p>
+<h4>English Summary</h4>
+<p>This project, which has been running from November 2025 to the present, studies the scheduling of single-arm multicluster tools for multi-type wafers under parallel processing, residency time constraints, and reentrant buffer cooling operations. I serve as the overall project lead. The work is still ongoing rather than completed, but it has already produced several breakthrough advances in modeling, search design, and preliminary optimization results.</p>
+<p>The system considered in this project contains two single-arm robots, multiple process modules, and two buffer modules that jointly support transfer, queuing, and cooling. Three wafer types follow different processing routes. In particular, the C-type route reenters BM1 for a second waiting stage, and this reentrant buffer operation directly determines the required cooling time. As a result, BM1 is not merely a passive buffer but a critical bottleneck where resource competition, cooling feasibility, and downstream timing constraints become tightly coupled.</p>
+<p>The main challenge is not a simple routing problem, because the wafer paths are fixed in advance. The real difficulty is to schedule all operations on time while satisfying several hard constraints simultaneously: resource exclusivity for robots, PMs, and BMs; precedence relationships inside each wafer route; upper bounds on residency time after specific processing stages; and minimum waiting requirements for buffer cooling. This makes the problem a strongly coupled combinatorial optimization task with shared resources, time windows, and explicit cooling logic.</p>
+<p>To address this, the project has established a three-layer framework. At the bottom layer, a CP-SAT interval-scheduling model translates the physical process flow into a unified set of verifiable variables and constraints, ensuring that generated schedules remain strictly feasible. On top of that, a domain-specific large neighborhood search strategy repeatedly destroys and repairs only the most critical local regions, such as bottleneck resources, high-risk residency chains, BM1-related operation chains, and the special C-type cooling flow. At the upper layer, a GNN-plus-RL controller observes the current schedule as a dynamic graph and learns which neighborhood operator and relaxation size should be selected next.</p>
+<p>The project has already moved beyond conceptual design. A unified exact model has been built, key domain neighborhoods have been defined, and the learning-guided destroy-repair loop has been connected to the optimization pipeline. Preliminary experiments indicate that domain-aware search can improve schedule quality over a short-horizon exact baseline, and the learning-guided version shows additional promise in handling larger and more constrained instances. These results are important because they demonstrate that the project is generating real technical value even before the full study is finished.</p>
+<p>Current work is focused on extending the experimental evaluation, aligning time-budget comparisons across baselines, and further refining the learned search controller. In other words, this project is still in active progress, but it has already achieved breakthrough stage results and established a solid path toward a stronger final solution for intelligent semiconductor scheduling with reentrant buffer cooling constraints.</p>
 </template>
 <template id="detail-award1">
     <h4>China Undergraduate Mathematical Contest in Modeling</h4>
@@ -798,6 +1050,12 @@
     <div class="certificate-preview">
       <img src="assets/scholarship_second_2024_2025.jpg" alt="Certificate preview for the 2024-2025 Outstanding Student Second-Class Scholarship" />
     </div>
+</template>
+<template id="detail-award6">
+    <h4>Outstanding Class Monitor and Student Cadre, Guangdong University of Technology</h4>
+    <p>Academic Year: 2024-2025</p>
+    <p>Award: First-Class Scholarship.</p>
+    <p>This recognition highlights outstanding leadership, student service, and academic performance at Guangdong University of Technology.</p>
 </template>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -927,3 +1185,4 @@
   </script>
 </body>
 </html>
+
