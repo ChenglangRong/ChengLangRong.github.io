@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html lang="en">
 <head>
@@ -7,6 +7,7 @@
 <title>ChengLang Rong | Personal Academic Homepage</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+<link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet"/>
 <script>
     tailwind.config = {
       theme: {
@@ -394,9 +395,202 @@
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82);
     }
 
+    .analytics-map {
+      min-height: 26rem;
+      border-radius: 1.5rem;
+      border: 1px solid rgba(198, 219, 213, 0.92);
+      overflow: hidden;
+      background:
+        radial-gradient(circle at top left, rgba(84, 188, 165, 0.12), transparent 34%),
+        linear-gradient(180deg, rgba(249, 252, 251, 0.96), rgba(238, 246, 243, 0.92));
+    }
+
+    .analytics-stat-card {
+      border-radius: 1.25rem;
+      border: 1px solid rgba(198, 219, 213, 0.9);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(241, 249, 246, 0.72));
+      padding: 1rem 1.1rem;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82);
+    }
+
+    .analytics-stat-value {
+      margin-top: 0.55rem;
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .analytics-range-button {
+      border: 1px solid rgba(198, 219, 213, 0.92);
+      background: rgba(255, 255, 255, 0.82);
+      color: #475569;
+      transition: all 0.2s ease;
+    }
+
+    .analytics-range-button.is-active {
+      border-color: rgba(51, 150, 131, 0.4);
+      background: rgba(51, 150, 131, 0.12);
+      color: #215f54;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82);
+    }
+
+    .analytics-status {
+      margin-top: 1rem;
+      border-radius: 1rem;
+      border: 1px solid rgba(198, 219, 213, 0.92);
+      padding: 0.85rem 1rem;
+      font-size: 0.92rem;
+      line-height: 1.5;
+      color: #3f4b5a;
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .analytics-status[data-tone="success"] {
+      border-color: rgba(51, 150, 131, 0.22);
+      background: rgba(239, 250, 246, 0.9);
+      color: #215f54;
+    }
+
+    .analytics-status[data-tone="warning"] {
+      border-color: rgba(245, 158, 11, 0.24);
+      background: rgba(255, 248, 235, 0.92);
+      color: #92400e;
+    }
+
+    .analytics-status[data-tone="error"] {
+      border-color: rgba(239, 68, 68, 0.2);
+      background: rgba(254, 242, 242, 0.92);
+      color: #991b1b;
+    }
+
+    .analytics-rank-row,
+    .analytics-bar-row {
+      border-radius: 1rem;
+      border: 1px solid rgba(198, 219, 213, 0.82);
+      background: rgba(255, 255, 255, 0.74);
+      padding: 0.9rem 1rem;
+    }
+
+    .analytics-rank-row + .analytics-rank-row,
+    .analytics-bar-row + .analytics-bar-row {
+      margin-top: 0.75rem;
+    }
+
+    .analytics-rank-label {
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .analytics-rank-subtitle {
+      margin-top: 0.2rem;
+      font-size: 0.82rem;
+      color: #64748b;
+    }
+
+    .analytics-rank-count {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #215f54;
+    }
+
+    .analytics-rank-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .analytics-bar-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: 0.92rem;
+      color: #475569;
+    }
+
+    .analytics-bar-track {
+      margin-top: 0.7rem;
+      height: 0.65rem;
+      border-radius: 9999px;
+      background: rgba(226, 232, 240, 0.9);
+      overflow: hidden;
+    }
+
+    .analytics-bar-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, rgba(51, 150, 131, 0.65), rgba(51, 150, 131, 0.98));
+    }
+
+    .analytics-empty {
+      border-radius: 1rem;
+      border: 1px dashed rgba(198, 219, 213, 0.92);
+      background: rgba(255, 255, 255, 0.6);
+      padding: 1rem;
+      color: #64748b;
+    }
+
+    .analytics-table-shell {
+      overflow-x: auto;
+      border-radius: 1.25rem;
+      border: 1px solid rgba(198, 219, 213, 0.82);
+      background: rgba(255, 255, 255, 0.74);
+    }
+
+    .analytics-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 42rem;
+    }
+
+    .analytics-table th,
+    .analytics-table td {
+      padding: 0.95rem 1rem;
+      border-bottom: 1px solid rgba(226, 232, 240, 0.88);
+      text-align: left;
+      font-size: 0.92rem;
+    }
+
+    .analytics-table th {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #64748b;
+      background: rgba(248, 250, 252, 0.96);
+    }
+
+    .analytics-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .analytics-token-input {
+      border: 1px solid rgba(198, 219, 213, 0.92);
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82);
+    }
+
+    .analytics-note-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(198, 219, 213, 0.92);
+      background: rgba(255, 255, 255, 0.78);
+      padding: 0.45rem 0.85rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #215f54;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
     @media (max-width: 640px) {
       .section-shell { border-radius: 1.75rem; }
       .card-action { padding-top: 1.25rem; }
+      .analytics-map { min-height: 20rem; }
+      .analytics-table { min-width: 34rem; }
     }
 
 @media (prefers-reduced-motion: reduce) {
@@ -423,6 +617,7 @@
 <a class="nav-link text-sm font-medium text-slate-600" data-nav-link="" href="#awards">Awards</a>
 <a class="nav-link text-sm font-medium text-slate-600" data-nav-link="" href="#education">Education</a>
 <a class="nav-link text-sm font-medium text-slate-600" data-nav-link="" href="#contact">Contact</a>
+<a class="nav-link text-sm font-medium text-slate-600" data-nav-link="" href="#visitor-analytics">Visitors</a>
 </nav>
 <button aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu" class="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-white text-brand-900 shadow-sm md:hidden" id="mobile-menu-button" type="button">
 <i class="fa fa-bars text-lg"></i>
@@ -435,6 +630,7 @@
 <a class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100" data-mobile-link="" href="#awards">Awards</a>
 <a class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100" data-mobile-link="" href="#education">Education</a>
 <a class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100" data-mobile-link="" href="#contact">Contact</a>
+<a class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100" data-mobile-link="" href="#visitor-analytics">Visitors</a>
 </nav>
 </div>
 </div>
@@ -902,6 +1098,126 @@
 </div>
 </div>
 </section>
+<section class="section-anchor py-16 sm:py-20" id="visitor-analytics">
+<div class="section-shell mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<div class="reveal flex flex-col gap-6 xl:flex-row xl:items-end xl:justify-between">
+<div class="max-w-3xl">
+<span class="eyebrow">Visitor Analytics</span>
+<h2 class="mt-5 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">Where The Homepage Has Been Visited From</h2>
+<p class="mt-4 text-base leading-8 text-slate-600">
+              Track which countries and cities have reached the site, how often visitors show up, and when they last arrived.
+            </p>
+<div class="mt-5 flex flex-wrap gap-3">
+<span class="analytics-note-pill"><i class="fa fa-map-marker"></i> World locations</span>
+<span class="analytics-note-pill"><i class="fa fa-clock-o"></i> Time-based trends</span>
+<span class="analytics-note-pill"><i class="fa fa-bar-chart"></i> Count rankings</span>
+</div>
+</div>
+<article class="reveal card-surface max-w-2xl p-6 sm:p-7">
+<div class="flex flex-wrap items-center justify-between gap-3">
+<div>
+<p class="text-sm font-semibold tracking-[0.14em] text-slate-500 uppercase">Private Dashboard</p>
+<h3 class="mt-2 text-2xl font-bold text-slate-950">Admin Access</h3>
+</div>
+<button class="inline-flex items-center justify-center rounded-2xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-brand-200 hover:text-brand-900" id="analytics-refresh" type="button">
+                Refresh
+              </button>
+</div>
+<p class="mt-4 text-sm leading-7 text-slate-600">
+              Set <code>ANALYTICS_ADMIN_TOKEN</code> on the server, then store the same token in this browser to unlock the dashboard remotely. Without a token, analytics stay localhost-only.
+            </p>
+<div class="mt-5 grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto_auto]">
+<input autocomplete="off" class="analytics-token-input rounded-2xl px-4 py-3 text-sm text-slate-700 outline-none ring-0 focus:border-brand-300" id="analytics-token" placeholder="Admin token" type="password"/>
+<button class="inline-flex items-center justify-center rounded-2xl bg-brand-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-800" id="analytics-save-token" type="button">
+                Save Token
+              </button>
+<button class="inline-flex items-center justify-center rounded-2xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" id="analytics-clear-token" type="button">
+                Clear
+              </button>
+</div>
+<p class="analytics-status" data-tone="neutral" id="analytics-status">Waiting for analytics data.</p>
+</article>
+</div>
+<div class="mt-10 grid gap-5 xl:grid-cols-[1.22fr_0.78fr]">
+<article class="reveal card-surface p-6 sm:p-8">
+<div class="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+<div>
+<p class="text-sm font-semibold tracking-[0.14em] text-slate-500 uppercase">Map</p>
+<h3 class="mt-2 text-2xl font-bold text-slate-950">Visitor Footprint</h3>
+<p class="mt-2 text-sm text-slate-600">Each marker shows a place that has visited the site. Larger circles mean more visits.</p>
+</div>
+<div class="flex flex-wrap gap-2">
+<button class="analytics-range-button is-active rounded-full px-4 py-2 text-sm font-semibold" data-range-button="30d" type="button">30 Days</button>
+<button class="analytics-range-button rounded-full px-4 py-2 text-sm font-semibold" data-range-button="7d" type="button">7 Days</button>
+<button class="analytics-range-button rounded-full px-4 py-2 text-sm font-semibold" data-range-button="90d" type="button">90 Days</button>
+<button class="analytics-range-button rounded-full px-4 py-2 text-sm font-semibold" data-range-button="all" type="button">All Time</button>
+</div>
+</div>
+<div class="analytics-map mt-7" id="analytics-map"></div>
+<div class="analytics-empty mt-5" id="analytics-empty-state">
+            No visits have been recorded yet. The first real request to the site will create the initial data point.
+          </div>
+</article>
+<div class="grid gap-5">
+<article class="reveal card-surface p-6 sm:p-7">
+<p class="text-sm font-semibold tracking-[0.14em] text-slate-500 uppercase">Summary</p>
+<h3 class="mt-2 text-2xl font-bold text-slate-950">At A Glance</h3>
+<div class="mt-6 grid gap-4 sm:grid-cols-2">
+<div class="analytics-stat-card">
+<p class="text-sm text-slate-500">Total Visits</p>
+<p class="analytics-stat-value" id="analytics-total-visits">--</p>
+</div>
+<div class="analytics-stat-card">
+<p class="text-sm text-slate-500">Unique Visitors</p>
+<p class="analytics-stat-value" id="analytics-unique-visitors">--</p>
+</div>
+<div class="analytics-stat-card">
+<p class="text-sm text-slate-500">Countries Reached</p>
+<p class="analytics-stat-value" id="analytics-countries-reached">--</p>
+</div>
+<div class="analytics-stat-card">
+<p class="text-sm text-slate-500">Visits In 24h</p>
+<p class="analytics-stat-value" id="analytics-last-24h">--</p>
+</div>
+</div>
+<p class="mt-5 text-sm text-slate-500" id="analytics-last-updated">Dashboard locked</p>
+</article>
+<article class="reveal card-surface p-6 sm:p-7">
+<p class="text-sm font-semibold tracking-[0.14em] text-slate-500 uppercase">Country Ranking</p>
+<h3 class="mt-2 text-2xl font-bold text-slate-950">Top Countries</h3>
+<div class="mt-6" id="analytics-top-countries">
+<p class="analytics-empty">Dashboard is locked.</p>
+</div>
+</article>
+<article class="reveal card-surface p-6 sm:p-7">
+<p class="text-sm font-semibold tracking-[0.14em] text-slate-500 uppercase">Location Ranking</p>
+<h3 class="mt-2 text-2xl font-bold text-slate-950">Top Cities / Regions</h3>
+<div class="mt-6" id="analytics-top-locations">
+<p class="analytics-empty">Dashboard is locked.</p>
+</div>
+</article>
+</div>
+</div>
+<div class="mt-5 grid gap-5 xl:grid-cols-[0.82fr_1.18fr]">
+<article class="reveal card-surface p-6 sm:p-7">
+<p class="text-sm font-semibold tracking-[0.14em] text-slate-500 uppercase">Recent Trend</p>
+<h3 class="mt-2 text-2xl font-bold text-slate-950">Daily Visits</h3>
+<p class="mt-2 text-sm text-slate-600">The latest 14 daily buckets within the selected time window.</p>
+<div class="mt-6" id="analytics-trend">
+<p class="analytics-empty">Dashboard is locked.</p>
+</div>
+</article>
+<article class="reveal card-surface p-6 sm:p-7">
+<p class="text-sm font-semibold tracking-[0.14em] text-slate-500 uppercase">Recent Activity</p>
+<h3 class="mt-2 text-2xl font-bold text-slate-950">Latest Visits</h3>
+<p class="mt-2 text-sm text-slate-600">Exact timestamps and traffic sources for the newest visitor events.</p>
+<div class="mt-6" id="analytics-recent-visits">
+<p class="analytics-empty">Dashboard is locked.</p>
+</div>
+</article>
+</div>
+</div>
+</section>
 </main>
 <footer class="border-t border-slate-200 bg-white py-10 text-slate-900">
 <div class="mx-auto flex max-w-7xl flex-col gap-6 px-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
@@ -1119,6 +1435,8 @@
     <p>Award: First-Class Scholarship.</p>
     <p>This recognition highlights outstanding leadership, student service, and academic performance at Guangdong University of Technology.</p>
 </template>
+<script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script defer src="assets/visitor-analytics.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
       const body = document.body;
@@ -1243,6 +1561,7 @@
 
       updateHeaderState();
       updateActiveNav();
+      window.initVisitorAnalytics?.();
     });
   </script>
 </body>
