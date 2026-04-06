@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>ChengLang Rong | Personal Academic Homepage</title>
+<title>ChengLang Rong | 容程朗 | Personal Academic Homepage</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
 <script>
@@ -315,8 +315,9 @@
     .modal-open { overflow: hidden; }
 
     .modal-copy p {
-      margin: 0 0 1rem;
-      line-height: 1.9;
+      margin: 0 0 1.15rem;
+      font-size: 1.06rem;
+      line-height: 2;
       color: #334155;
     }
     .modal-copy ul {
@@ -330,10 +331,15 @@
       line-height: 1.85;
     }
     .modal-copy h4 {
-      margin: 1.75rem 0 0.85rem;
-      font-size: 1rem;
-      font-weight: 700;
-      color: #0f172a;
+      margin: 0 0 1.1rem;
+      font-size: 1.5rem;
+      line-height: 1.45;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #143b35;
+    }
+    .modal-copy h4 + p {
+      margin-top: 0;
     }
 
     .certificate-placeholder {
@@ -414,12 +420,16 @@
 <span class="inline-flex h-10 items-center justify-center rounded-full bg-brand-900/90 px-4 text-[11px] font-semibold tracking-[0.14em] text-white uppercase shadow-sm">Research</span>
 <div>
 <p class="text-sm font-semibold tracking-[0.12em] text-slate-500 uppercase">Academic Homepage</p>
-<p class="text-lg font-semibold">ChengLang Rong</p>
+<p class="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-lg font-semibold leading-tight">
+<span>ChengLang Rong</span>
+<span class="text-sm font-bold tracking-[0.16em] text-brand-700 sm:text-base">容程朗</span>
+</p>
 </div>
 </a>
 <nav class="hidden items-center gap-8 md:flex">
 <a class="nav-link text-sm font-medium text-slate-600" data-nav-link="" href="#home">Home</a>
 <a class="nav-link text-sm font-medium text-slate-600" data-nav-link="" href="#research">Research</a>
+<a class="nav-link text-sm font-medium text-slate-600" data-nav-link="" href="#publications">Papers</a>
 <a class="nav-link text-sm font-medium text-slate-600" data-nav-link="" href="#awards">Awards</a>
 <a class="nav-link text-sm font-medium text-slate-600" data-nav-link="" href="#education">Education</a>
 <a class="nav-link text-sm font-medium text-slate-600" data-nav-link="" href="#contact">Contact</a>
@@ -432,6 +442,7 @@
 <nav class="grid gap-1">
 <a class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100" data-mobile-link="" href="#home">Home</a>
 <a class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100" data-mobile-link="" href="#research">Research</a>
+<a class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100" data-mobile-link="" href="#publications">Papers</a>
 <a class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100" data-mobile-link="" href="#awards">Awards</a>
 <a class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100" data-mobile-link="" href="#education">Education</a>
 <a class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100" data-mobile-link="" href="#contact">Contact</a>
@@ -445,9 +456,11 @@
 <div class="mx-auto grid max-w-7xl gap-8 px-4 pb-14 sm:gap-10 sm:px-6 sm:pb-16 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:gap-8 lg:px-8 lg:pb-20">
 <div class="reveal relative z-10">
 <span class="eyebrow">Personal Academic Website</span>
-<h1 class="mt-6 text-5xl font-black tracking-tight text-slate-950 sm:text-6xl lg:text-7xl">容程朗</h1>
-<p class="mt-4 text-xl font-semibold text-slate-700 sm:text-2xl">ChengLang Rong</p>
-<p class="mt-6 max-w-3xl text-base leading-8 text-slate-600 sm:text-lg">Undergraduate Research: AI, Deep Reinforcement Learning, Deep Learning, Scheduling, Intelligent Multi-Robot Scheduling in Semiconductor Manufacturing Systems, and Modeling and Scheduling Algorithms for Discrete-Event Systems.</p>
+<h1 class="mt-6 leading-[0.95] text-slate-950">
+<span class="block text-5xl font-black tracking-tight sm:text-6xl lg:text-7xl">ChengLang Rong</span>
+<span class="mt-3 block text-[1.9rem] font-extrabold tracking-[0.18em] text-brand-700 sm:text-[2.4rem] lg:text-[3rem]">容程朗</span>
+</h1>
+<p class="mt-5 max-w-3xl text-base leading-8 text-slate-600 sm:text-lg">Undergraduate researcher focusing on artificial intelligence, deep reinforcement learning, semiconductor manufacturing scheduling, and optimization for discrete-event systems.</p>
 <div class="mt-8 flex flex-wrap gap-4">
 <a class="inline-flex items-center justify-center rounded-xl bg-brand-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-800" href="#research">
               View Research
@@ -456,7 +469,7 @@
               Contact
             </a>
 </div>
-<div class="mt-10 grid gap-4 sm:grid-cols-3">
+<div class="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
 <div class="card-surface p-5">
 <p class="text-sm font-medium text-slate-500">Study Period</p>
 <p class="mt-2 text-2xl font-bold text-slate-950">2023-2027</p>
@@ -466,6 +479,11 @@
 <p class="text-sm font-medium text-slate-500">GPA</p>
 <p class="mt-2 text-2xl font-bold text-slate-950">3.536 / 5.0</p>
 <p class="mt-1 text-sm text-slate-600">First Five Semesters</p>
+</div>
+<div class="card-surface p-5">
+<p class="text-sm font-medium text-slate-500">Major Rank</p>
+<p class="mt-2 text-2xl font-bold text-slate-950">6 / 36</p>
+<p class="mt-1 text-sm text-slate-600">Artificial Intelligence Innovation Class</p>
 </div>
 <div class="card-surface p-5">
 <p class="text-sm font-medium text-slate-500">Research Projects</p>
@@ -482,7 +500,7 @@
 <div class="hero-portrait-wrap relative">
 <div class="hero-avatar-ring"></div>
 <div class="hero-portrait-frame">
-<img alt="容程朗" class="hero-portrait-image" loading="eager" src="assets/profile.jpg"/>
+<img alt="Portrait of ChengLang Rong (容程朗)" class="hero-portrait-image" loading="eager" src="assets/profile.jpg"/>
 </div>
 </div>
 </div>
@@ -548,9 +566,13 @@
 <p class="mt-2 font-semibold text-slate-900">Project Lead</p>
 </div>
 </div>
-<p class="mt-6 text-base font-semibold leading-8 text-slate-700">
-              Developing an ongoing scheduling framework for single-arm multicluster tools that process multiple wafer types under parallel-processing, residency-time, and reentrant buffer cooling constraints, with breakthrough progress already achieved in exact modeling, neighborhood search, and learning-guided optimization.
-            </p>
+<div class="mt-6 space-y-2 text-sm leading-7 text-slate-600">
+<p><span class="font-semibold text-slate-900">Problem:</span> Schedule multi-type wafers in a single-arm multicluster tool with reentrant buffer cooling.</p>
+<p><span class="font-semibold text-slate-900">Constraints:</span> Parallel processing, residency-time limits, shared-resource exclusivity, and BM1 reentry and cooling logic.</p>
+<p><span class="font-semibold text-slate-900">Method:</span> A three-layer framework combining CP-SAT, domain-specific LNS, and a GNN-guided RL controller.</p>
+<p><span class="font-semibold text-slate-900">Results:</span> A unified exact model and learning-guided search pipeline are already running, with preliminary gains over a short-horizon exact baseline.</p>
+<p><span class="font-semibold text-slate-900">My Contribution:</span> I lead the project and designed the modeling framework, core neighborhoods, and learning-guided optimization pipeline.</p>
+</div>
 <div class="card-action flex flex-wrap gap-3">
 <button class="inline-flex items-center justify-center rounded-2xl bg-brand-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-800" data-modal-button="" data-template="detail-research4" data-title="Research Detail" type="button">
                 View Details
@@ -568,7 +590,7 @@
 <span class="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">Scheduling</span>
 <span class="rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700">Single Robot</span>
 <span class="rounded-full bg-fuchsia-50 px-3 py-1 text-xs font-semibold text-fuchsia-700">Dual Cluster Tool</span>
-<span class="rounded-full bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-700">SCI Journal Submission</span>
+<span class="rounded-full bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-700">SCI Q2 Submission in Preparation</span>
 </div>
 <div class="mt-6 grid gap-4 sm:grid-cols-2">
 <div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
@@ -580,9 +602,13 @@
 <p class="mt-2 font-semibold text-slate-900">Project Lead</p>
 </div>
 </div>
-<p class="mt-6 text-base font-semibold leading-8 text-slate-700">
-              Developed a multi-agent reinforcement-learning scheduling framework for single-arm multicluster tools under parallel-processing and residency-time constraints. In representative two-type and three-type wafer scenarios, the proposed MA-QMIX-PPO achieved the best or tied-best minimum makespan against MAQMIX, MAPPO, MADDPG, MATD3, and MACTD4, and the related journal paper is currently under SCI submission with me as second author.
-            </p>
+<div class="mt-6 space-y-2 text-sm leading-7 text-slate-600">
+<p><span class="font-semibold text-slate-900">Problem:</span> Coordinate multi-type wafer scheduling in a multicluster tool with multiple interacting modules and robots.</p>
+<p><span class="font-semibold text-slate-900">Constraints:</span> Shared BMs and PMs, residency-time limits, full-cycle scheduling, and deadlock-sensitive resource coupling.</p>
+<p><span class="font-semibold text-slate-900">Method:</span> A multi-agent reinforcement-learning formulation with the MA-QMIX-PPO scheduling algorithm.</p>
+<p><span class="font-semibold text-slate-900">Results:</span> The method achieved the best or tied-best minimum makespan against MAQMIX, MAPPO, MADDPG, MATD3, and MACTD4; the paper is being prepared for submission to an SCI Q2 journal.</p>
+<p><span class="font-semibold text-slate-900">My Contribution:</span> I led the algorithm and experiment design for the project and am the second author on the journal manuscript.</p>
+</div>
 <div class="card-action flex flex-wrap gap-3">
 <button class="inline-flex items-center justify-center rounded-2xl bg-brand-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-800" data-modal-button="" data-template="detail-research2" data-title="Research Detail" type="button">
                 View Details
@@ -600,7 +626,7 @@
 <span class="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">Scheduling</span>
 <span class="rounded-full bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-700">Single Robot</span>
 <span class="rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700">Single Cluster Tool</span>
-<span class="rounded-full bg-violet-50 px-3 py-1 text-xs font-semibold text-violet-700">CCF-C Conference</span>
+<span class="rounded-full bg-violet-50 px-3 py-1 text-xs font-semibold text-violet-700">CSCWD 2026 Accepted</span>
 </div>
 <div class="mt-6 grid gap-4 sm:grid-cols-2">
 <div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
@@ -612,9 +638,13 @@
 <p class="mt-2 font-semibold text-slate-900">Project Lead</p>
 </div>
 </div>
-<p class="mt-6 text-base font-semibold leading-8 text-slate-700">
-              Developed a deep-reinforcement-learning scheduling strategy for a single robotic arm in a cluster tool handling two wafer types with parallel processing and residency-time constraints. The improved TD3 method achieved lower makespan, faster convergence, and stronger generalization than TD3, DDPG, and DQN across representative scenarios, and the related paper has been accepted by a CCF-C conference with me as first author.
-            </p>
+<div class="mt-6 space-y-2 text-sm leading-7 text-slate-600">
+<p><span class="font-semibold text-slate-900">Problem:</span> Optimize full-cycle scheduling for a single-arm cluster tool processing two wafer types.</p>
+<p><span class="font-semibold text-slate-900">Constraints:</span> Parallel PMs, shared modules, residency-time limits, and one-wafer-at-a-time robotic transport.</p>
+<p><span class="font-semibold text-slate-900">Method:</span> An MDP formulation solved by an improved TD3 algorithm with dynamic exploration, prioritized replay, cyclic learning rate, and attention.</p>
+<p><span class="font-semibold text-slate-900">Results:</span> The method delivered lower makespan, faster convergence, and stronger generalization than TD3, DDPG, and DQN; the first-author paper was accepted by CSCWD 2026, a CCF-C conference.</p>
+<p><span class="font-semibold text-slate-900">My Contribution:</span> I completed the modeling, algorithm design, experiments, and paper writing as first author.</p>
+</div>
 <div class="card-action flex flex-wrap gap-3">
 <button class="inline-flex items-center justify-center rounded-2xl bg-brand-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-800" data-modal-button="" data-template="detail-research1" data-title="Research Detail" type="button">
                 View Details
@@ -644,13 +674,58 @@
 <p class="mt-2 font-semibold text-slate-900">Project Participant</p>
 </div>
 </div>
-<p class="mt-6 text-base font-semibold leading-8 text-slate-700">
-              Based on the operating principles of central air-conditioning systems, this project studied how to coordinate multiple components, used neural-network-based models to predict post-frequency-regulation power under constrained external conditions, and developed an adaptive intelligent scheduling system with a DDPG-based control algorithm. The project won Third Prize in the Guangdong Regional Competition of the China Robot and Artificial Intelligence Competition.
-            </p>
+<div class="mt-6 space-y-2 text-sm leading-7 text-slate-600">
+<p><span class="font-semibold text-slate-900">Problem:</span> Improve the coordinated scheduling of central air-conditioning equipment under changing operating conditions.</p>
+<p><span class="font-semibold text-slate-900">Constraints:</span> Device coupling, external-condition limits, power-response uncertainty, and real-time control requirements.</p>
+<p><span class="font-semibold text-slate-900">Method:</span> Neural-network-based power prediction combined with a DDPG scheduling and control system.</p>
+<p><span class="font-semibold text-slate-900">Results:</span> The project produced an adaptive HVAC scheduling prototype and won Third Prize in the Guangdong Regional Competition of the China Robot and Artificial Intelligence Competition.</p>
+<p><span class="font-semibold text-slate-900">My Contribution:</span> I participated in system analysis, predictive modeling, and reinforcement-learning-based scheduling implementation.</p>
+</div>
 <div class="card-action flex flex-wrap gap-3">
 <button class="inline-flex items-center justify-center rounded-2xl bg-brand-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-800" data-modal-button="" data-template="detail-research3" data-title="Research Detail" type="button">
                 View Details
               </button>
+</div>
+</article>
+</div>
+</div>
+</section>
+<section class="section-anchor py-16 sm:py-20" id="publications">
+<div class="section-shell mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<div class="reveal flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+<div class="max-w-3xl">
+<span class="eyebrow">Papers</span>
+<h2 class="mt-5 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">Paper Status</h2>
+<p class="mt-4 text-base leading-8 text-slate-600">
+              Current publication progress linked to my semiconductor scheduling research.
+            </p>
+</div>
+</div>
+<div class="mt-10 grid gap-5 xl:grid-cols-2">
+<article class="reveal card-balanced card-surface p-6 sm:p-8">
+<div class="flex flex-wrap items-center gap-3">
+<span class="rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-800 ring-1 ring-brand-100">Paper 01</span>
+<span class="rounded-full bg-violet-50 px-3 py-1 text-xs font-semibold text-violet-700">Accepted</span>
+</div>
+<h3 class="mt-5 text-2xl font-bold leading-snug text-slate-950">CSCWD 2026 Conference Paper</h3>
+<div class="mt-6 space-y-2 text-sm leading-7 text-slate-600">
+<p><span class="font-semibold text-slate-900">Status:</span> Accepted as a first-author paper at CSCWD 2026.</p>
+<p><span class="font-semibold text-slate-900">Level:</span> CCF Category C conference paper.</p>
+<p><span class="font-semibold text-slate-900">Topic:</span> Deep reinforcement learning for scheduling a single-arm cluster tool processing two wafer types.</p>
+<p><span class="font-semibold text-slate-900">Role:</span> First author.</p>
+</div>
+</article>
+<article class="reveal card-balanced card-surface p-6 sm:p-8">
+<div class="flex flex-wrap items-center gap-3">
+<span class="rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-800 ring-1 ring-brand-100">Paper 02</span>
+<span class="rounded-full bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-700">Preparing Submission</span>
+</div>
+<h3 class="mt-5 text-2xl font-bold leading-snug text-slate-950">SCI Q2 Journal Manuscript</h3>
+<div class="mt-6 space-y-2 text-sm leading-7 text-slate-600">
+<p><span class="font-semibold text-slate-900">Status:</span> Being prepared for submission to an SCI Q2 journal.</p>
+<p><span class="font-semibold text-slate-900">Topic:</span> Multi-agent reinforcement learning for scheduling single-arm multicluster tools under residency-time constraints.</p>
+<p><span class="font-semibold text-slate-900">Role:</span> Second author.</p>
+<p><span class="font-semibold text-slate-900">Progress:</span> Core algorithm design and benchmark results are complete, and the manuscript is under preparation.</p>
 </div>
 </article>
 </div>
@@ -810,6 +885,10 @@
 <p class="mt-2 text-lg font-semibold text-slate-900">3.536 / 5.0 (First Five Semesters)</p>
 </div>
 <div class="rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200">
+<p class="text-sm text-slate-500">Major Rank</p>
+<p class="mt-2 text-lg font-semibold text-slate-900">6 / 36 in the Artificial Intelligence Innovation Class</p>
+</div>
+<div class="rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200">
 <p class="text-sm text-slate-500">English Proficiency</p>
 <div class="mt-3 space-y-3">
 <div class="flex flex-wrap items-center justify-between gap-3">
@@ -906,8 +985,11 @@
 <footer class="border-t border-slate-200 bg-white py-10 text-slate-900">
 <div class="mx-auto flex max-w-7xl flex-col gap-6 px-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
 <div>
-<h3 class="text-2xl font-bold">容程朗 | ChengLang Rong</h3>
-<p class="mt-2 text-sm text-slate-500">Computer Science · Artificial Intelligence Research</p>
+<h3 class="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-2xl font-bold leading-tight">
+<span>ChengLang Rong</span>
+<span class="text-lg font-semibold tracking-[0.16em] text-brand-700">容程朗</span>
+</h3>
+<p class="mt-2 text-sm text-slate-500">Artificial Intelligence and Intelligent Scheduling Research</p>
 </div>
 <div class="flex items-center gap-4">
 <a aria-label="GitHub" class="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 text-slate-600 transition hover:border-slate-300 hover:bg-slate-100 hover:text-slate-900" href="https://github.com/ChenglangRong" rel="noreferrer" target="_blank">
@@ -916,7 +998,7 @@
 </div>
 </div>
 <div class="mx-auto mt-8 max-w-7xl border-t border-slate-200 px-4 pt-6 text-sm text-slate-500 sm:px-6 lg:px-8">
-      © 2026 ChengLang Rong | Academic Homepage. All rights reserved.
+      &copy; 2026 ChengLang Rong | 容程朗 | Academic Homepage. All rights reserved.
     </div>
 </footer>
 <div aria-hidden="true" class="fixed inset-0 z-[80] hidden" id="detail-modal">
@@ -926,7 +1008,7 @@
 <div class="flex items-start justify-between gap-4 border-b border-slate-200 px-6 py-5 sm:px-8">
 <div>
 <p class="text-sm font-semibold tracking-[0.16em] text-slate-500 uppercase">Detail</p>
-<h3 class="mt-2 text-2xl font-bold leading-snug text-slate-950" id="detail-modal-title"></h3>
+<h3 class="mt-2 text-[1.85rem] font-black leading-snug tracking-tight text-slate-950 sm:text-[2rem]" id="detail-modal-title"></h3>
 </div>
 <button aria-label="Close detail" class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 text-slate-600 transition hover:bg-slate-100" id="detail-modal-close" type="button">
 <i class="fa fa-times text-lg"></i>
@@ -939,129 +1021,40 @@
 <button aria-label="Back to top" class="floating-button fixed bottom-6 right-6 z-40 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-900 text-white transition hover:bg-brand-800" id="back-to-top" type="button">
 <i class="fa fa-arrow-up"></i>
 </button>
-<template id="detail-research1-legacy">
-<h4>涓枃浠嬬粛</h4>
-<p>鏈爺绌堕拡瀵瑰崟鑷傚崟缁勫悎璁惧鍔犲伐澶氬搧绉嶆櫠鍦嗕笖鍖呭惈鏅跺渾椹荤暀鏃堕棿绾︽潫鐨勮皟搴﹂棶棰橈紝鎻愬嚭浜嗕竴绉嶅熀浜庢繁搴﹀己鍖栧涔犵殑璋冨害绛栫暐銆備富瑕佸唴瀹瑰拰璐＄尞鍖呮嫭锛?/p>
-<p>杩欑瘒璁烘枃鐮旂┒鐨勬槸鍗曟満姊拌噦 cluster tool 鍦ㄥ姞宸ヤ袱绫绘櫠鍦嗘椂鐨勮皟搴︿紭鍖栭棶棰樸€備笌浼犵粺鍙€冭檻绋虫€佽皟搴︾殑鐮旂┒涓嶅悓锛屾垜鍏虫敞鐨勬槸鍚姩闃舵銆佺ǔ鎬侀樁娈靛拰鏀跺熬闃舵鐨勫叏娴佺▼璋冨害锛屽悓鏃惰€冭檻浜嗗苟琛屽伐鑹烘ā鍧椼€佸叡浜ā鍧楃珵浜変互鍙婃櫠鍦嗛┗鐣欐椂闂寸害鏉熴€傝繖绫婚棶棰樼殑闅剧偣鍦ㄤ簬锛氭満鍣ㄤ汉涓€娆″彧鑳芥惉杩愪竴鐗囨櫠鍦嗭紝浣嗕笉鍚岀被鍨嬫櫠鍦嗙殑璺緞鍙兘閲嶅彔锛屽叡浜ā鍧椾細甯︽潵璧勬簮绔炰簤锛岃€岄┗鐣欐椂闂撮檺鍒跺張瑕佹眰鏅跺渾鍔犲伐鍚庡繀椤诲湪瑙勫畾鏃堕棿鍐呰鍙婃椂绉诲嚭锛屽惁鍒欏氨浼氭姤搴熴€?/p>
-<p>閽堝杩欎釜闂锛屾垜棣栧厛灏嗚皟搴﹁繃绋嬪缓妯′负涓€涓┈灏斿彲澶喅绛栬繃绋嬶紝瀹氫箟浜嗙郴缁熺姸鎬併€佹満鍣ㄤ汉鍔ㄤ綔鍜屽鍔卞嚱鏁帮紱鐒跺悗鍦?TD3 鐨勫熀纭€涓婂仛浜嗘湁閽堝鎬х殑鏀硅繘锛屽寘鎷細鍔ㄦ€佸櫔澹版帰绱紝淇濊瘉鍓嶆湡鍏呭垎鎼滅储銆佸悗鏈熺ǔ瀹氭敹鏁涳紱鍔ㄦ€佷紭鍏堢粡楠屽洖鏀撅紝鎻愰珮楂樹环鍊兼牱鏈埄鐢ㄧ巼锛涜嚜閫傚簲寰幆瀛︿範鐜囷紝鍔犲揩鍏抽敭璋冨害绛栫暐瀛︿範锛涙敞鎰忓姏鏈哄埗锛屽寮虹姸鎬佷笌鍔ㄤ綔涔嬮棿鐨勫叧鑱斿涔狅紱闈㈠悜 makespan 鏈€灏忓寲鐨勫鍔辫璁★紱浠ュ強鐘舵€佺壒寰佹爣鍑嗗寲锛屽噺灏戜笉鍚岄噺绾插甫鏉ョ殑璁粌骞叉壈銆?/p>
-<p>鍦ㄥ疄楠岄儴鍒嗭紝鎴戣璁′簡鍥涚被鍏稿瀷鍦烘櫙锛屽寘鎷槸鍚﹀瓨鍦ㄥ叡浜?PM銆佹槸鍚﹀瓨鍦ㄥ苟琛岃矾寰勭瓑鎯呭喌锛屽苟灏嗘敼杩?TD3 涓庝紶缁?TD3銆丏DPG銆丏QN 杩涜瀵规瘮銆傜粨鏋滄樉绀猴紝鏀硅繘 TD3 鍦ㄥ鏁板満鏅笅鍙栧緱浜嗘洿浼樼殑鏈€灏?makespan锛屼緥濡傚湪 Env1 鍜?Env4 涓紭鍔垮挨鍏舵槑鏄撅紝鍚屾椂鏀舵暃閫熷害鏇村揩锛屾硾鍖栨€т篃鏇村己銆?/p>
-<p>杩欑瘒宸ヤ綔鐨勬剰涔夊湪浜庯紝瀹冭瘉鏄庝簡娣卞害寮哄寲瀛︿範鍙互鏈夋晥澶勭悊鍏锋湁寮虹害鏉熴€佸己鑰﹀悎鍜屽姩鎬佹€х殑鍗婂浣撹澶囪皟搴﹂棶棰橈紝骞朵笖鐩告瘮浼犵粺鍚彂寮忔垨闈欐€佷紭鍖栨柟娉曪紝鏇撮€傚悎澶勭悊澶氱被鍨嬫櫠鍦嗐€佸皬鎵归噺鍒堕€犱互鍙婂鏉傚伐鑹鸿矾寰勫甫鏉ョ殑瀹炴椂鍐崇瓥闇€姹傘€?/p>
-<p>璇ョ爺绌舵垚鏋滃凡琚獵CF C绫诲浗闄呬細璁綍鐢紝涓哄崐瀵间綋鍒堕€犱腑鐨勮皟搴︿紭鍖栨彁渚涗簡鏂扮殑瑙ｅ喅鏂规銆?/p>
-<h4>English Summary</h4>
-<p>This study focuses on the scheduling problem of a single-arm cluster tool processing multiple types of wafers under wafer residency time constraints, and proposes a scheduling strategy based on deep reinforcement learning. The main contents and contributions are as follows:</p>
-<p>This paper studies the scheduling problem of a single-arm cluster tool processing two wafer types. Unlike many existing studies that focus only on steady-state scheduling, my work considers the entire production cycle, including the startup transient, steady-state, and close-down transient phases. At the same time, it incorporates parallel processing modules, shared module competition, and wafer residency time constraints. The challenge is that a single robotic arm can move only one wafer at a time, while different wafer routes may overlap and share modules, and wafers must be removed from modules within a strict time limit after processing.</p>
-<p>To address this, I formulated the problem as an MDP and developed an improved TD3 algorithm tailored to this scheduling environment. The main technical contributions include dynamic noise exploration, dynamic prioritized replay, adaptive cyclic learning rate, an attention mechanism, a makespan-oriented reward function, and normalized state features. These designs improve both training stability and policy quality.</p>
-<p>In the experiments, I designed four representative scenarios with and without shared PMs and parallel paths, and compared the proposed method against traditional TD3, DDPG, and DQN. The results show that my improved TD3 achieves better minimum makespan and faster convergence in most scenarios, demonstrating stronger robustness and generalization capability.</p>
-<p>The significance of this work is that it demonstrates the feasibility of using deep reinforcement learning for complex, highly constrained, and dynamically coupled scheduling problems in semiconductor manufacturing. It provides a more flexible and practical alternative to conventional rule-based or static optimization approaches.</p>
-<p>This research has been accepted by a CCF-C international conference and provides a novel solution for scheduling optimization in semiconductor manufacturing.</p>
-</template>
-<template id="detail-research2-legacy">
-<h4>涓枃浠嬬粛</h4>
-<p>鏈爺绌跺皢鍗曡噦璋冨害闂鎷撳睍鍒颁簡澶氱粍鍚堣澶囧満鏅紝鍦ㄦ櫠鍦嗛┗鐣欐椂闂寸害鏉熷拰鍔犲伐澶氬搧绉嶆櫠鍦嗙殑鑳屾櫙涓嬶紝鎻愬嚭浜嗕竴绉嶅熀浜庡鏅鸿兘浣撶殑娣卞害寮哄寲瀛︿範鐨勮皟搴︾瓥鐣ャ€備富瑕佸唴瀹瑰拰璐＄尞鍖呮嫭锛?/p>
-<p>杩欑瘒璁烘枃杩涗竴姝ョ爺绌朵簡single-arm multicluster tool 鐨勮皟搴﹂棶棰樸€備笌鍗曚竴 cluster tool 鐩告瘮锛宮ulticluster tool 鐢卞涓?cluster tool 涓茶仈缁勬垚锛岀浉閭昏澶囦箣闂撮€氳繃鍏变韩缂撳啿妯″潡 BM 杩炴帴锛屽洜姝ょ郴缁熻€﹀悎鏇村己銆佽皟搴︽洿澶嶆潅銆傝鏂囦腑閲嶇偣鐮旂┒浜嗕袱绫绘垨涓夌被鏅跺渾骞惰鍔犲伐鐨勬儏鍐碉紝鍚屾椂鑰冭檻鍏变韩 BM銆佸苟琛?PM銆佹櫠鍦嗛┗鐣欐椂闂寸害鏉熶互鍙婄郴缁熸閿侀闄┿€傝繖浣块棶棰樹粠鍗曟満鍣ㄤ汉鍐崇瓥鎵╁睍涓哄鏈哄櫒浜哄崗鍚屽喅绛栭棶棰樸€?/p>
-<p>鍦ㄨ繖涓伐浣滈噷锛屾垜鎶婄郴缁熷缓妯′负澶氭櫤鑳戒綋寮哄寲瀛︿範闂锛屼负涓や釜鏈烘鑷傚垎鍒璁℃櫤鑳戒綋锛屽苟鎻愬嚭浜哅A-QMIX-PPO 绠楁硶銆傝繖涓畻娉曟妸 QMIX 鐨勪环鍊煎垎瑙ｈ兘鍔涘拰 PPO 鐨勭ǔ瀹氱瓥鐣ヤ紭鍖栬兘鍔涚粨鍚堣捣鏉ワ紝鏍稿績璁捐鍖呮嫭锛氱敤 QMIX 鐨勬贩鍚堢綉缁滆В鍐冲鏅鸿兘浣撳崗鍚屼腑鐨勪俊鐢ㄥ垎閰嶉棶棰橈紱鐢ㄥ姩浣滄帺鐮佺害鏉熼潪娉曞姩浣滐紝鍑忓皯鏃犳晥鎺㈢储锛涚敤甯︽寚鏁拌“鍑忕殑 蔚-greedy 鎻愬崌鎺㈢储鏁堢巼锛涚敤 PPO clipping 淇濊瘉绛栫暐鏇存柊绋冲畾锛涚敤寮傛鑱斿悎鏇存柊鎻愬崌 actor 涓?critic 鐨勮缁冩晥鏋滐紱鍐嶇粨鍚堢洰鏍囩綉缁滆蒋鏇存柊鍜岀姸鎬佹爣鍑嗗寲锛屽寮烘暣浣撴敹鏁涚ǔ瀹氭€с€?/p>
-<p>瀹為獙閮ㄥ垎璁剧疆浜嗕袱绫讳唬琛ㄦ€у満鏅細涓€涓槸涓ょ被鏅跺渾鎸?1:1 姣斾緥骞惰鍔犲伐锛屽彟涓€涓槸涓夌被鏅跺渾鎸?1:1:1 姣斾緥骞惰鍔犲伐銆傜粨鏋滄樉绀猴紝MA-QMIX-PPO 鍦ㄦ渶灏?makespan 鎸囨爣涓婁紭浜?MAQMIX銆丮APPO銆丮ADDPG銆丮ATD3 鍜?MACTD4锛涘悓鏃讹紝璁烘枃杩橀€氳繃鐢樼壒鍥惧拰璁粌鏇茬嚎灞曠ず浜嗙畻娉曞湪澶嶆潅绾︽潫鍦烘櫙涓嬬殑绋冲畾鎬у拰鍗忓悓鎬с€?/p>
-<p>杩欑瘒宸ヤ綔鐨勬剰涔夊湪浜庯紝瀹冭繘涓€姝ヨ鏄庯細褰撳崐瀵间綋鍒堕€犺澶囦粠鍗曡澶囨墿灞曞埌澶氳澶囦覆鑱斻€佷粠鍗曟櫤鑳戒綋鎵╁睍鍒板鏅鸿兘浣撴椂锛屽己鍖栧涔犱粛鐒惰兘澶熸垚涓哄彲琛屼笖鏈夋晥鐨勮皟搴︽眰瑙ｆ鏋躲€傝繖瀵规湭鏉ユ洿澶嶆潅鐨勫鏈哄彴鍗忓悓璋冨害銆佹洿澶氭櫠鍦嗙被鍨嬬敓浜т互鍙婃洿鐪熷疄鐨勫伐涓氱郴缁熻惤鍦伴兘鏈夊緢寮虹殑鍙傝€冧环鍊笺€?/p>
-<p>璇ョ爺绌舵垚鏋滄鍦ㄦ姇绋縎CI Top鏈熷垔锛屾湁鏈涗负鍗婂浣撳埗閫犵郴缁熺殑鏅鸿兘鍖栬皟搴︽彁渚涚悊璁哄拰鎶€鏈敮鎾戙€?/p>
-<h4>English Summary</h4>
-<p>This study extends the single-arm scheduling problem to a multi-cluster tool scenario and, in the context of wafer residency time constraints and multi-type wafer processing, proposes a scheduling strategy based on multi-agent deep reinforcement learning. The main contents and contributions are as follows:</p>
-<p>This paper studies a more challenging setting: single-arm multicluster tools. Compared with a single cluster tool, a multicluster tool consists of multiple interconnected cluster tools linked by shared buffer modules, which introduces stronger coupling, more severe resource competition, and a higher risk of deadlock. This work focuses on concurrent processing of two or three wafer types, while considering shared BMs, parallel PMs, wafer residency time constraints, and full-cycle scheduling.</p>
-<p>To solve this problem, I formulated it as a multi-agent reinforcement learning problem and proposed a MA-QMIX-PPO algorithm. In this framework, each robot is controlled by an independent agent, while coordination is achieved through centralized training and decentralized execution. The key designs include QMIX-based value decomposition, action masking for invalid actions, epsilon-greedy exploration with exponential decay, PPO clipping for stable policy updates, asynchronous actor-critic updates, soft target-network updates, and state normalization.</p>
-<p>In the experiments, I evaluated the method on representative scenarios for two-type wafer processing at a 1:1 ratio and three-type wafer processing at a 1:1:1 ratio. The proposed MA-QMIX-PPO achieved the best or tied-best minimum makespan compared with MAQMIX, MAPPO, MADDPG, MATD3, and MACTD4, while also showing strong coordination ability and stable training behavior.</p>
-<p>The significance of this work is that it extends intelligent scheduling from a single-equipment setting to a multi-equipment collaborative setting, showing that multi-agent reinforcement learning can effectively handle real-world semiconductor systems with shared resources, strong coupling, and deadlock constraints. It provides a strong foundation for future work on larger-scale and more realistic manufacturing systems.</p>
-<p>This research is currently under submission to a top-tier SCI journal and is expected to provide theoretical and technical support for intelligent scheduling in semiconductor manufacturing systems.</p>
-</template>
-<template id="detail-research3-legacy">
-<h4>涓枃浠嬬粛</h4>
-<p>鏈」鐩洿缁曚腑澶┖璋冪殑鏅鸿兘璋冨害绯荤粺灞曞紑鐮旂┒锛屾椂闂翠负 2024.09-2025.07锛屾垜鍦ㄩ」鐩腑鎷呬换椤圭洰鍙備笌鑰呫€傜爺绌朵互涓ぎ绌鸿皟绯荤粺鐨勫伐浣滃師鐞嗕负鍩虹锛岄噸鐐瑰垎鏋愪簡鍐锋満銆佹按娉点€侀鏈哄強鐩稿叧杈呭姪閮ㄤ欢涔嬮棿鐨勫崗鍚岃繍琛屾満鍒讹紝鎺㈢储鍦ㄤ笉鍚屽鐣岀幆澧冨拰杩愯鏉′欢涓嬶紝鍚勭粍鎴愰儴鍒嗗浣曢€氳繃鍚堢悊璋冨害瀹炵幇鏁翠綋楂樻晥銆佺ǔ瀹氳繍琛屻€?/p>
-<p>椤圭洰鐨勪竴涓牳蹇冨唴瀹规槸鐮旂┒涓ぎ绌鸿皟鍚勯儴浠朵箣闂寸殑鑰﹀悎鍏崇郴涓庡崗璋冨伐浣滄ā寮忋€備笌鍙叧娉ㄥ崟涓€璁惧鎺у埗鐨勬柟娉曚笉鍚岋紝鏈」鐩皢涓ぎ绌鸿皟瑙嗕负涓€涓璁惧鍗忓悓绯荤粺锛岄噸鐐瑰垎鏋愪笉鍚岄儴浠剁殑鍔熺巼鍙樺寲銆佸搷搴旂壒鎬т互鍙婄浉浜掑奖鍝嶅叧绯伙紝浠庣郴缁熷眰闈㈠鎵惧吋椤捐兘鑰椼€佺ǔ瀹氭€у拰鎺у埗鏁堟灉鐨勮皟搴︾瓥鐣ャ€?/p>
-<p>鍦ㄥ缓妯′笌棰勬祴鏂归潰锛岄」鐩埄鐢ㄧ缁忕綉缁滄妧鏈紝瀵归檺瀹氬鐣岀幆澧冩潯浠朵笅杩愯鐨勪腑澶┖璋冭澶囧湪鎵ц璋冮鎺у埗鍚庣殑宸ヤ綔鍔熺巼杩涜杈冧负鍑嗙‘鐨勬ā鎷熶笌棰勬祴銆傝棰勬祴妯″瀷涓哄悗缁皟搴﹀喅绛栨彁渚涗簡鏁版嵁鏀拺锛屼娇绯荤粺鑳藉鍦ㄦ帶鍒跺墠鏇村ソ鍦拌瘎浼颁笉鍚岃皟鑺傛柟妗堝璁惧鍔熺巼鍜屾暣浣撹繍琛岀姸鎬佺殑褰卞搷銆?/p>
-<p>鍦ㄦ鍩虹涓婏紝椤圭洰鍩轰簬寮哄寲瀛︿範涓殑 DDPG 绠楁硶锛岃璁″苟缂栧啓浜嗕竴涓兘澶熻嚜閫傚簲鐜鍙樺寲鍜屽悇閮ㄤ欢宸ヤ綔鍔熺巼鍙樺寲鐨勪腑澶┖璋冩櫤鑳借皟搴︾畻娉曚笌绯荤粺銆傝鏂规硶鑳藉鏍规嵁鐜鐘舵€佸拰璁惧鍙嶉鍔ㄦ€佽皟鏁磋皟搴︾瓥鐣ワ紝浠庤€屾彁鍗囩郴缁熷湪澶嶆潅宸ュ喌涓嬬殑鑷€傚簲鑳藉姏鍜岃繍琛屾晥鐜囷紝鐩歌緝浜庝紶缁熻鍒欏紡鎺у埗鏂规硶鍏锋湁鏇村己鐨勭伒娲绘€с€?/p>
-<p>璇ラ」鐩渶缁堣幏寰椾簡涓浗鏈哄櫒浜哄強浜哄伐鏅鸿兘澶ц禌骞夸笢璧涘尯涓夌瓑濂栵紝浣撶幇浜嗛」鐩湪鎶€鏈疄鐜板拰搴旂敤浠峰€间笂鐨勭患鍚堣〃鐜般€傛暣浣撹€岃█锛岃繖椤瑰伐浣滃睍绀轰簡灏嗙缁忕綉缁滈娴嬩笌寮哄寲瀛︿範鎺у埗缁撳悎锛岀敤浜庝腑澶┖璋冩櫤鑳借皟搴︾郴缁熻璁＄殑鍙鎬э紝涔熶负鏅烘収寤虹瓚涓庤兘婧愮鐞嗗満鏅笅鐨勬櫤鑳芥帶鍒剁爺绌舵彁渚涗簡鏈変环鍊肩殑鍙傝€冦€?/p>
-<h4>English Summary</h4>
-<p>This project focused on the intelligent scheduling of a central air-conditioning system from September 2024 to July 2025. Starting from the operating principles of the system, we studied how major components such as chillers, pumps, fans, and auxiliary control units could be scheduled in a coordinated manner so that the entire system could respond efficiently to changing environmental and operating conditions.</p>
-<p>A core part of the work was to analyze the coupling relationships among different devices and identify scheduling patterns that balance system stability, energy efficiency, and control responsiveness. Instead of optimizing each component independently, the project treated central air conditioning as a collaborative multi-device system and explored how equipment-level decisions affect the overall operating state.</p>
-<p>To support intelligent decision-making, we applied neural network techniques to model and predict the power consumption of central air-conditioning equipment after frequency regulation under constrained external conditions. This prediction module provided a relatively accurate estimate of how each device would respond after control adjustments, which created a practical data-driven basis for subsequent scheduling and optimization.</p>
-<p>On top of the predictive model, we designed and implemented an intelligent scheduling algorithm and system based on the DDPG reinforcement learning framework. The algorithm was built to adapt to environmental changes and dynamic variations in device power, enabling the scheduler to continuously adjust control actions and improve the coordination strategy in real time. This made the system more adaptive than conventional rule-based scheduling approaches.</p>
-<p>The project was recognized with Third Prize in the Guangdong Regional Competition of the China Robot and Artificial Intelligence Competition, which highlighted both its technical completeness and its practical value. Overall, this work demonstrated how neural-network-based power prediction and reinforcement-learning-based control can be integrated into an end-to-end intelligent scheduling system for central air conditioning, providing a useful reference for energy management and smart building applications.</p>
-</template>
-<template id="detail-research4-legacy">
-<h4>涓枃浠嬬粛</h4>
-<p>鏈」鐩嚜 2025 骞?11 鏈堟寔缁嚦浠婏紝鍥寸粫鍗曡噦鍙岀粍鍚堣澶囦腑澶氬搧绉嶆櫠鍦嗗湪骞跺彂鍔犲伐銆侀┗鐣欐椂闂寸害鏉熶互鍙婇噸鍏ョ紦鍐插尯鍐峰嵈绾︽潫涓嬬殑璋冨害闂灞曞紑鐮旂┒锛屾垜鍦ㄩ」鐩腑鎷呬换鎬昏礋璐ｄ汉銆傝椤圭洰鐩墠浠嶅浜庢寔缁帹杩涢樁娈碉紝灏氭湭鏈€缁堝畬鎴愶紝浣嗗凡缁忓湪寤烘ā銆佹悳绱㈢瓥鐣ヨ璁″拰鍒濇瀹為獙缁撴灉鏂归潰鍙栧緱浜嗚緝涓虹獊鍑虹殑闃舵鎬х獊鐮淬€?/p>
-<p>鐮旂┒瀵硅薄鐢变袱鍙板崟鏈烘鑷傘€佸涓伐鑹鸿厰浠ュ強涓や釜缂撳啿鑵旂粍鎴愶紝涓嶅悓绫诲瀷鏅跺渾鍏锋湁涓嶅悓鍔犲伐璺緞銆傚叾涓紝C 绫绘櫠鍦嗗湪鍔犲伐杩囩▼涓渶瑕侀噸鍏?BM1 杩涜浜屾绛夊緟涓庡喎鍗达紝杩欎竴閲嶅叆缂撳啿鍖烘搷浣滀細鐩存帴褰卞搷 cooling time 鐨勫彲琛屾€э紝鍥犳 BM1 涓嶅啀鍙槸鏅€氳繃娓＄紦鍐插尯锛岃€屾槸鍚屾椂鎵胯浇鎺掗槦銆佸喎鍗村拰鑺傛媿鍗忚皟鐨勫叧閿摱棰堣祫婧愩€?/p>
-<p>璇ラ棶棰樼殑闅剧偣涓嶅湪浜庤矾寰勯€夋嫨锛岃€屽湪浜庡浐瀹氬伐鑹鸿矾寰勪笅鎵€鏈夋搷浣滅殑绮剧‘鏃堕棿瀹夋帓銆傝皟搴︾粨鏋滃繀椤诲悓鏃舵弧瓒虫満姊拌噦銆佸伐鑹鸿厰鍜岀紦鍐茶厰鐨勮祫婧愪簰鏂ョ害鏉燂紝鍚屼竴鏅跺渾鍐呴儴鐨勫伐鑹哄厛鍚庣害鏉燂紝閮ㄥ垎宸ュ簭瀹屾垚鍚庡椹荤暀鏃堕棿鐨勪笂鐣岃姹傦紝浠ュ強缂撳啿鍖哄喎鍗寸瓑寰呮椂闂寸殑涓嬬晫瑕佹眰銆傚绫荤‖绾︽潫鍦ㄥ悓涓€绯荤粺鍐呭己鑰﹀悎锛屼娇璇ラ棶棰樻垚涓轰竴涓叿鏈夊叡浜祫婧愮珵浜夈€佹椂闂寸獥鍙ｉ檺鍒跺拰鏄惧紡鍐峰嵈閫昏緫鐨勫鏉傜粍鍚堜紭鍖栭棶棰樸€?/p>
-<p>鍥寸粫杩欎竴闂锛岄」鐩凡缁忓缓绔嬩簡鍒嗗眰鎶€鏈矾绾裤€傚簳灞傞噰鐢?CP-SAT 鍖洪棿璋冨害妯″瀷锛屽皢鐗╃悊宸ヨ壓娴佺▼杞寲涓虹粺涓€涓斿彲楠岃瘉鐨勫彉閲忎笌绾︽潫浣撶郴锛屼繚璇佺敓鎴愭帓绋嬬殑涓ユ牸鍙鎬э紱涓眰閲囩敤缁撳悎璁惧缁撴瀯鐗瑰緛鐨?Domain LNS锛屽鐡堕璧勬簮閾俱€侀┗鐣欓闄╅摼銆丅M1 鐩稿叧鎿嶄綔閾句互鍙?C 绫绘櫠鍦嗗喎鍗撮摼绛夊叧閿眬閮ㄥ尯鍩熻繘琛?destroy-repair 寮忛噸浼樺寲锛涗笂灞傝繘涓€姝ュ紩鍏?GNN 涓庡己鍖栧涔犳帶鍒跺櫒锛屽皢褰撳墠鎺掔▼缂栫爜涓哄姩鎬佸浘缁撴瀯锛屽涔犱笅涓€杞簲閫夋嫨鐨勯偦鍩熺畻瀛愬拰鏉惧紱瑙勬ā銆?/p>
-<p>鐩墠锛岄」鐩凡缁忓畬鎴愮粺涓€绮剧‘妯″瀷鐨勬惌寤猴紝褰㈡垚浜嗚嫢骞插叿鏈夐鍩熼拡瀵规€х殑閭诲煙绠楀瓙锛屽苟瀹炵幇浜嗗涔犲紩瀵兼悳绱笌浼樺寲娴佺▼鐨勫垵姝ヨ仈閫氥€傚凡鏈夊疄楠岀幇璞¤〃鏄庯紝闈㈠悜缁撴瀯鐗瑰緛璁捐鐨勬悳绱㈢瓥鐣ョ浉杈冪煭鏃剁簿纭熀绾胯兘澶熻繘涓€姝ユ彁鍗囨帓绋嬭川閲忥紝鑰屽涔犲紩瀵肩増鏈湪鏇村ぇ瑙勬ā銆佹洿寮虹害鏉熷疄渚嬩笂涔熷睍鐜板嚭杩涗竴姝ユ敼杩涚殑娼滃姏銆傝繖浜涚粨鏋滆鏄庯紝铏界劧椤圭洰灏氭湭鏀跺熬锛屼絾宸茬粡浜у嚭浜嗗叿鏈夊疄璐ㄤ环鍊肩殑绐佺牬鎬ц繘灞曘€?/p>
-<p>鎺ヤ笅鏉ョ殑宸ヤ綔灏嗙户缁洿缁曞疄楠岃ˉ鍏呫€佷笉鍚屾柟娉曟椂闂撮绠楀榻愪互鍙婂涔犳帶鍒跺櫒鐨勮繘涓€姝ヤ紭鍖栧睍寮€銆傛€讳綋鑰岃█锛岃椤圭洰鐩墠浠嶅湪娣卞叆鎺ㄨ繘涔嬩腑锛屼絾宸茬粡涓洪潰鍚戦噸鍏ョ紦鍐插尯鍐峰嵈绾︽潫鐨勫崐瀵间綋鏅鸿兘璋冨害寤虹珛浜嗘竻鏅般€佹墡瀹炰笖鍏锋湁鎵╁睍鎬х殑鐮旂┒鍩虹銆?/p>
-<h4>English Summary</h4>
-<p>This project, which has been running from November 2025 to the present, studies the scheduling of single-arm multicluster tools for multi-type wafers under parallel processing, residency time constraints, and reentrant buffer cooling operations. I serve as the overall project lead. The work is still ongoing rather than completed, but it has already produced several breakthrough advances in modeling, search design, and preliminary optimization results.</p>
-<p>The system considered in this project contains two single-arm robots, multiple process modules, and two buffer modules that jointly support transfer, queuing, and cooling. Three wafer types follow different processing routes. In particular, the C-type route reenters BM1 for a second waiting stage, and this reentrant buffer operation directly determines the required cooling time. As a result, BM1 is not merely a passive buffer but a critical bottleneck where resource competition, cooling feasibility, and downstream timing constraints become tightly coupled.</p>
-<p>The main challenge is not a simple routing problem, because the wafer paths are fixed in advance. The real difficulty is to schedule all operations on time while satisfying several hard constraints simultaneously: resource exclusivity for robots, PMs, and BMs; precedence relationships inside each wafer route; upper bounds on residency time after specific processing stages; and minimum waiting requirements for buffer cooling. This makes the problem a strongly coupled combinatorial optimization task with shared resources, time windows, and explicit cooling logic.</p>
-<p>To address this, the project has established a three-layer framework. At the bottom layer, a CP-SAT interval-scheduling model translates the physical process flow into a unified set of verifiable variables and constraints, ensuring that generated schedules remain strictly feasible. On top of that, a domain-specific large neighborhood search strategy repeatedly destroys and repairs only the most critical local regions, such as bottleneck resources, high-risk residency chains, BM1-related operation chains, and the special C-type cooling flow. At the upper layer, a GNN-plus-RL controller observes the current schedule as a dynamic graph and learns which neighborhood operator and relaxation size should be selected next.</p>
-<p>The project has already moved beyond conceptual design. A unified exact model has been built, key domain neighborhoods have been defined, and the learning-guided destroy-repair loop has been connected to the optimization pipeline. Preliminary experiments indicate that domain-aware search can improve schedule quality over a short-horizon exact baseline, and the learning-guided version shows additional promise in handling larger and more constrained instances. These results are important because they demonstrate that the project is generating real technical value even before the full study is finished.</p>
-<p>Current work is focused on extending the experimental evaluation, aligning time-budget comparisons across baselines, and further refining the learned search controller. In other words, this project is still in active progress, but it has already achieved breakthrough stage results and established a solid path toward a stronger final solution for intelligent semiconductor scheduling with reentrant buffer cooling constraints.</p>
-</template>
 <template id="detail-research1">
-<h4>English Summary</h4>
-<p>This study focuses on the scheduling problem of a single-arm cluster tool processing multiple wafer types under wafer residency time constraints, and proposes a scheduling strategy based on deep reinforcement learning. Beyond establishing the scheduling model, the work delivers clear performance gains: the improved TD3 policy achieves better makespan, faster convergence, and stronger robustness than several mainstream deep-RL baselines in representative scenarios, and the resulting paper has been accepted by a CCF-C international conference with me as first author.</p>
+<h4>Scheduling of a Single-Arm Cluster Tool for Processing Two Types of Wafers with Parallel Processing</h4>
+<p>This study focuses on the scheduling problem of a single-arm cluster tool processing multiple wafer types under wafer residency time constraints, and proposes a scheduling strategy based on deep reinforcement learning. Beyond establishing the scheduling model, the work delivers clear performance gains: the improved TD3 policy achieves better makespan, faster convergence, and stronger robustness than several mainstream deep-RL baselines in representative scenarios, and the resulting paper has been accepted by CSCWD 2026 with me as first author.</p>
 <p>This paper studies the scheduling problem of a single-arm cluster tool processing two wafer types. Unlike many existing studies that focus only on steady-state scheduling, my work considers the entire production cycle, including the startup transient, steady-state, and close-down transient phases. At the same time, it incorporates parallel processing modules, shared module competition, and wafer residency time constraints. The challenge is that a single robotic arm can move only one wafer at a time, while different wafer routes may overlap and share modules, and wafers must be removed from modules within a strict time limit after processing.</p>
 <p>To address this, I formulated the problem as an MDP and developed an improved TD3 algorithm tailored to this scheduling environment. The main technical contributions include dynamic noise exploration, dynamic prioritized replay, adaptive cyclic learning rate, an attention mechanism, a makespan-oriented reward function, and normalized state features. These designs improve both training stability and policy quality.</p>
 <p>In the experiments, I designed four representative scenarios with and without shared PMs and parallel paths, and compared the proposed method against traditional TD3, DDPG, and DQN. The results show that my improved TD3 achieves better minimum makespan and faster convergence in most scenarios, demonstrating stronger robustness and generalization capability.</p>
 <p>The significance of this work is that it demonstrates the feasibility of using deep reinforcement learning for complex, highly constrained, and dynamically coupled scheduling problems in semiconductor manufacturing. It provides a more flexible and practical alternative to conventional rule-based or static optimization approaches.</p>
-<p>This first-author paper has been accepted by a CCF-C international conference and provides a novel solution for scheduling optimization in semiconductor manufacturing.</p>
-<h4>中文介绍</h4>
-<p>本研究针对单机械臂单组合设备在晶圆驻留时间约束下加工多品种晶圆的调度问题，提出了一种基于深度强化学习的调度策略。除了完成问题建模外，该工作在实验中取得了较突出的结果：改进后的 TD3 在多个代表性场景下实现了更优的 makespan、更快的收敛速度以及更强的鲁棒性，相关成果已以本人一作被 CCF C 类国际会议录用。</p>
-<p>论文研究的是单机械臂 cluster tool 在加工两类晶圆时的调度优化问题。与只关注稳态调度的研究不同，我考虑了启动阶段、稳态阶段和收尾阶段的全流程调度，同时纳入并行工艺模块、共享模块竞争以及晶圆驻留时间约束。该问题的难点在于：机器人一次只能搬运一片晶圆，不同类型晶圆的工艺路径可能重叠，共享模块会带来资源竞争，而驻留时间限制又要求晶圆在加工后必须在规定时间内及时移出，否则就会报废。</p>
-<p>为解决这一问题，我首先将调度过程建模为马尔可夫决策过程，定义系统状态、机器人动作和奖励函数；随后在 TD3 的基础上做了针对性的改进，包括动态噪声探索、动态优先经验回放、自适应循环学习率、注意力机制、面向 makespan 最小化的奖励设计以及状态特征标准化，从而同时提升训练稳定性与策略质量。</p>
-<p>实验部分设计了四类典型场景，覆盖是否存在共享 PM、是否存在并行路径等情况，并将改进后的 TD3 与传统 TD3、DDPG、DQN 进行对比。结果表明，改进后的 TD3 在大多数场景下都能取得更优的最小 makespan，同时具有更快的收敛速度和更强的泛化能力。</p>
-<p>这项工作的意义在于，它验证了深度强化学习能够有效处理半导体制造中强约束、强耦合且具有动态性的复杂调度问题，相比传统启发式或静态优化方法，更适合应对多品种晶圆、小批量制造和复杂工艺路径带来的实时决策需求。</p>
-<p>该研究成果已以本人一作被 CCF C 类国际会议录用，为半导体制造中的调度优化提供了新的解决思路。</p>
+<p>This first-author paper has been accepted by CSCWD 2026, which is a CCF Category C conference, and provides a novel solution for scheduling optimization in semiconductor manufacturing.</p>
 </template>
 <template id="detail-research2">
-<h4>English Summary</h4>
-<p>This study extends the single-arm scheduling problem to a multicluster-tool setting and, under wafer residency-time constraints and multi-type wafer processing, proposes a scheduling strategy based on multi-agent deep reinforcement learning. The work is especially outcome-driven: the proposed MA-QMIX-PPO achieves the best or tied-best minimum makespan in representative two-type and three-type wafer scenarios, outperforms several strong MARL baselines in stability and coordination quality, and has progressed to submission to a top-tier SCI journal, with me as second author.</p>
+<h4>Scheduling of Single-Arm Multicluster Tools for Multi-Type Wafers with Parallel Processing and Residency Time Constraints</h4>
+<p>This study extends the single-arm scheduling problem to a multicluster-tool setting and, under wafer residency-time constraints and multi-type wafer processing, proposes a scheduling strategy based on multi-agent deep reinforcement learning. The work is especially outcome-driven: the proposed MA-QMIX-PPO achieves the best or tied-best minimum makespan in representative two-type and three-type wafer scenarios, outperforms several strong MARL baselines in stability and coordination quality, and the related paper is being prepared for submission to an SCI Q2 journal with me as second author.</p>
 <p>This paper studies a more challenging setting: single-arm multicluster tools. Compared with a single cluster tool, a multicluster tool consists of multiple interconnected cluster tools linked by shared buffer modules, which introduces stronger coupling, more severe resource competition, and a higher risk of deadlock. This work focuses on concurrent processing of two or three wafer types, while considering shared BMs, parallel PMs, wafer residency time constraints, and full-cycle scheduling.</p>
 <p>To solve this problem, I formulated it as a multi-agent reinforcement learning problem and proposed a MA-QMIX-PPO algorithm. In this framework, each robot is controlled by an independent agent, while coordination is achieved through centralized training and decentralized execution. The key designs include QMIX-based value decomposition, action masking for invalid actions, epsilon-greedy exploration with exponential decay, PPO clipping for stable policy updates, asynchronous actor-critic updates, soft target-network updates, and state normalization.</p>
 <p>In the experiments, I evaluated the method on representative scenarios for two-type wafer processing at a 1:1 ratio and three-type wafer processing at a 1:1:1 ratio. The proposed MA-QMIX-PPO achieved the best or tied-best minimum makespan compared with MAQMIX, MAPPO, MADDPG, MATD3, and MACTD4, while also showing strong coordination ability and stable training behavior.</p>
 <p>The significance of this work is that it extends intelligent scheduling from a single-equipment setting to a multi-equipment collaborative setting, showing that multi-agent reinforcement learning can effectively handle real-world semiconductor systems with shared resources, strong coupling, and deadlock constraints. It provides a strong foundation for future work on larger-scale and more realistic manufacturing systems.</p>
-<p>This second-author paper is currently under submission to a top-tier SCI journal and is expected to provide theoretical and technical support for intelligent scheduling in semiconductor manufacturing systems.</p>
-<h4>中文介绍</h4>
-<p>本研究将单机械臂调度问题拓展到了多组合设备场景，在晶圆驻留时间约束和多品种晶圆并行加工的背景下，提出了一种基于多智能体深度强化学习的调度策略。该工作不仅完成了更复杂场景下的建模与算法设计，还在代表性实验中取得了较强成果：MA-QMIX-PPO 在两类与三类晶圆并行加工场景下获得了最优或并列最优的最小 makespan，相比多种主流多智能体强化学习基线表现出更好的稳定性与协同效果，目前相关论文已以本人二作进入 SCI Top 期刊投稿阶段。</p>
-<p>论文进一步研究了 single-arm multicluster tool 的调度问题。与单一 cluster tool 相比，multicluster tool 由多个互联的 cluster tool 组成，相邻设备之间通过共享缓冲模块 BM 连接，因此系统耦合更强、资源竞争更激烈、调度复杂度也更高。本文重点关注两类或三类晶圆并行加工的情形，同时考虑共享 BM、并行 PM、晶圆驻留时间约束以及系统死锁风险，使问题从单机器人决策扩展为多机器人协同决策问题。</p>
-<p>在该工作中，我将系统建模为多智能体强化学习问题，为两个机械臂分别设计智能体，并提出了 MA-QMIX-PPO 算法。该方法结合了 QMIX 的价值分解能力和 PPO 的稳定策略优化能力，核心设计包括基于 QMIX 的协同价值建模、非法动作屏蔽、指数衰减的 epsilon-greedy 探索、PPO clipping、异步 actor-critic 更新、软更新目标网络以及状态标准化，从而提升整体训练稳定性和协同性能。</p>
-<p>实验部分设置了两类代表性场景，分别对应两类晶圆按 1:1 比例并行加工和三类晶圆按 1:1:1 比例并行加工。结果表明，MA-QMIX-PPO 在最小 makespan 指标上优于或不劣于 MAQMIX、MAPPO、MADDPG、MATD3 和 MACTD4，同时在训练稳定性和多智能体协同能力方面表现更好。</p>
-<p>这项工作的意义在于，它说明当半导体制造设备从单设备扩展到多设备串联、从单智能体扩展到多智能体后，强化学习依然能够成为可行且有效的调度求解框架。这为更复杂的多机台协同调度、更多晶圆类型生产以及更真实工业系统的落地提供了重要参考。</p>
-<p>该研究目前已以本人二作投稿 SCI Top 期刊，有望为半导体制造系统的智能调度提供进一步的理论与技术支持。</p>
+<p>This second-author paper is currently being prepared for submission to an SCI Q2 journal and is expected to provide theoretical and technical support for intelligent scheduling in semiconductor manufacturing systems.</p>
 </template>
 <template id="detail-research3">
-<h4>English Summary</h4>
+<h4>Intelligent Scheduling System for Central Air Conditioning</h4>
 <p>This project focused on the intelligent scheduling of a central air-conditioning system from September 2024 to July 2025. Starting from the operating principles of the system, we studied how major components such as chillers, pumps, fans, and auxiliary control units could be scheduled in a coordinated manner so that the entire system could respond efficiently to changing environmental and operating conditions.</p>
 <p>A core part of the work was to analyze the coupling relationships among different devices and identify scheduling patterns that balance system stability, energy efficiency, and control responsiveness. Instead of optimizing each component independently, the project treated central air conditioning as a collaborative multi-device system and explored how equipment-level decisions affect the overall operating state.</p>
 <p>To support intelligent decision-making, we applied neural network techniques to model and predict the power consumption of central air-conditioning equipment after frequency regulation under constrained external conditions. This prediction module provided a relatively accurate estimate of how each device would respond after control adjustments, which created a practical data-driven basis for subsequent scheduling and optimization.</p>
 <p>On top of the predictive model, we designed and implemented an intelligent scheduling algorithm and system based on the DDPG reinforcement learning framework. The algorithm was built to adapt to environmental changes and dynamic variations in device power, enabling the scheduler to continuously adjust control actions and improve the coordination strategy in real time. This made the system more adaptive than conventional rule-based scheduling approaches.</p>
 <p>The project was recognized with Third Prize in the Guangdong Regional Competition of the China Robot and Artificial Intelligence Competition, which highlighted both its technical completeness and its practical value. Overall, this work demonstrated how neural-network-based power prediction and reinforcement-learning-based control can be integrated into an end-to-end intelligent scheduling system for central air conditioning, providing a useful reference for energy management and smart building applications.</p>
-<h4>中文介绍</h4>
-<p>本项目围绕中央空调智能调度系统展开研究，时间为 2024.09 至 2025.07，我在项目中担任项目参与者。研究以中央空调系统的工作原理为基础，重点分析冷机、水泵、风机及相关辅助部件之间的协同运行机制，探索在不同外界环境和运行条件下，如何通过合理调度实现整体高效、稳定运行。</p>
-<p>项目的一个核心内容是研究中央空调各部件之间的耦合关系与协同工作模式。与只关注单一设备控制的方法不同，本项目将中央空调视为一个多设备协同系统，重点分析不同部件的功率变化、响应特性以及相互影响关系，从系统层面寻找兼顾能耗、稳定性和控制效果的调度策略。</p>
-<p>在建模与预测方面，项目利用神经网络技术，对受限外界条件下执行调频控制后的中央空调设备功率进行较为准确的模拟与预测。该预测模块为后续调度决策提供了数据支撑，使系统能够在控制前更好地评估不同调节方案对设备功率和整体运行状态的影响。</p>
-<p>在此基础上，项目进一步设计并实现了基于 DDPG 强化学习框架的中央空调智能调度算法与系统。该方法能够根据环境状态和设备反馈动态调整控制策略，提升系统在复杂工况下的自适应能力和运行效率，相比传统规则式调度方法具有更强的灵活性。</p>
-<p>该项目最终获得了中国机器人及人工智能大赛广东赛区三等奖，体现了项目在技术实现与应用价值上的综合表现。整体而言，这项工作展示了将神经网络预测与强化学习控制结合，用于中央空调智能调度系统设计的可行性，也为智慧建筑与能源管理场景下的智能控制研究提供了有价值的参考。</p>
 </template>
 <template id="detail-research4">
-<h4>English Summary</h4>
+<h4>Scheduling of Single-Arm Multicluster Tools for Multi-Type Wafers with Parallel Processing, Residency Time Constraints, and Reentrant Buffer Cooling Operations</h4>
 <p>This project, which has been running from November 2025 to the present, studies the scheduling of single-arm multicluster tools for multi-type wafers under parallel processing, residency time constraints, and reentrant buffer cooling operations. I serve as the overall project lead. The work is still ongoing rather than completed, but it has already produced several breakthrough advances in modeling, search design, and preliminary optimization results.</p>
 <p>The system considered in this project contains two single-arm robots, multiple process modules, and two buffer modules that jointly support transfer, queuing, and cooling. Three wafer types follow different processing routes. In particular, the C-type route reenters BM1 for a second waiting stage, and this reentrant buffer operation directly determines the required cooling time. As a result, BM1 is not merely a passive buffer but a critical bottleneck where resource competition, cooling feasibility, and downstream timing constraints become tightly coupled.</p>
 <p>The main challenge is not a simple routing problem, because the wafer paths are fixed in advance. The real difficulty is to schedule all operations on time while satisfying several hard constraints simultaneously: resource exclusivity for robots, PMs, and BMs; precedence relationships inside each wafer route; upper bounds on residency time after specific processing stages; and minimum waiting requirements for buffer cooling. This makes the problem a strongly coupled combinatorial optimization task with shared resources, time windows, and explicit cooling logic.</p>
 <p>To address this, the project has established a three-layer framework. At the bottom layer, a CP-SAT interval-scheduling model translates the physical process flow into a unified set of verifiable variables and constraints, ensuring that generated schedules remain strictly feasible. On top of that, a domain-specific large neighborhood search strategy repeatedly destroys and repairs only the most critical local regions, such as bottleneck resources, high-risk residency chains, BM1-related operation chains, and the special C-type cooling flow. At the upper layer, a GNN-plus-RL controller observes the current schedule as a dynamic graph and learns which neighborhood operator and relaxation size should be selected next.</p>
 <p>The project has already moved beyond conceptual design. A unified exact model has been built, key domain neighborhoods have been defined, and the learning-guided destroy-repair loop has been connected to the optimization pipeline. Preliminary experiments indicate that domain-aware search can improve schedule quality over a short-horizon exact baseline, and the learning-guided version shows additional promise in handling larger and more constrained instances. These results are important because they demonstrate that the project is generating real technical value even before the full study is finished.</p>
 <p>Current work is focused on extending the experimental evaluation, aligning time-budget comparisons across baselines, and further refining the learned search controller. In other words, this project is still in active progress, but it has already achieved breakthrough stage results and established a solid path toward a stronger final solution for intelligent semiconductor scheduling with reentrant buffer cooling constraints.</p>
-<h4>中文介绍</h4>
-<p>本项目自 2025 年 11 月持续至今，围绕单机械臂多组合设备中多品种晶圆在并发加工、驻留时间约束以及重入缓冲区冷却约束下的调度问题展开研究，我在项目中担任总负责人。项目目前仍处于持续推进阶段，尚未最终完成，但已经在建模、搜索策略设计和初步实验结果方面取得了较为突出的阶段性突破。</p>
-<p>研究对象由两台单机械臂、多个工艺腔体以及两个缓冲腔体组成，不同类型晶圆具有不同加工路径。其中，C 类晶圆在加工过程中需要重入 BM1 进行二次等待与冷却，这一重入缓冲区操作会直接影响 cooling time 的可行性，因此 BM1 不再只是普通过渡缓冲区，而是同时承载排队、冷却和节拍协调的关键瓶颈资源。</p>
-<p>该问题的难点不在于路径选择，而在于固定工艺路径下所有操作的精确时间安排。调度结果必须同时满足机械臂、工艺腔体和缓冲腔体的资源互斥约束，同一晶圆内部的工艺先后约束，部分工序完成后的驻留时间上界要求，以及缓冲区冷却等待时间的下界要求。多类硬约束在同一系统内强耦合，使其成为一个具有共享资源竞争、时间窗口限制和显式冷却逻辑的复杂组合优化问题。</p>
-<p>围绕这一问题，项目已经建立了分层技术路线。底层采用 CP-SAT 区间调度模型，将物理工艺流程转化为统一且可验证的变量与约束体系，保证排程结果的严格可行性；中层采用结合设备结构特征的 Domain LNS，对瓶颈资源链、驻留风险链、BM1 相关操作链以及 C 类晶圆冷却链等关键局部区域进行 destroy-repair 式重优化；上层进一步引入 GNN 与强化学习控制器，将当前排程编码为动态图结构，学习下一轮应选择的邻域算子与松弛规模。</p>
-<p>目前，项目已经完成统一精确模型的搭建，形成了若干具有领域针对性的邻域算子，并实现了学习引导搜索与优化流程的初步联通。已有实验现象表明，面向结构特征设计的搜索策略相较短时精确基线能够进一步提升排程质量，而学习引导版本在更大规模、更强约束实例上也展现出进一步改进的潜力。这些结果说明，虽然项目尚未收尾，但已经产出了具有实质价值的突破性进展。</p>
-<p>接下来的工作将继续围绕实验补充、不同方法时间预算对齐以及学习控制器的进一步优化展开。整体而言，该项目目前仍在深入推进之中，但已经为面向重入缓冲区冷却约束的半导体智能调度建立了清晰、扎实且具有扩展性的研究基础。</p>
 </template>
 <template id="detail-award1">
     <h4>China Undergraduate Mathematical Contest in Modeling</h4>
