@@ -547,13 +547,13 @@
 </div>
 <h3 class="mt-5 text-2xl font-bold leading-snug text-slate-950">Scheduling of Single-Arm Multicluster Tools for Multi-Type Wafers with Parallel Processing, Residency Time Constraints, and Reentrant Buffer Cooling Operations</h3>
 <div class="mt-5 flex flex-wrap gap-2">
-<span class="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">CP-SAT</span>
-<span class="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">Domain LNS</span>
-<span class="rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700">GNN + RL</span>
-<span class="rounded-full bg-cyan-50 px-3 py-1 text-xs font-semibold text-cyan-700">Scheduling</span>
-<span class="rounded-full bg-teal-50 px-3 py-1 text-xs font-semibold text-teal-700">Single Robot</span>
-<span class="rounded-full bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-700">Dual Cluster Tool</span>
-<span class="rounded-full bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-700">Reentrant Buffer Cooling</span>
+<span class="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">Event-Driven Simulator</span>
+<span class="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">Legal Action Generator and Constraint Checker</span>
+<span class="rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700">CP-SAT, LNS, and Heuristics</span>
+<span class="rounded-full bg-cyan-50 px-3 py-1 text-xs font-semibold text-cyan-700">Rule-Constrained RL</span>
+<span class="rounded-full bg-teal-50 px-3 py-1 text-xs font-semibold text-teal-700">Heterogeneous Graph Encoder</span>
+<span class="rounded-full bg-indigo-50 px-3 py-1 text-xs font-semibold text-indigo-700">Mamba or Transformer Memory</span>
+<span class="rounded-full bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-700">Multi-Head Value and Risk Estimation</span>
 <span class="rounded-full bg-violet-50 px-3 py-1 text-xs font-semibold text-violet-700">In Progress</span>
 </div>
 <div class="mt-6 grid gap-4 sm:grid-cols-2">
@@ -567,16 +567,14 @@
 </div>
 </div>
 <div class="mt-6 space-y-2 text-sm leading-7 text-slate-600">
-<p><span class="font-semibold text-slate-900">Problem:</span> Schedule multi-type wafers in a single-arm multicluster tool with reentrant buffer cooling.</p>
-<p><span class="font-semibold text-slate-900">Constraints:</span> Parallel processing, residency-time limits, shared-resource exclusivity, and BM1 reentry and cooling logic.</p>
-<p><span class="font-semibold text-slate-900">Method:</span> A three-layer framework combining CP-SAT, domain-specific LNS, and a GNN-guided RL controller.</p>
-<p><span class="font-semibold text-slate-900">Results:</span> A unified exact model and learning-guided search pipeline are already running, with preliminary gains over a short-horizon exact baseline.</p>
-<p><span class="font-semibold text-slate-900">My Contribution:</span> I lead the project and designed the modeling framework, core neighborhoods, and learning-guided optimization pipeline.</p>
+<p><span class="font-semibold text-slate-900">Problem Definition:</span> Formalize single-arm multicluster scheduling for multi-type wafers with parallel processing, residency-time limits, and reentrant buffer cooling.</p>
+<p><span class="font-semibold text-slate-900">Simulation and Feasibility:</span> Build an event-driven simulator with a legal action generator and constraint checker.</p>
+<p><span class="font-semibold text-slate-900">Optimization Layer:</span> Combine CP-SAT, large neighborhood search, heuristic methods, and rule-constrained reinforcement learning.</p>
+<p><span class="font-semibold text-slate-900">Learning Architecture:</span> Use a hierarchical evidence bank, a heterogeneous graph state encoder, Mamba or Transformer process memory, and multi-head value and risk estimation.</p>
+<p><span class="font-semibold text-slate-900">Policy and Evaluation:</span> Train masked and hierarchical reinforcement-learning policies with runtime validation, local repair, online scheduling, main-results reporting, ablation studies, generalization tests, and latency evaluation.</p>
 </div>
 <div class="card-action flex flex-wrap gap-3">
-<button class="inline-flex items-center justify-center rounded-2xl bg-brand-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-800" data-modal-button="" data-template="detail-research4" data-title="Research Detail" type="button">
-                View Details
-              </button>
+<a class="inline-flex items-center justify-center rounded-2xl bg-brand-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-800" href="pages/research-reentrant-buffer-cooling.html">View Details</a>
 </div>
 </article>
 <article class="reveal card-balanced card-surface p-6 sm:p-8">
@@ -590,7 +588,7 @@
 <span class="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">Scheduling</span>
 <span class="rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700">Single Robot</span>
 <span class="rounded-full bg-fuchsia-50 px-3 py-1 text-xs font-semibold text-fuchsia-700">Dual Cluster Tool</span>
-<span class="rounded-full bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-700">SCI Q2 Submission in Preparation</span>
+<span class="rounded-full bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-700">Under Submission to IEEE Cybernetics (SCI Q1)</span>
 </div>
 <div class="mt-6 grid gap-4 sm:grid-cols-2">
 <div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
@@ -606,13 +604,11 @@
 <p><span class="font-semibold text-slate-900">Problem:</span> Coordinate multi-type wafer scheduling in a multicluster tool with multiple interacting modules and robots.</p>
 <p><span class="font-semibold text-slate-900">Constraints:</span> Shared BMs and PMs, residency-time limits, full-cycle scheduling, and deadlock-sensitive resource coupling.</p>
 <p><span class="font-semibold text-slate-900">Method:</span> A multi-agent reinforcement-learning formulation with the MA-QMIX-PPO scheduling algorithm.</p>
-<p><span class="font-semibold text-slate-900">Results:</span> The method achieved the best or tied-best minimum makespan against MAQMIX, MAPPO, MADDPG, MATD3, and MACTD4; the paper is being prepared for submission to an SCI Q2 journal.</p>
+<p><span class="font-semibold text-slate-900">Results:</span> The method achieved the best or tied-best minimum makespan against MAQMIX, MAPPO, MADDPG, MATD3, and MACTD4; the paper is under submission to IEEE Cybernetics (SCI Q1).</p>
 <p><span class="font-semibold text-slate-900">My Contribution:</span> I led the algorithm and experiment design for the project and am the second author on the journal manuscript.</p>
 </div>
 <div class="card-action flex flex-wrap gap-3">
-<button class="inline-flex items-center justify-center rounded-2xl bg-brand-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-800" data-modal-button="" data-template="detail-research2" data-title="Research Detail" type="button">
-                View Details
-              </button>
+<a class="inline-flex items-center justify-center rounded-2xl bg-brand-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-800" href="pages/research-multicluster-residency.html">View Details</a>
 </div>
 </article>
 <article class="reveal card-balanced card-surface p-6 sm:p-8">
@@ -646,9 +642,7 @@
 <p><span class="font-semibold text-slate-900">My Contribution:</span> I completed the modeling, algorithm design, experiments, and paper writing as first author.</p>
 </div>
 <div class="card-action flex flex-wrap gap-3">
-<button class="inline-flex items-center justify-center rounded-2xl bg-brand-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-800" data-modal-button="" data-template="detail-research1" data-title="Research Detail" type="button">
-                View Details
-              </button>
+<a class="inline-flex items-center justify-center rounded-2xl bg-brand-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-800" href="pages/research-single-cluster-td3.html">View Details</a>
 </div>
 </article>
 <article class="reveal card-balanced card-surface p-6 sm:p-8">
@@ -682,9 +676,7 @@
 <p><span class="font-semibold text-slate-900">My Contribution:</span> I participated in system analysis, predictive modeling, and reinforcement-learning-based scheduling implementation.</p>
 </div>
 <div class="card-action flex flex-wrap gap-3">
-<button class="inline-flex items-center justify-center rounded-2xl bg-brand-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-800" data-modal-button="" data-template="detail-research3" data-title="Research Detail" type="button">
-                View Details
-              </button>
+<a class="inline-flex items-center justify-center rounded-2xl bg-brand-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-800" href="pages/research-air-conditioning.html">View Details</a>
 </div>
 </article>
 </div>
@@ -718,14 +710,14 @@
 <article class="reveal card-balanced card-surface p-6 sm:p-8">
 <div class="flex flex-wrap items-center gap-3">
 <span class="rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-800 ring-1 ring-brand-100">Paper 02</span>
-<span class="rounded-full bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-700">Preparing Submission</span>
+<span class="rounded-full bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-700">Under Submission to IEEE Cybernetics (SCI Q1)</span>
 </div>
-<h3 class="mt-5 text-2xl font-bold leading-snug text-slate-950">SCI Q2 Journal Manuscript</h3>
+<h3 class="mt-5 text-2xl font-bold leading-snug text-slate-950">IEEE Cybernetics Manuscript</h3>
 <div class="mt-6 space-y-2 text-sm leading-7 text-slate-600">
-<p><span class="font-semibold text-slate-900">Status:</span> Being prepared for submission to an SCI Q2 journal.</p>
+<p><span class="font-semibold text-slate-900">Status:</span> Under submission to IEEE Cybernetics (SCI Q1).</p>
 <p><span class="font-semibold text-slate-900">Topic:</span> Multi-agent reinforcement learning for scheduling single-arm multicluster tools under residency-time constraints.</p>
 <p><span class="font-semibold text-slate-900">Role:</span> Second author.</p>
-<p><span class="font-semibold text-slate-900">Progress:</span> Core algorithm design and benchmark results are complete, and the manuscript is under preparation.</p>
+<p><span class="font-semibold text-slate-900">Progress:</span> Core algorithm design and benchmark results are complete, and the manuscript is currently under submission to IEEE Cybernetics (SCI Q1).</p>
 </div>
 </article>
 </div>
@@ -779,7 +771,7 @@
 <div class="mt-5 space-y-2 text-sm leading-7 text-slate-600">
 <p><span class="font-semibold text-slate-900">Award:</span> Second Prize, Guangdong Provincial Division</p>
 </div>
-<button class="card-action inline-flex w-fit items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" data-modal-button="" data-template="detail-award1" data-title="Award Detail" type="button">View Details</button>
+<a class="card-action inline-flex w-fit items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" href="pages/award-math-modeling-2024.html">View Details</a>
 </article>
 <article class="reveal card-balanced card-surface p-6 sm:p-7">
 <div class="flex items-start gap-4">
@@ -794,7 +786,7 @@
 <div class="mt-5 space-y-2 text-sm leading-7 text-slate-600">
 <p><span class="font-semibold text-slate-900">Award:</span> Third Prize, Guangdong Provincial Division</p>
 </div>
-<button class="card-action inline-flex w-fit items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" data-modal-button="" data-template="detail-award2" data-title="Award Detail" type="button">View Details</button>
+<a class="card-action inline-flex w-fit items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" href="pages/award-math-competition-2024.html">View Details</a>
 </article>
 <article class="reveal card-balanced card-surface p-6 sm:p-7">
 <div class="flex items-start gap-4">
@@ -810,7 +802,7 @@
 <p><span class="font-semibold text-slate-900">Track:</span> AI Innovation</p>
 <p><span class="font-semibold text-slate-900">Award:</span> Third Prize, Guangdong Regional Competition</p>
 </div>
-<button class="card-action inline-flex w-fit items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" data-modal-button="" data-template="detail-award3" data-title="Award Detail" type="button">View Details</button>
+<a class="card-action inline-flex w-fit items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" href="pages/award-robot-ai-2025.html">View Details</a>
 </article>
 <article class="reveal card-balanced card-surface p-6 sm:p-7">
 <div class="flex items-start gap-4">
@@ -825,7 +817,7 @@
 <div class="mt-5 space-y-2 text-sm leading-7 text-slate-600">
 <p><span class="font-semibold text-slate-900">Award:</span> Third-Class Scholarship</p>
 </div>
-<button class="card-action inline-flex w-fit items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" data-modal-button="" data-template="detail-award4" data-title="Award Detail" type="button">View Details</button>
+<a class="card-action inline-flex w-fit items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" href="pages/award-scholarship-2023-2024.html">View Details</a>
 </article>
 <article class="reveal card-balanced card-surface p-6 sm:p-7">
 <div class="flex items-start gap-4">
@@ -840,7 +832,7 @@
 <div class="mt-5 space-y-2 text-sm leading-7 text-slate-600">
 <p><span class="font-semibold text-slate-900">Award:</span> Second-Class Scholarship</p>
 </div>
-<button class="card-action inline-flex w-fit items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" data-modal-button="" data-template="detail-award5" data-title="Award Detail" type="button">View Details</button>
+<a class="card-action inline-flex w-fit items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" href="pages/award-scholarship-2024-2025.html">View Details</a>
 </article>
 <article class="reveal card-balanced card-surface p-6 sm:p-7">
 <div class="flex items-start gap-4">
@@ -855,7 +847,7 @@
 <div class="mt-5 space-y-2 text-sm leading-7 text-slate-600">
 <p><span class="font-semibold text-slate-900">Award:</span> First-Class Scholarship</p>
 </div>
-<button class="card-action inline-flex w-fit items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" data-modal-button="" data-template="detail-award6" data-title="Award Detail" type="button">View Details</button>
+<a class="card-action inline-flex w-fit items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" href="pages/award-class-monitor-2024-2025.html">View Details</a>
 </article>
 </div>
 </div>
@@ -1001,117 +993,9 @@
       &copy; 2026 ChengLang Rong | 容程朗 | Academic Homepage. All rights reserved.
     </div>
 </footer>
-<div aria-hidden="true" class="fixed inset-0 z-[80] hidden" id="detail-modal">
-<div class="absolute inset-0 bg-slate-950/70"></div>
-<div class="relative flex min-h-full items-center justify-center p-4 sm:p-6">
-<div class="w-full max-w-5xl overflow-hidden rounded-[32px] border border-slate-200 bg-white shadow-2xl">
-<div class="flex items-start justify-between gap-4 border-b border-slate-200 px-6 py-5 sm:px-8">
-<div>
-<p class="text-sm font-semibold tracking-[0.16em] text-slate-500 uppercase">Detail</p>
-<h3 class="mt-2 text-[1.85rem] font-black leading-snug tracking-tight text-slate-950 sm:text-[2rem]" id="detail-modal-title"></h3>
-</div>
-<button aria-label="Close detail" class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 text-slate-600 transition hover:bg-slate-100" id="detail-modal-close" type="button">
-<i class="fa fa-times text-lg"></i>
-</button>
-</div>
-<div class="modal-copy max-h-[72vh] overflow-y-auto px-6 py-6 sm:px-8 sm:py-8" id="detail-modal-body"></div>
-</div>
-</div>
-</div>
 <button aria-label="Back to top" class="floating-button fixed bottom-6 right-6 z-40 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-900 text-white transition hover:bg-brand-800" id="back-to-top" type="button">
 <i class="fa fa-arrow-up"></i>
 </button>
-<template id="detail-research1">
-<h4>Scheduling of a Single-Arm Cluster Tool for Processing Two Types of Wafers with Parallel Processing</h4>
-<p>This study focuses on the scheduling problem of a single-arm cluster tool processing multiple wafer types under wafer residency time constraints, and proposes a scheduling strategy based on deep reinforcement learning. Beyond establishing the scheduling model, the work delivers clear performance gains: the improved TD3 policy achieves better makespan, faster convergence, and stronger robustness than several mainstream deep-RL baselines in representative scenarios, and the resulting paper has been accepted by CSCWD 2026 with me as first author.</p>
-<p>This paper studies the scheduling problem of a single-arm cluster tool processing two wafer types. Unlike many existing studies that focus only on steady-state scheduling, my work considers the entire production cycle, including the startup transient, steady-state, and close-down transient phases. At the same time, it incorporates parallel processing modules, shared module competition, and wafer residency time constraints. The challenge is that a single robotic arm can move only one wafer at a time, while different wafer routes may overlap and share modules, and wafers must be removed from modules within a strict time limit after processing.</p>
-<p>To address this, I formulated the problem as an MDP and developed an improved TD3 algorithm tailored to this scheduling environment. The main technical contributions include dynamic noise exploration, dynamic prioritized replay, adaptive cyclic learning rate, an attention mechanism, a makespan-oriented reward function, and normalized state features. These designs improve both training stability and policy quality.</p>
-<p>In the experiments, I designed four representative scenarios with and without shared PMs and parallel paths, and compared the proposed method against traditional TD3, DDPG, and DQN. The results show that my improved TD3 achieves better minimum makespan and faster convergence in most scenarios, demonstrating stronger robustness and generalization capability.</p>
-<p>The significance of this work is that it demonstrates the feasibility of using deep reinforcement learning for complex, highly constrained, and dynamically coupled scheduling problems in semiconductor manufacturing. It provides a more flexible and practical alternative to conventional rule-based or static optimization approaches.</p>
-<p>This first-author paper has been accepted by CSCWD 2026, which is a CCF Category C conference, and provides a novel solution for scheduling optimization in semiconductor manufacturing.</p>
-</template>
-<template id="detail-research2">
-<h4>Scheduling of Single-Arm Multicluster Tools for Multi-Type Wafers with Parallel Processing and Residency Time Constraints</h4>
-<p>This study extends the single-arm scheduling problem to a multicluster-tool setting and, under wafer residency-time constraints and multi-type wafer processing, proposes a scheduling strategy based on multi-agent deep reinforcement learning. The work is especially outcome-driven: the proposed MA-QMIX-PPO achieves the best or tied-best minimum makespan in representative two-type and three-type wafer scenarios, outperforms several strong MARL baselines in stability and coordination quality, and the related paper is being prepared for submission to an SCI Q2 journal with me as second author.</p>
-<p>This paper studies a more challenging setting: single-arm multicluster tools. Compared with a single cluster tool, a multicluster tool consists of multiple interconnected cluster tools linked by shared buffer modules, which introduces stronger coupling, more severe resource competition, and a higher risk of deadlock. This work focuses on concurrent processing of two or three wafer types, while considering shared BMs, parallel PMs, wafer residency time constraints, and full-cycle scheduling.</p>
-<p>To solve this problem, I formulated it as a multi-agent reinforcement learning problem and proposed a MA-QMIX-PPO algorithm. In this framework, each robot is controlled by an independent agent, while coordination is achieved through centralized training and decentralized execution. The key designs include QMIX-based value decomposition, action masking for invalid actions, epsilon-greedy exploration with exponential decay, PPO clipping for stable policy updates, asynchronous actor-critic updates, soft target-network updates, and state normalization.</p>
-<p>In the experiments, I evaluated the method on representative scenarios for two-type wafer processing at a 1:1 ratio and three-type wafer processing at a 1:1:1 ratio. The proposed MA-QMIX-PPO achieved the best or tied-best minimum makespan compared with MAQMIX, MAPPO, MADDPG, MATD3, and MACTD4, while also showing strong coordination ability and stable training behavior.</p>
-<p>The significance of this work is that it extends intelligent scheduling from a single-equipment setting to a multi-equipment collaborative setting, showing that multi-agent reinforcement learning can effectively handle real-world semiconductor systems with shared resources, strong coupling, and deadlock constraints. It provides a strong foundation for future work on larger-scale and more realistic manufacturing systems.</p>
-<p>This second-author paper is currently being prepared for submission to an SCI Q2 journal and is expected to provide theoretical and technical support for intelligent scheduling in semiconductor manufacturing systems.</p>
-</template>
-<template id="detail-research3">
-<h4>Intelligent Scheduling System for Central Air Conditioning</h4>
-<p>This project focused on the intelligent scheduling of a central air-conditioning system from September 2024 to July 2025. Starting from the operating principles of the system, we studied how major components such as chillers, pumps, fans, and auxiliary control units could be scheduled in a coordinated manner so that the entire system could respond efficiently to changing environmental and operating conditions.</p>
-<p>A core part of the work was to analyze the coupling relationships among different devices and identify scheduling patterns that balance system stability, energy efficiency, and control responsiveness. Instead of optimizing each component independently, the project treated central air conditioning as a collaborative multi-device system and explored how equipment-level decisions affect the overall operating state.</p>
-<p>To support intelligent decision-making, we applied neural network techniques to model and predict the power consumption of central air-conditioning equipment after frequency regulation under constrained external conditions. This prediction module provided a relatively accurate estimate of how each device would respond after control adjustments, which created a practical data-driven basis for subsequent scheduling and optimization.</p>
-<p>On top of the predictive model, we designed and implemented an intelligent scheduling algorithm and system based on the DDPG reinforcement learning framework. The algorithm was built to adapt to environmental changes and dynamic variations in device power, enabling the scheduler to continuously adjust control actions and improve the coordination strategy in real time. This made the system more adaptive than conventional rule-based scheduling approaches.</p>
-<p>The project was recognized with Third Prize in the Guangdong Regional Competition of the China Robot and Artificial Intelligence Competition, which highlighted both its technical completeness and its practical value. Overall, this work demonstrated how neural-network-based power prediction and reinforcement-learning-based control can be integrated into an end-to-end intelligent scheduling system for central air conditioning, providing a useful reference for energy management and smart building applications.</p>
-</template>
-<template id="detail-research4">
-<h4>Scheduling of Single-Arm Multicluster Tools for Multi-Type Wafers with Parallel Processing, Residency Time Constraints, and Reentrant Buffer Cooling Operations</h4>
-<p>This project, which has been running from November 2025 to the present, studies the scheduling of single-arm multicluster tools for multi-type wafers under parallel processing, residency time constraints, and reentrant buffer cooling operations. I serve as the overall project lead. The work is still ongoing rather than completed, but it has already produced several breakthrough advances in modeling, search design, and preliminary optimization results.</p>
-<p>The system considered in this project contains two single-arm robots, multiple process modules, and two buffer modules that jointly support transfer, queuing, and cooling. Three wafer types follow different processing routes. In particular, the C-type route reenters BM1 for a second waiting stage, and this reentrant buffer operation directly determines the required cooling time. As a result, BM1 is not merely a passive buffer but a critical bottleneck where resource competition, cooling feasibility, and downstream timing constraints become tightly coupled.</p>
-<p>The main challenge is not a simple routing problem, because the wafer paths are fixed in advance. The real difficulty is to schedule all operations on time while satisfying several hard constraints simultaneously: resource exclusivity for robots, PMs, and BMs; precedence relationships inside each wafer route; upper bounds on residency time after specific processing stages; and minimum waiting requirements for buffer cooling. This makes the problem a strongly coupled combinatorial optimization task with shared resources, time windows, and explicit cooling logic.</p>
-<p>To address this, the project has established a three-layer framework. At the bottom layer, a CP-SAT interval-scheduling model translates the physical process flow into a unified set of verifiable variables and constraints, ensuring that generated schedules remain strictly feasible. On top of that, a domain-specific large neighborhood search strategy repeatedly destroys and repairs only the most critical local regions, such as bottleneck resources, high-risk residency chains, BM1-related operation chains, and the special C-type cooling flow. At the upper layer, a GNN-plus-RL controller observes the current schedule as a dynamic graph and learns which neighborhood operator and relaxation size should be selected next.</p>
-<p>The project has already moved beyond conceptual design. A unified exact model has been built, key domain neighborhoods have been defined, and the learning-guided destroy-repair loop has been connected to the optimization pipeline. Preliminary experiments indicate that domain-aware search can improve schedule quality over a short-horizon exact baseline, and the learning-guided version shows additional promise in handling larger and more constrained instances. These results are important because they demonstrate that the project is generating real technical value even before the full study is finished.</p>
-<p>Current work is focused on extending the experimental evaluation, aligning time-budget comparisons across baselines, and further refining the learned search controller. In other words, this project is still in active progress, but it has already achieved breakthrough stage results and established a solid path toward a stronger final solution for intelligent semiconductor scheduling with reentrant buffer cooling constraints.</p>
-</template>
-<template id="detail-award1">
-    <h4>China Undergraduate Mathematical Contest in Modeling</h4>
-    <p>Year: 2024</p>
-    <p>Award: Second Prize, Guangdong Provincial Division.</p>
-    <div class="certificate-preview">
-      <img src="assets/math_modeling_second_2024.png" alt="Certificate preview for China Undergraduate Mathematical Contest in Modeling" />
-    </div>
-    <div class="mt-4 flex flex-wrap gap-3">
-      <a href="assets/docs/math_modeling_second_2024.pdf" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900">Open Original Certificate</a>
-    </div>
-</template>
-<template id="detail-award2">
-    <h4>National Mathematics Competition for College Students</h4>
-    <p>Year: 2024</p>
-    <p>Award: Third Prize, Guangdong Provincial Division.</p>
-    <div class="certificate-preview">
-      <img src="assets/math_competition_third_2024.png" alt="Certificate preview for National Mathematics Competition for College Students" />
-    </div>
-    <div class="mt-4 flex flex-wrap gap-3">
-      <a href="assets/docs/math_competition_third_2024.pdf" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900">Open Original Certificate</a>
-    </div>
-</template>
-<template id="detail-award3">
-    <h4>China Robot and Artificial Intelligence Competition</h4>
-    <p>Year: 2025</p>
-    <p>Track: Artificial Intelligence Innovation.</p>
-    <p>Award: Third Prize, Guangdong Selection Competition.</p>
-    <div class="certificate-preview">
-      <img src="assets/robot_ai_competition_third_2025.png" alt="Certificate preview for China Robot and Artificial Intelligence Competition" />
-    </div>
-    <div class="mt-4 flex flex-wrap gap-3">
-      <a href="assets/docs/robot_ai_competition_third_2025.pdf" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900">Open Original Certificate</a>
-    </div>
-</template>
-<template id="detail-award4">
-    <h4>Outstanding Student Scholarship, Guangdong University of Technology</h4>
-    <p>Academic Year: 2023-2024</p>
-    <p>Award: Third-Class Scholarship.</p>
-    <div class="certificate-preview">
-      <img src="assets/scholarship_third_2023_2024.jpg" alt="Certificate preview for the 2023-2024 Outstanding Student Third-Class Scholarship" />
-    </div>
-</template>
-<template id="detail-award5">
-    <h4>Outstanding Student Scholarship, Guangdong University of Technology</h4>
-    <p>Academic Year: 2024-2025</p>
-    <p>Award: Second-Class Scholarship.</p>
-    <div class="certificate-preview">
-      <img src="assets/scholarship_second_2024_2025.jpg" alt="Certificate preview for the 2024-2025 Outstanding Student Second-Class Scholarship" />
-    </div>
-</template>
-<template id="detail-award6">
-    <h4>Outstanding Class Monitor and Student Cadre, Guangdong University of Technology</h4>
-    <p>Academic Year: 2024-2025</p>
-    <p>Award: First-Class Scholarship.</p>
-    <p>This recognition highlights outstanding leadership, student service, and academic performance at Guangdong University of Technology.</p>
-</template>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
       const body = document.body;
@@ -1123,17 +1007,6 @@
       const sections = document.querySelectorAll('section[id]');
       const backToTop = document.getElementById('back-to-top');
       const copyEmailBtn = document.getElementById('copy-email');
-
-      const detailModal = document.getElementById('detail-modal');
-      const detailModalTitle = document.getElementById('detail-modal-title');
-      const detailModalBody = document.getElementById('detail-modal-body');
-      const detailModalClose = document.getElementById('detail-modal-close');
-      const modalButtons = document.querySelectorAll('[data-modal-button]');
-
-      const setBodyLock = () => {
-        const modalVisible = !detailModal.classList.contains('hidden');
-        body.classList.toggle('modal-open', modalVisible);
-      };
 
       const updateHeaderState = () => {
         header.classList.toggle('scrolled', window.scrollY > 12);
@@ -1179,35 +1052,6 @@
       }, { threshold: 0.12 });
 
       document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element));
-
-      modalButtons.forEach((button) => {
-        button.addEventListener('click', () => {
-          const template = document.getElementById(button.dataset.template || '');
-          detailModalTitle.textContent = button.dataset.title || 'Detail';
-          detailModalBody.innerHTML = template ? template.innerHTML : '';
-          detailModal.classList.remove('hidden');
-          setBodyLock();
-        });
-      });
-
-      const closeDetailModal = () => {
-        detailModal.classList.add('hidden');
-        detailModalBody.innerHTML = '';
-        setBodyLock();
-      };
-
-      detailModalClose.addEventListener('click', closeDetailModal);
-      detailModal.addEventListener('click', (event) => {
-        if (event.target === detailModal || event.target === detailModal.firstElementChild) {
-          closeDetailModal();
-        }
-      });
-
-      document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && !detailModal.classList.contains('hidden')) {
-          closeDetailModal();
-        }
-      });
 
       if (copyEmailBtn) {
         const initialText = copyEmailBtn.textContent;

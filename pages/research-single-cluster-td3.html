@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Scheduling of a Single-Arm Cluster Tool for Processing Two Types of Wafers with Parallel Processing | ChengLang Rong</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          brand: {
+            50: '#effaf7', 100: '#d8f2ea', 200: '#b8e6d9', 300: '#88d4c1',
+            400: '#54bca5', 500: '#339683', 600: '#27796a', 700: '#215f54',
+            800: '#1f4d46', 900: '#1d403c'
+          }
+        },
+        boxShadow: { soft: '0 18px 60px rgba(15, 23, 42, 0.08)' },
+        fontFamily: { sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'] }
+      }
+    }
+  }
+</script>
+<style>
+  body {
+    min-height: 100vh;
+    background: radial-gradient(900px 620px at -10% -10%, rgba(77,170,151,.18), transparent 58%),
+                radial-gradient(760px 560px at 110% 0%, rgba(244,198,128,.16), transparent 54%),
+                linear-gradient(180deg, #f7fcfa 0%, #f1f9f6 42%, #edf4f4 100%);
+    color: #0f172a;
+  }
+  .detail-copy h4 { font-size: 1.65rem; line-height: 1.2; font-weight: 900; color: #0f172a; margin-bottom: 1rem; }
+  .detail-copy p { color: #475569; line-height: 1.9; margin-top: 1rem; }
+  .certificate-preview { margin-top: 1.25rem; overflow: hidden; border-radius: 1.5rem; border: 1px solid #e2e8f0; background: #f8fafc; }
+  .certificate-preview img { width: 100%; display: block; }
+</style>
+</head>
+<body class="font-sans antialiased">
+<header class="sticky top-0 z-40 border-b border-slate-200/80 bg-white/85 backdrop-blur-xl">
+  <div class="mx-auto flex max-w-5xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+    <a class="font-black tracking-tight text-slate-950" href="../index.html#home">ChengLang Rong <span class="text-brand-700">容程朗</span></a>
+    <a class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100" href="../index.html#research">
+      <i class="fa fa-arrow-left mr-2"></i>Back to Research
+    </a>
+  </div>
+</header>
+<main class="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
+  <article class="rounded-[2rem] border border-slate-200 bg-white/88 p-6 shadow-soft backdrop-blur sm:p-10">
+    <p class="mb-5 text-sm font-semibold tracking-[0.16em] text-brand-700 uppercase">Research Detail</p>
+    <div class="detail-copy">
+<h4>Scheduling of a Single-Arm Cluster Tool for Processing Two Types of Wafers with Parallel Processing</h4>
+<p>This study focuses on the scheduling problem of a single-arm cluster tool processing multiple wafer types under wafer residency time constraints, and proposes a scheduling strategy based on deep reinforcement learning. Beyond establishing the scheduling model, the work delivers clear performance gains: the improved TD3 policy achieves better makespan, faster convergence, and stronger robustness than several mainstream deep-RL baselines in representative scenarios, and the resulting paper has been accepted by CSCWD 2026 with me as first author.</p>
+<p>This paper studies the scheduling problem of a single-arm cluster tool processing two wafer types. Unlike many existing studies that focus only on steady-state scheduling, my work considers the entire production cycle, including the startup transient, steady-state, and close-down transient phases. At the same time, it incorporates parallel processing modules, shared module competition, and wafer residency time constraints. The challenge is that a single robotic arm can move only one wafer at a time, while different wafer routes may overlap and share modules, and wafers must be removed from modules within a strict time limit after processing.</p>
+<p>To address this, I formulated the problem as an MDP and developed an improved TD3 algorithm tailored to this scheduling environment. The main technical contributions include dynamic noise exploration, dynamic prioritized replay, adaptive cyclic learning rate, an attention mechanism, a makespan-oriented reward function, and normalized state features. These designs improve both training stability and policy quality.</p>
+<p>In the experiments, I designed four representative scenarios with and without shared PMs and parallel paths, and compared the proposed method against traditional TD3, DDPG, and DQN. The results show that my improved TD3 achieves better minimum makespan and faster convergence in most scenarios, demonstrating stronger robustness and generalization capability.</p>
+<p>The significance of this work is that it demonstrates the feasibility of using deep reinforcement learning for complex, highly constrained, and dynamically coupled scheduling problems in semiconductor manufacturing. It provides a more flexible and practical alternative to conventional rule-based or static optimization approaches.</p>
+<p>This first-author paper has been accepted by CSCWD 2026, which is a CCF Category C conference, and provides a novel solution for scheduling optimization in semiconductor manufacturing.</p>
+    </div>
+  </article>
+</main>
+</body>
+</html>
