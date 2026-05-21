@@ -481,7 +481,15 @@
 <article class="reveal card-balanced card-surface p-6 sm:p-8">
 <div class="flex flex-wrap items-center gap-3">
 <span class="rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-800 ring-1 ring-brand-100">Paper 02</span>
->
+<span class="rounded-full bg-rose-50 px-3 py-1 text-xs font-semibold text-rose-700">Under Submission to IEEE Transactions on Systems, Man, and Cybernetics: Systems (SCI Q1)</span>
+</div>
+<h3 class="mt-5 text-2xl font-bold leading-snug text-slate-950">IEEE Transactions on Systems, Man, and Cybernetics: Systems Manuscript</h3>
+<div class="mt-6 space-y-2 text-sm leading-7 text-slate-600">
+<p><span class="font-semibold text-slate-900">Status:</span> Under submission to IEEE Transactions on Systems, Man, and Cybernetics: Systems (SCI Q1).</p>
+<p><span class="font-semibold text-slate-900">Topic:</span> Multi-agent reinforcement learning for scheduling single-arm multicluster tools under residency-time constraints.</p>
+<p><span class="font-semibold text-slate-900">Role:</span> First author.</p>
+<p><span class="font-semibold text-slate-900">Progress:</span> Core algorithm design and benchmark results are complete, and the manuscript is currently under submission to IEEE Transactions on Systems, Man, and Cybernetics: Systems (SCI Q1).</p>
+</div>
 </article>
 </div>
 </div>
@@ -536,19 +544,20 @@
 </template>
 <template id="detail-research2">
 <h4>Scheduling of Single-Arm Multicluster Tools for Multi-Type Wafers with Parallel Processing and Residency Time Constraints</h4>
-> main
+<p>This study extends the single-arm scheduling problem to a multicluster-tool setting and, under wafer residency-time constraints and multi-type wafer processing, proposes a scheduling strategy based on multi-agent deep reinforcement learning. The work is especially outcome-driven: the proposed MA-QMIX-PPO achieves the best or tied-best minimum makespan in representative two-type and three-type wafer scenarios, outperforms several strong MARL baselines in stability and coordination quality, and the related paper is under submission to IEEE Transactions on Systems, Man, and Cybernetics: Systems (SCI Q1) with me as second author.</p>
 <p>This paper studies a more challenging setting: single-arm multicluster tools. Compared with a single cluster tool, a multicluster tool consists of multiple interconnected cluster tools linked by shared buffer modules, which introduces stronger coupling, more severe resource competition, and a higher risk of deadlock. This work focuses on concurrent processing of two or three wafer types, while considering shared BMs, parallel PMs, wafer residency time constraints, and full-cycle scheduling.</p>
 <p>To solve this problem, I formulated it as a multi-agent reinforcement learning problem and proposed a MA-QMIX-PPO algorithm. In this framework, each robot is controlled by an independent agent, while coordination is achieved through centralized training and decentralized execution. The key designs include QMIX-based value decomposition, action masking for invalid actions, epsilon-greedy exploration with exponential decay, PPO clipping for stable policy updates, asynchronous actor-critic updates, soft target-network updates, and state normalization.</p>
 <p>In the experiments, I evaluated the method on representative scenarios for two-type wafer processing at a 1:1 ratio and three-type wafer processing at a 1:1:1 ratio. The proposed MA-QMIX-PPO achieved the best or tied-best minimum makespan compared with MAQMIX, MAPPO, MADDPG, MATD3, and MACTD4, while also showing strong coordination ability and stable training behavior.</p>
 <p>The significance of this work is that it extends intelligent scheduling from a single-equipment setting to a multi-equipment collaborative setting, showing that multi-agent reinforcement learning can effectively handle real-world semiconductor systems with shared resources, strong coupling, and deadlock constraints. It provides a strong foundation for future work on larger-scale and more realistic manufacturing systems.</p>
-
+<p>This second-author paper is currently under submission to IEEE Transactions on Systems, Man, and Cybernetics: Systems (SCI Q1) and is expected to provide theoretical and technical support for intelligent scheduling in semiconductor manufacturing systems.</p>
+</template>
 <template id="detail-research3">
 <h4>Intelligent Scheduling System for Central Air Conditioning</h4>
 <p>This project focused on the intelligent scheduling of a central air-conditioning system from September 2024 to July 2025. Starting from the operating principles of the system, we studied how major components such as chillers, pumps, fans, and auxiliary control units could be scheduled in a coordinated manner so that the entire system could respond efficiently to changing environmental and operating conditions.</p>
 <p>A core part of the work was to analyze the coupling relationships among different devices and identify scheduling patterns that balance system stability, energy efficiency, and control responsiveness. Instead of optimizing each component independently, the project treated central air conditioning as a collaborative multi-device system and explored how equipment-level decisions affect the overall operating state.</p>
 <p>To support intelligent decision-making, we applied neural network techniques to model and predict the power consumption of central air-conditioning equipment after frequency regulation under constrained external conditions. This prediction module provided a relatively accurate estimate of how each device would respond after control adjustments, which created a practical data-driven basis for subsequent scheduling and optimization.</p>
 <p>On top of the predictive model, we designed and implemented an intelligent scheduling algorithm and system based on the DDPG reinforcement learning framework. The algorithm was built to adapt to environmental changes and dynamic variations in device power, enabling the scheduler to continuously adjust control actions and improve the coordination strategy in real time. This made the system more adaptive than conventional rule-based scheduling approaches.</p>
-<p>The project was recognized with Third Prize in the Guangdong Regional Competition of the China Robot and Artificial Intelligence Competition, which highlighted both its technical completeness and its practical value. In addition, based on these staged outcomes, we are currently submitting a paper to IEEE Transactions on Industrial Informatics (SCI Q1, CCF-B), where I am the third author. Overall, this work demonstrated how neural-network-based power prediction and reinforcement-learning-based control can be integrated into an end-to-end intelligent scheduling system for central air conditioning, providing a useful reference for energy management and smart building applications.</p>
+<p>The project was recognized with Third Prize in the Guangdong Regional Competition of the China Robot and Artificial Intelligence Competition, which highlighted both its technical completeness and its practical value. Overall, this work demonstrated how neural-network-based power prediction and reinforcement-learning-based control can be integrated into an end-to-end intelligent scheduling system for central air conditioning, providing a useful reference for energy management and smart building applications.</p>
 </template>
 <template id="detail-research4">
 <h4>Scheduling of Single-Arm Multicluster Tools for Multi-Type Wafers with Parallel Processing, Residency Time Constraints, and Reentrant Buffer Cooling Operations</h4>
