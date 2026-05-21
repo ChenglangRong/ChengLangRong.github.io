@@ -7,6 +7,7 @@
 <title>ChengLang Rong | 容程朗 | Personal Academic Homepage</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+<script>document.documentElement.classList.add('js');</script>
 <script>
     tailwind.config = {
       theme: {
@@ -228,11 +229,15 @@
     .nav-link.active { color: var(--brand-deep); }
 
     .reveal {
+      opacity: 1;
+      transform: none;
+    }
+    .js .reveal {
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.7s ease, transform 0.7s ease;
     }
-    .reveal.is-visible {
+    .js .reveal.is-visible {
       opacity: 1;
       transform: translateY(0);
     }
@@ -615,7 +620,8 @@
 </template>
 <template id="detail-research2">
 <h4>Scheduling of Single-Arm Multicluster Tools for Multi-Type Wafers with Parallel Processing and Residency Time Constraints</h4>
-
+<p>This project investigates online scheduling for multicluster tools handling multi-type wafers with shared resources, parallel paths, and strict residency-time limits. The current stage focuses on simulator construction, feasible-action generation, and benchmark policy evaluation.</p>
+</template>
 <template id="detail-research3">
 <h4>Intelligent Scheduling System for Central Air Conditioning</h4>
 <p>This project focused on the intelligent scheduling of a central air-conditioning system from September 2024 to July 2025. Starting from the operating principles of the system, we studied how major components such as chillers, pumps, fans, and auxiliary control units could be scheduled in a coordinated manner so that the entire system could respond efficiently to changing environmental and operating conditions.</p>
