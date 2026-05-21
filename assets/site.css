@@ -221,12 +221,17 @@ button {
 .home-name {
   display: flex;
   flex-direction: column;
-  gap: 0.18em;
+  gap: 0.32em;
 }
 
 .home-name .name-en,
 .home-name .name-cn {
   display: block;
+  line-height: 0.98;
+}
+
+.home-name .name-en {
+  white-space: nowrap;
 }
 
 .home-name .name-cn {
@@ -237,6 +242,29 @@ button {
   max-width: 940px;
   font-size: clamp(19px, 1.7vw, 23px);
   line-height: 1.72;
+}
+
+.home-affiliation {
+  display: grid;
+  gap: 4px;
+  max-width: 780px;
+  margin-top: 24px;
+  border-left: 4px solid var(--accent);
+  padding: 2px 0 2px 18px;
+  color: var(--muted);
+  font-size: clamp(16px, 1.35vw, 18px);
+  line-height: 1.58;
+}
+
+.home-affiliation p {
+  margin: 0;
+}
+
+.home-affiliation-title {
+  color: var(--ink);
+  font-size: clamp(19px, 1.55vw, 22px);
+  font-weight: 850;
+  line-height: 1.35;
 }
 
 .page-title {
@@ -337,6 +365,7 @@ button {
 
 .profile-card {
   overflow: hidden;
+  padding-bottom: 32px;
 }
 
 .profile-topline {
@@ -359,24 +388,6 @@ button {
   width: 100%;
   height: auto;
   object-fit: contain;
-}
-
-.profile-meta {
-  padding: 22px 24px 24px;
-  text-align: center;
-}
-
-.profile-meta h2 {
-  margin: 0;
-  font-size: 24px;
-  line-height: 1.2;
-}
-
-.profile-meta p {
-  margin: 8px auto 0;
-  max-width: 320px;
-  color: var(--muted);
-  font-size: 14px;
 }
 
 .stat {
@@ -809,9 +820,27 @@ button {
     font-size: clamp(46px, 13.8vw, 58px);
   }
 
+  .home-name .name-en {
+    font-size: clamp(38px, 10.4vw, 44px);
+  }
+
   .home-hero .lead {
     font-size: 18px;
     line-height: 1.68;
+  }
+
+  .home-name {
+    gap: 0.28em;
+  }
+
+  .home-affiliation {
+    margin-top: 22px;
+    padding-left: 14px;
+    font-size: 16px;
+  }
+
+  .home-affiliation-title {
+    font-size: 19px;
   }
 
   .card-body,
