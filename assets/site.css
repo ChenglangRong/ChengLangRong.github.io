@@ -279,6 +279,10 @@ button {
   line-height: 1.02;
 }
 
+.keep-together {
+  white-space: nowrap;
+}
+
 .section-title {
   margin: 0 0 16px;
   color: var(--ink);
