@@ -96,13 +96,32 @@ button {
 }
 
 .brand-title {
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.58rem;
+  row-gap: 0.08rem;
   margin: 0;
   color: var(--ink);
   font-size: 22px;
   font-weight: 800;
-  line-height: 1.14;
-  overflow-wrap: anywhere;
+  line-height: 1.18;
+  overflow-wrap: normal;
+}
+
+.brand-title .brand-en,
+.brand-title .brand-cn,
+.brand-title .brand-divider {
+  display: inline-block;
+}
+
+.brand-title .brand-cn {
+  letter-spacing: 0.08em;
+}
+
+.brand-title .brand-divider {
+  color: var(--line-strong);
+  font-weight: 700;
 }
 
 .brand-subtitle {
@@ -197,6 +216,21 @@ button {
   max-width: 980px;
   font-size: clamp(52px, 6.5vw, 86px);
   line-height: 1;
+}
+
+.home-name {
+  display: flex;
+  flex-direction: column;
+  gap: 0.18em;
+}
+
+.home-name .name-en,
+.home-name .name-cn {
+  display: block;
+}
+
+.home-name .name-cn {
+  letter-spacing: 0.1em;
 }
 
 .home-hero .lead {
@@ -756,10 +790,15 @@ button {
 
   .brand-title {
     font-size: 18px;
+    column-gap: 0.42rem;
   }
 
   .brand-subtitle {
     font-size: 12px;
+  }
+
+  .brand-title .brand-cn {
+    letter-spacing: 0.06em;
   }
 
   .page-title {
