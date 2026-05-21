@@ -232,7 +232,7 @@ button {
 
 .home-name .name-en {
   max-width: 100%;
-  font-size: clamp(42px, 4.8vw, 64px);
+  font-size: clamp(38px, 4.2vw, 56px);
   white-space: nowrap;
 }
 
