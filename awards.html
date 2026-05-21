@@ -1,836 +1,209 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Awards | ChengLang Rong | 容程朗</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-<script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              50: '#effaf7',
-              100: '#d8f2ea',
-              200: '#b8e6d9',
-              300: '#88d4c1',
-              400: '#54bca5',
-              500: '#339683',
-              600: '#27796a',
-              700: '#215f54',
-              800: '#1f4d46',
-              900: '#1d403c'
-            }
-          },
-          boxShadow: {
-            soft: '0 18px 60px rgba(15, 23, 42, 0.08)',
-            card: '0 10px 30px rgba(15, 23, 42, 0.08)'
-          },
-          fontFamily: {
-            sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif']
-          }
-        }
-      }
-    }
-  </script>
-<style>
-    :root {
-      color-scheme: light;
-      --ink: #0f172a;
-      --muted: #475569;
-      --brand-deep: #215f54;
-      --brand-main: #339683;
-      --surface-strong: rgba(255, 255, 255, 0.86);
-      --surface-soft: rgba(241, 249, 246, 0.74);
-      --surface-shell: rgba(255, 255, 255, 0.74);
-      --border-glass: rgba(214, 235, 228, 0.84);
-    }
-
-    html { scroll-behavior: smooth; }
-    body {
-      position: relative;
-      min-height: 100vh;
-      background:
-        radial-gradient(1120px 760px at -10% -10%, rgba(77, 170, 151, 0.18) 0%, transparent 56%),
-        radial-gradient(760px 560px at 108% 4%, rgba(244, 198, 128, 0.15) 0%, transparent 52%),
-        radial-gradient(920px 680px at 50% 42%, rgba(91, 132, 168, 0.08) 0%, transparent 60%),
-        linear-gradient(180deg, #f7fcfa 0%, #f1f9f6 26%, #f5fbfd 62%, #edf4f4 100%);
-      background-repeat: no-repeat;
-      color: var(--ink);
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      background-image:
-        linear-gradient(rgba(102, 140, 134, 0.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(102, 140, 134, 0.04) 1px, transparent 1px);
-      background-size: 72px 72px;
-      mask-image: radial-gradient(circle at 50% 24%, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.58) 40%, transparent 86%);
-      opacity: 0.42;
-    }
-
-    body::after {
-      content: '';
-      position: fixed;
-      right: -10rem;
-      bottom: -12rem;
-      width: 34rem;
-      height: 34rem;
-      border-radius: 9999px;
-      pointer-events: none;
-      z-index: 0;
-      background: radial-gradient(circle, rgba(51, 150, 131, 0.16) 0%, rgba(51, 150, 131, 0.06) 34%, transparent 68%);
-      filter: blur(12px);
-    }
-
-    header, main, footer { position: relative; z-index: 1; }
-    main { padding-bottom: 1.5rem; }
-
-    .section-anchor { scroll-margin-top: 104px; }
-
-    .section-shell {
-      position: relative;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.76);
-      border-radius: 2rem;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.64), rgba(243, 249, 247, 0.82)),
-        radial-gradient(circle at top right, rgba(84, 188, 165, 0.12), transparent 30%),
-        radial-gradient(circle at bottom left, rgba(244, 198, 128, 0.12), transparent 28%);
-      box-shadow:
-        0 26px 72px rgba(15, 23, 42, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.82);
-      backdrop-filter: blur(16px) saturate(150%);
-      padding-top: clamp(1.5rem, 2vw, 2.25rem);
-      padding-bottom: clamp(1.75rem, 2.4vw, 2.5rem);
-    }
-
-    .section-shell::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent 22%, transparent 78%, rgba(202, 226, 220, 0.16)),
-        radial-gradient(circle at 14% 12%, rgba(255, 255, 255, 0.34), transparent 24%);
-    }
-
-    .section-shell > * { position: relative; z-index: 1; }
-
-    .card-balanced {
-      display: flex;
-      height: 100%;
-      flex-direction: column;
-    }
-
-    .card-action {
-      margin-top: auto;
-      padding-top: 1.5rem;
-    }
-
-    .site-header .header-shell {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(240, 249, 246, 0.64));
-      border-color: rgba(255, 255, 255, 0.74);
-      box-shadow:
-        0 20px 50px rgba(15, 23, 42, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.82);
-      backdrop-filter: blur(20px) saturate(165%);
-      transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
-    }
-
-    .site-header.scrolled .header-shell {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(239, 248, 245, 0.78));
-      border-color: rgba(255, 255, 255, 0.8);
-      box-shadow:
-        0 24px 60px rgba(15, 23, 42, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.86);
-      transform: translateY(-1px);
-    }
-
-    .card-surface {
-      position: relative;
-      isolation: isolate;
-      overflow: hidden;
-      border: 1px solid var(--border-glass);
-      background: linear-gradient(180deg, var(--surface-strong), var(--surface-soft));
-      box-shadow:
-        0 24px 72px rgba(15, 23, 42, 0.09),
-        inset 0 1px 0 rgba(255, 255, 255, 0.82);
-      backdrop-filter: blur(18px) saturate(165%);
-      border-radius: 24px;
-      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
-    }
-
-    .card-surface::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background:
-        radial-gradient(circle at top right, rgba(84, 188, 165, 0.12), transparent 26%),
-        radial-gradient(circle at bottom left, rgba(244, 198, 128, 0.08), transparent 30%),
-        linear-gradient(135deg, rgba(255, 255, 255, 0.22), transparent 38%);
-    }
-
-    .card-surface > * { position: relative; z-index: 1; }
-    .card-surface:hover {
-      transform: translateY(-4px);
-      box-shadow:
-        0 32px 84px rgba(15, 23, 42, 0.13),
-        inset 0 1px 0 rgba(255, 255, 255, 0.88);
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      border-radius: 9999px;
-      border: 1px solid rgba(255, 255, 255, 0.82);
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(235, 249, 245, 0.72));
-      box-shadow:
-        0 10px 24px rgba(15, 23, 42, 0.06),
-        inset 0 1px 0 rgba(255, 255, 255, 0.82);
-      padding: 0.4rem 0.95rem;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #25594f;
-      backdrop-filter: blur(14px) saturate(150%);
-    }
-
-    .nav-link {
-      position: relative;
-      transition: color 0.25s ease;
-    }
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: -8px;
-      width: 100%;
-      height: 2px;
-      transform: scaleX(0);
-      transform-origin: center;
-      transition: transform 0.25s ease;
-      background: linear-gradient(90deg, rgba(51, 150, 131, 0.1), rgba(51, 150, 131, 0.78), rgba(244, 198, 128, 0.52));
-      border-radius: 999px;
-    }
-    .nav-link:hover::after,
-    .nav-link.active::after { transform: scaleX(1); }
-    .nav-link.active { color: var(--brand-deep); }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .reveal.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .hero-portrait-wrap { width: min(100%, 20rem); }
-    .hero-avatar-ring {
-      position: absolute;
-      inset: -18px;
-      border-radius: 1.75rem;
-      border: 1px solid rgba(255, 255, 255, 0.62);
-      background:
-        radial-gradient(circle at 20% 20%, rgba(84, 188, 165, 0.12), transparent 36%),
-        radial-gradient(circle at 78% 76%, rgba(244, 198, 128, 0.12), transparent 40%);
-      box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.22),
-        0 34px 84px rgba(39, 121, 106, 0.12);
-      z-index: 0;
-    }
-    .hero-portrait-frame {
-      position: relative;
-      overflow: hidden;
-      border-radius: 1.75rem;
-      border: 1px solid rgba(255, 255, 255, 0.75);
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(241, 249, 246, 0.82));
-      padding: 0.6rem;
-      box-shadow:
-        0 28px 80px rgba(15, 23, 42, 0.14),
-        inset 0 1px 0 rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(16px) saturate(155%);
-    }
-    .hero-portrait-placeholder {
-      display: flex;
-      min-height: 25rem;
-      flex-direction: column;
-      justify-content: flex-end;
-      gap: 0.9rem;
-      border-radius: 1.45rem;
-      background:
-        radial-gradient(circle at top left, rgba(255, 255, 255, 0.9), transparent 34%),
-        linear-gradient(160deg, rgba(64, 80, 106, 0.96), rgba(93, 111, 138, 0.92) 52%, rgba(15, 23, 42, 0.98));
-      padding: 1.6rem;
-      color: #ffffff;
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
-    }
-    .hero-portrait-badge {
-      display: inline-flex;
-      width: fit-content;
-      border-radius: 9999px;
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      background: rgba(255, 255, 255, 0.14);
-      padding: 0.45rem 0.85rem;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-    .hero-portrait-name {
-      font-size: 2.15rem;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-    }
-    .hero-portrait-meta {
-      max-width: 16rem;
-      color: rgba(255, 255, 255, 0.8);
-      line-height: 1.75;
-    }
-
-    .floating-button {
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(12px);
-      transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
-    }
-    .floating-button.show {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    .modal-open { overflow: hidden; }
-
-    .modal-copy p {
-      margin: 0 0 1.15rem;
-      font-size: 1.06rem;
-      line-height: 2;
-      color: #334155;
-    }
-    .modal-copy ul {
-      margin: 1rem 0 1.25rem;
-      padding-left: 1.35rem;
-      color: #334155;
-      list-style: disc;
-    }
-    .modal-copy li {
-      margin: 0.7rem 0;
-      line-height: 1.85;
-    }
-    .modal-copy h4 {
-      margin: 0 0 1.1rem;
-      font-size: 1.5rem;
-      line-height: 1.45;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      color: #143b35;
-    }
-    .modal-copy h4 + p {
-      margin-top: 0;
-    }
-
-    .certificate-placeholder {
-      border: 1px dashed rgba(39, 121, 106, 0.35);
-      border-radius: 20px;
-      background: linear-gradient(180deg, rgba(248, 252, 251, 0.95), rgba(239, 247, 245, 0.82));
-      padding: 1.4rem;
-    }
-
-    
-    .hero-portrait-image {
-      display: block;
-      width: 100%;
-      aspect-ratio: 4 / 5;
-      border-radius: 1.45rem;
-      object-fit: cover;
-      object-position: center 18%;
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
-    }
-
-    .certificate-preview {
-      margin-top: 1.25rem;
-      overflow: hidden;
-      border-radius: 1rem;
-      border: 1px solid rgba(148, 163, 184, 0.22);
-      background: rgba(248, 250, 252, 0.75);
-      padding: 0.75rem;
-    }
-
-    .certificate-preview img {
-      width: 100%;
-      border-radius: 0.75rem;
-      display: block;
-    }
-
-    .section-shell .bg-slate-50,
-    .section-shell .bg-slate-50\/90 {
-      background: linear-gradient(180deg, rgba(249, 252, 251, 0.95), rgba(238, 246, 243, 0.88)) !important;
-    }
-
-    .section-shell .bg-slate-100 {
-      background: rgba(231, 244, 240, 0.92) !important;
-    }
-
-    .section-shell .ring-slate-200,
-    .section-shell .ring-slate-100 {
-      --tw-ring-color: rgba(200, 223, 217, 0.92) !important;
-    }
-
-    .section-shell .border-slate-200,
-    .section-shell .border-slate-300 {
-      border-color: rgba(198, 219, 213, 0.92) !important;
-    }
-
-    footer {
-      border-color: rgba(202, 226, 220, 0.88) !important;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(241, 249, 246, 0.94)) !important;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82);
-    }
-
-    @media (max-width: 640px) {
-      .section-shell { border-radius: 1.75rem; }
-      .card-action { padding-top: 1.25rem; }
-    }
-
-@media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      .reveal, .floating-button, .site-header .header-shell, .nav-link::after { transition: none !important; }
-    }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Awards | ChengLang Rong</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="assets/site.css" />
 </head>
-<body class="font-sans text-slate-800 antialiased">
-<header class="site-header fixed inset-x-0 top-0 z-50" id="site-header">
-<div class="mx-auto max-w-7xl px-4 pt-4 sm:px-6 lg:px-8">
-<div class="header-shell rounded-2xl border">
-<div class="flex items-center justify-between px-4 py-3 sm:px-6">
-<a class="flex items-center gap-3 text-brand-900" href="index.html">
-<span class="inline-flex h-10 items-center justify-center rounded-full bg-brand-900/90 px-4 text-[11px] font-semibold tracking-[0.14em] text-white uppercase shadow-sm">Research</span>
-<div>
-<p class="text-sm font-semibold tracking-[0.12em] text-slate-500 uppercase">Academic Homepage</p>
-<p class="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-lg font-semibold leading-tight">
-<span>ChengLang Rong</span>
-<span class="text-sm font-bold tracking-[0.16em] text-brand-700 sm:text-base">容程朗</span>
-</p>
-</div>
-</a>
-<nav class="hidden items-center gap-8 md:flex">
-<a class="nav-link text-sm font-medium text-slate-600" data-nav-link="" href="index.html">Home</a>
-<a class="nav-link text-sm font-medium text-slate-600" data-nav-link="" href="research.html">Research</a>
-<a class="nav-link text-sm font-medium text-slate-600" data-nav-link="" href="publications.html">Papers</a>
-<a class="nav-link text-sm font-medium text-slate-600" data-nav-link="" href="awards.html" aria-current="page">Awards</a>
-<a class="nav-link text-sm font-medium text-slate-600" data-nav-link="" href="education.html">Education</a>
-<a class="nav-link text-sm font-medium text-slate-600" data-nav-link="" href="contact.html">Contact</a>
-</nav>
-<button aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu" class="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-white text-brand-900 shadow-sm md:hidden" id="mobile-menu-button" type="button">
-<i class="fa fa-bars text-lg"></i>
-</button>
-</div>
-<div class="hidden border-t border-slate-200 px-4 py-4 md:hidden sm:px-6" id="mobile-menu">
-<nav class="grid gap-1">
-<a class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100" data-mobile-link="" href="index.html">Home</a>
-<a class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100" data-mobile-link="" href="research.html">Research</a>
-<a class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100" data-mobile-link="" href="publications.html">Papers</a>
-<a class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100" data-mobile-link="" href="awards.html" aria-current="page">Awards</a>
-<a class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100" data-mobile-link="" href="education.html">Education</a>
-<a class="rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100" data-mobile-link="" href="contact.html">Contact</a>
-</nav>
-</div>
-</div>
-</div>
-</header>
-<main>
-<section class="section-anchor pt-28 pb-16 sm:pt-32 sm:pb-20" id="awards">
-<div class="section-shell mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-<div class="reveal max-w-3xl">
-<span class="eyebrow">Awards</span>
-<h2 class="mt-5 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">Honors and Awards</h2>
-</div>
-<article class="reveal mt-8 card-surface p-6 sm:p-7">
-<div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-<div class="max-w-3xl">
-<span class="inline-flex rounded-full bg-brand-50 px-3.5 py-1.5 text-xs font-semibold tracking-[0.16em] text-brand-800 uppercase ring-1 ring-brand-100">Current Focus</span>
-<h3 class="mt-4 text-2xl font-bold tracking-tight text-slate-950">Competitions in Preparation</h3>
-<p class="mt-3 text-sm leading-7 text-slate-600">I am currently preparing several major competitions that are in progress or approaching submission and final evaluation.</p>
-</div>
-<span class="inline-flex w-fit rounded-full bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-700 ring-1 ring-emerald-100">In Progress</span>
-</div>
-<div class="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-<div class="rounded-2xl bg-slate-50/90 p-4 ring-1 ring-slate-200">
-<p class="text-base font-semibold leading-7 text-slate-900">China Robot and Artificial Intelligence Competition</p>
-<p class="mt-2 text-sm leading-7 text-slate-600">Currently targeting a National First Prize after the regional competition stage.</p>
-</div>
-<div class="rounded-2xl bg-slate-50/90 p-4 ring-1 ring-slate-200">
-<p class="text-base font-semibold leading-7 text-slate-900">China Statistical Modeling Competition</p>
-<p class="mt-2 text-sm leading-7 text-slate-600">The project work has been completed, and we are currently preparing for the provincial competition round.</p>
-</div>
-<div class="rounded-2xl bg-slate-50/90 p-4 ring-1 ring-slate-200">
-<p class="text-base font-semibold leading-7 text-slate-900">Network Technology Challenge</p>
-<p class="mt-2 text-sm leading-7 text-slate-600">The project work has been completed, and we are currently preparing for the provincial competition round.</p>
-</div>
-</div>
-</article>
-<div class="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-<article class="reveal card-balanced card-surface p-6 sm:p-7">
-<div class="flex items-start gap-4">
-<div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-yellow-50 text-yellow-600 ring-1 ring-yellow-100">
-<i class="fa fa-area-chart text-2xl"></i>
-</div>
-<div class="min-w-0 flex-1">
-<h3 class="text-lg font-bold leading-7 text-slate-950">China Undergraduate Mathematical Contest in Modeling</h3>
-<span class="mt-3 inline-flex rounded-full bg-slate-100 px-3.5 py-1.5 text-xs font-semibold text-slate-600">2024</span>
-</div>
-</div>
-<div class="mt-5 space-y-2 text-sm leading-7 text-slate-600">
-<p><span class="font-semibold text-slate-900">Award:</span> Second Prize, Guangdong Provincial Division</p>
-</div>
-<button class="card-action inline-flex w-fit items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" data-modal-button="" data-template="detail-award1" data-title="Award Detail" type="button">View Details</button>
-</article>
-<article class="reveal card-balanced card-surface p-6 sm:p-7">
-<div class="flex items-start gap-4">
-<div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 ring-1 ring-blue-100">
-<i class="fa fa-superscript text-2xl"></i>
-</div>
-<div class="min-w-0 flex-1">
-<h3 class="text-lg font-bold leading-7 text-slate-950">National Mathematics Competition for College Students</h3>
-<span class="mt-3 inline-flex rounded-full bg-slate-100 px-3.5 py-1.5 text-xs font-semibold text-slate-600">2024</span>
-</div>
-</div>
-<div class="mt-5 space-y-2 text-sm leading-7 text-slate-600">
-<p><span class="font-semibold text-slate-900">Award:</span> Third Prize, Guangdong Provincial Division</p>
-</div>
-<button class="card-action inline-flex w-fit items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" data-modal-button="" data-template="detail-award2" data-title="Award Detail" type="button">View Details</button>
-</article>
-<article class="reveal card-balanced card-surface p-6 sm:p-7">
-<div class="flex items-start gap-4">
-<div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 ring-1 ring-emerald-100">
-<i class="fa fa-android text-2xl"></i>
-</div>
-<div class="min-w-0 flex-1">
-<h3 class="text-lg font-bold leading-7 text-slate-950">China Robot and Artificial Intelligence Competition</h3>
-<span class="mt-3 inline-flex rounded-full bg-slate-100 px-3.5 py-1.5 text-xs font-semibold text-slate-600">2025</span>
-</div>
-</div>
-<div class="mt-5 space-y-2 text-sm leading-7 text-slate-600">
-<p><span class="font-semibold text-slate-900">Track:</span> AI Innovation</p>
-<p><span class="font-semibold text-slate-900">Award:</span> Third Prize, Guangdong Regional Competition</p>
-</div>
-<button class="card-action inline-flex w-fit items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" data-modal-button="" data-template="detail-award3" data-title="Award Detail" type="button">View Details</button>
-</article>
-<article class="reveal card-balanced card-surface p-6 sm:p-7">
-<div class="flex items-start gap-4">
-<div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-violet-50 text-violet-600 ring-1 ring-violet-100">
-<i class="fa fa-graduation-cap text-2xl"></i>
-</div>
-<div class="min-w-0 flex-1">
-<h3 class="text-lg font-bold leading-7 text-slate-950">Outstanding Student Scholarship, Guangdong University of Technology</h3>
-<span class="mt-3 inline-flex rounded-full bg-slate-100 px-3.5 py-1.5 text-xs font-semibold text-slate-600">2023-2024</span>
-</div>
-</div>
-<div class="mt-5 space-y-2 text-sm leading-7 text-slate-600">
-<p><span class="font-semibold text-slate-900">Award:</span> Third-Class Scholarship</p>
-</div>
-<button class="card-action inline-flex w-fit items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" data-modal-button="" data-template="detail-award4" data-title="Award Detail" type="button">View Details</button>
-</article>
-<article class="reveal card-balanced card-surface p-6 sm:p-7">
-<div class="flex items-start gap-4">
-<div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-rose-50 text-rose-600 ring-1 ring-rose-100">
-<i class="fa fa-graduation-cap text-2xl"></i>
-</div>
-<div class="min-w-0 flex-1">
-<h3 class="text-lg font-bold leading-7 text-slate-950">Outstanding Student Scholarship, Guangdong University of Technology</h3>
-<span class="mt-3 inline-flex rounded-full bg-slate-100 px-3.5 py-1.5 text-xs font-semibold text-slate-600">2024-2025</span>
-</div>
-</div>
-<div class="mt-5 space-y-2 text-sm leading-7 text-slate-600">
-<p><span class="font-semibold text-slate-900">Award:</span> Second-Class Scholarship</p>
-</div>
-<button class="card-action inline-flex w-fit items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" data-modal-button="" data-template="detail-award5" data-title="Award Detail" type="button">View Details</button>
-</article>
-<article class="reveal card-balanced card-surface p-6 sm:p-7">
-<div class="flex items-start gap-4">
-<div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-orange-50 text-orange-600 ring-1 ring-orange-100">
-<i class="fa fa-users text-2xl"></i>
-</div>
-<div class="min-w-0 flex-1">
-<h3 class="text-lg font-bold leading-7 text-slate-950">Outstanding Class Monitor and Student Cadre, Guangdong University of Technology</h3>
-<span class="mt-3 inline-flex rounded-full bg-slate-100 px-3.5 py-1.5 text-xs font-semibold text-slate-600">2024-2025</span>
-</div>
-</div>
-<div class="mt-5 space-y-2 text-sm leading-7 text-slate-600">
-<p><span class="font-semibold text-slate-900">Award:</span> First-Class Scholarship</p>
-</div>
-<button class="card-action inline-flex w-fit items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900" data-modal-button="" data-template="detail-award6" data-title="Award Detail" type="button">View Details</button>
-</article>
-</div>
-</div>
-</section></main>
-<footer class="border-t border-slate-200 bg-white py-10 text-slate-900">
-<div class="mx-auto flex max-w-7xl flex-col gap-6 px-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
-<div>
-<h3 class="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-2xl font-bold leading-tight">
-<span>ChengLang Rong</span>
-<span class="text-lg font-semibold tracking-[0.16em] text-brand-700">容程朗</span>
-</h3>
-<p class="mt-2 text-sm text-slate-500">Artificial Intelligence</p>
-</div>
-<div class="flex items-center gap-4">
-<a aria-label="GitHub" class="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 text-slate-600 transition hover:border-slate-300 hover:bg-slate-100 hover:text-slate-900" href="https://github.com/ChenglangRong" rel="noreferrer" target="_blank">
-<i class="fa fa-github"></i>
-</a>
-</div>
-</div>
-<div class="mx-auto mt-8 max-w-7xl border-t border-slate-200 px-4 pt-6 text-sm text-slate-500 sm:px-6 lg:px-8">
-      &copy; 2026 ChengLang Rong | 容程朗 | Academic Homepage. All rights reserved.
+<body data-page="awards">
+  <header class="site-header">
+    <div class="shell nav-shell">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">CR</span>
+        <span>
+          <span class="brand-title">ChengLang Rong | 容程朗</span>
+          <span class="brand-subtitle">Artificial Intelligence</span>
+        </span>
+      </a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a class="nav-link" data-nav-page="home" href="index.html">Home</a>
+        <a class="nav-link" data-nav-page="research" href="research.html">Research</a>
+        <a class="nav-link" data-nav-page="publications" href="publications.html">Papers</a>
+        <a class="nav-link" data-nav-page="awards" href="awards.html">Awards</a>
+        <a class="nav-link" data-nav-page="education" href="education.html">Education</a>
+        <a class="nav-link" data-nav-page="contact" href="contact.html">Contact</a>
+      </nav>
+      <button class="mobile-menu-button" id="mobile-menu-button" type="button" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu">
+        <i class="fa fa-bars"></i>
+      </button>
     </div>
-</footer>
-<div aria-hidden="true" class="fixed inset-0 z-[80] hidden" id="detail-modal">
-<div class="absolute inset-0 bg-slate-950/70"></div>
-<div class="relative flex min-h-full items-center justify-center p-4 sm:p-6">
-<div class="w-full max-w-5xl overflow-hidden rounded-[32px] border border-slate-200 bg-white shadow-2xl">
-<div class="flex items-start justify-between gap-4 border-b border-slate-200 px-6 py-5 sm:px-8">
-<div>
-<p class="text-sm font-semibold tracking-[0.16em] text-slate-500 uppercase">Detail</p>
-<h3 class="mt-2 text-[1.85rem] font-black leading-snug tracking-tight text-slate-950 sm:text-[2rem]" id="detail-modal-title"></h3>
-</div>
-<button aria-label="Close detail" class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 text-slate-600 transition hover:bg-slate-100" id="detail-modal-close" type="button">
-<i class="fa fa-times text-lg"></i>
-</button>
-</div>
-<div class="modal-copy max-h-[72vh] overflow-y-auto px-6 py-6 sm:px-8 sm:py-8" id="detail-modal-body"></div>
-</div>
-</div>
-</div>
-<button aria-label="Back to top" class="floating-button fixed bottom-6 right-6 z-40 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-900 text-white transition hover:bg-brand-800" id="back-to-top" type="button">
-<i class="fa fa-arrow-up"></i>
-</button>
-<template id="detail-research1">
-<h4>Scheduling of a Single-Arm Cluster Tool for Processing Two Types of Wafers with Parallel Processing</h4>
-<p>This study focuses on the scheduling problem of a single-arm cluster tool processing multiple wafer types under wafer residency time constraints, and proposes a scheduling strategy based on deep reinforcement learning. Beyond establishing the scheduling model, the work delivers clear performance gains: the improved TD3 policy achieves better makespan, faster convergence, and stronger robustness than several mainstream deep-RL baselines in representative scenarios, and the resulting paper has been accepted by CSCWD 2026 with me as first author.</p>
-<p>This paper studies the scheduling problem of a single-arm cluster tool processing two wafer types. Unlike many existing studies that focus only on steady-state scheduling, my work considers the entire production cycle, including the startup transient, steady-state, and close-down transient phases. At the same time, it incorporates parallel processing modules, shared module competition, and wafer residency time constraints. The challenge is that a single robotic arm can move only one wafer at a time, while different wafer routes may overlap and share modules, and wafers must be removed from modules within a strict time limit after processing.</p>
-<p>To address this, I formulated the problem as an MDP and developed an improved TD3 algorithm tailored to this scheduling environment. The main technical contributions include dynamic noise exploration, dynamic prioritized replay, adaptive cyclic learning rate, an attention mechanism, a makespan-oriented reward function, and normalized state features. These designs improve both training stability and policy quality.</p>
-<p>In the experiments, I designed four representative scenarios with and without shared PMs and parallel paths, and compared the proposed method against traditional TD3, DDPG, and DQN. The results show that my improved TD3 achieves better minimum makespan and faster convergence in most scenarios, demonstrating stronger robustness and generalization capability.</p>
-<p>The significance of this work is that it demonstrates the feasibility of using deep reinforcement learning for complex, highly constrained, and dynamically coupled scheduling problems in semiconductor manufacturing. It provides a more flexible and practical alternative to conventional rule-based or static optimization approaches.</p>
-<p>This first-author paper has been accepted by CSCWD 2026, which is a CCF Category C conference, and provides a novel solution for scheduling optimization in semiconductor manufacturing.</p>
-</template>
-<template id="detail-research2">
-<h4>Scheduling of Single-Arm Multicluster Tools for Multi-Type Wafers with Parallel Processing and Residency Time Constraints</h4>
+    <div class="shell mobile-panel" id="mobile-menu" hidden>
+      <nav class="mobile-nav" aria-label="Mobile navigation">
+        <a class="nav-link" data-nav-page="home" href="index.html">Home</a>
+        <a class="nav-link" data-nav-page="research" href="research.html">Research</a>
+        <a class="nav-link" data-nav-page="publications" href="publications.html">Papers</a>
+        <a class="nav-link" data-nav-page="awards" href="awards.html">Awards</a>
+        <a class="nav-link" data-nav-page="education" href="education.html">Education</a>
+        <a class="nav-link" data-nav-page="contact" href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-</template>
-<template id="detail-research3">
-<h4>Intelligent Scheduling System for Central Air Conditioning</h4>
-<p>This project focused on the intelligent scheduling of a central air-conditioning system from September 2024 to July 2025. Starting from the operating principles of the system, we studied how major components such as chillers, pumps, fans, and auxiliary control units could be scheduled in a coordinated manner so that the entire system could respond efficiently to changing environmental and operating conditions.</p>
-<p>A core part of the work was to analyze the coupling relationships among different devices and identify scheduling patterns that balance system stability, energy efficiency, and control responsiveness. Instead of optimizing each component independently, the project treated central air conditioning as a collaborative multi-device system and explored how equipment-level decisions affect the overall operating state.</p>
-<p>To support intelligent decision-making, we applied neural network techniques to model and predict the power consumption of central air-conditioning equipment after frequency regulation under constrained external conditions. This prediction module provided a relatively accurate estimate of how each device would respond after control adjustments, which created a practical data-driven basis for subsequent scheduling and optimization.</p>
-<p>On top of the predictive model, we designed and implemented an intelligent scheduling algorithm and system based on the DDPG reinforcement learning framework. The algorithm was built to adapt to environmental changes and dynamic variations in device power, enabling the scheduler to continuously adjust control actions and improve the coordination strategy in real time. This made the system more adaptive than conventional rule-based scheduling approaches.</p>
-<p>The project was recognized with Third Prize in the Guangdong Regional Competition of the China Robot and Artificial Intelligence Competition, which highlighted both its technical completeness and its practical value. In addition, based on these staged outcomes, we are currently submitting a paper to IEEE Transactions on Industrial Informatics (SCI Q1, CCF-B), where I am the third author. Overall, this work demonstrated how neural-network-based power prediction and reinforcement-learning-based control can be integrated into an end-to-end intelligent scheduling system for central air conditioning, providing a useful reference for energy management and smart building applications.</p>
-</template>
-<template id="detail-research4">
-<h4>Scheduling of Single-Arm Multicluster Tools for Multi-Type Wafers with Parallel Processing, Residency Time Constraints, and Reentrant Buffer Cooling Operations</h4>
-<p>This project, which has been running from November 2025 to the present, develops an online scheduling policy for single-arm multicluster tools processing multiple wafer types under parallel processing, residency-time constraints, and reentrant buffer cooling operations. I serve as the overall project lead, and the work is organized as a full decision pipeline from formal problem definition to latency-aware evaluation.</p>
-<p>The pipeline starts with a precise problem definition and an event-driven simulator. The simulator reproduces robot transfers, process-module operations, buffer-module waiting, cooling behavior, and time-window constraints, so each candidate decision can be tested against the physical evolution of the manufacturing system.</p>
-<p>On top of the simulator, the project builds a legal action generator and constraint checker. This component enumerates only feasible scheduling actions and verifies resource exclusivity, route precedence, residency-time limits, reentrant buffer cooling requirements, and deadlock-sensitive interactions before an action is passed to the optimization or learning layer.</p>
-<p>The optimization layer combines CP-SAT, large neighborhood search, heuristic methods, and rule-constrained reinforcement learning. These methods are used as complementary solvers and policy sources: CP-SAT supports exact feasibility reasoning, large neighborhood search repairs critical regions, heuristics provide fast rule-based decisions, and rule-constrained reinforcement learning explores higher-quality choices without violating hard constraints.</p>
-<p>To support learning and analysis, the system maintains a hierarchical evidence bank. This evidence bank records simulator states, feasible actions, constraint-checking outcomes, solver traces, repair decisions, and evaluation feedback, giving the later representation and policy modules structured evidence rather than isolated raw events.</p>
-<p>The state representation is built with a heterogeneous graph state encoder, followed by Mamba or Transformer process memory. The graph encoder represents robots, process modules, buffer modules, wafer lots, legal actions, and constraint relations as typed nodes and edges, while the process memory captures long-range temporal dependencies in the evolving schedule.</p>
-<p>The decision module uses multi-head value and risk estimation. The heads estimate V(s) for remaining makespan and state quality, Q(s,a) for legal action value, Risk(s,a) for residency, cooling, and deadlock risk, DeltaC(s,a) for predicted makespan change, and Macro-Q(s,o) for macro-option value. These estimates allow the policy to balance short-term feasibility, long-term schedule quality, and operational risk.</p>
-<p>The policy layer uses masked reinforcement learning and hierarchical reinforcement learning. Action masks prevent illegal decisions from being selected, while hierarchical decisions allow the policy to choose both fine-grained actions and higher-level macro options for larger scheduling moves.</p>
-<p>Before execution, each selected decision passes through runtime validation and local repair. The final output is an online scheduling policy that can be evaluated through main results, ablation studies, generalization experiments, and latency tests, ensuring that the method is not only feasible and high-quality but also practical for real-time or near-real-time scheduling scenarios.</p>
-</template>
-<template id="detail-award1">
+  <main class="page">
+    <section class="shell page-hero reveal">
+      <span class="eyebrow">Awards</span>
+      <h1 class="page-title">Honors, Scholarships, and Competition Results</h1>
+      <p class="lead">Academic awards and competition records with an Artificial Intelligence-centered innovation profile.</p>
+    </section>
+
+    <section class="shell section-block">
+      <article class="card reveal">
+        <div class="card-body">
+          <span class="eyebrow">Current Focus</span>
+          <h2 class="section-title">Competitions in Preparation</h2>
+          <div class="grid three">
+            <div class="meta-box"><span>Competition</span><strong>China Robot and Artificial Intelligence Competition</strong><p class="stat-note">Targeting a national First Prize.</p></div>
+            <div class="meta-box"><span>Competition</span><strong>China Statistical Modeling Competition</strong><p class="stat-note">The work is complete, passed the university-level selection, and is preparing for the provincial competition.</p></div>
+            <div class="meta-box"><span>Competition</span><strong>Network Technology Challenge</strong><p class="stat-note">The work is complete, passed the university-level selection, and is preparing for the provincial competition.</p></div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="shell section-block">
+      <div class="grid three">
+        <article class="card award-card reveal">
+          <div class="card-head">
+            <span class="card-index">2024</span>
+            <span class="card-date">Modeling</span>
+          </div>
+          <div class="card-body">
+            <h2 class="item-title">China Undergraduate Mathematical Contest in Modeling</h2>
+            <div class="fact-list"><p><span>Award:</span> Second Prize, Guangdong Provincial Division.</p></div>
+            <div class="card-actions"><button class="button" data-modal-button data-template="detail-award1" data-title="Award Detail" type="button">View Details</button></div>
+          </div>
+        </article>
+
+        <article class="card award-card reveal">
+          <div class="card-head">
+            <span class="card-index">2024</span>
+            <span class="card-date">Mathematics</span>
+          </div>
+          <div class="card-body">
+            <h2 class="item-title">National Mathematics Competition for College Students</h2>
+            <div class="fact-list"><p><span>Award:</span> Third Prize, Guangdong Provincial Division.</p></div>
+            <div class="card-actions"><button class="button" data-modal-button data-template="detail-award2" data-title="Award Detail" type="button">View Details</button></div>
+          </div>
+        </article>
+
+        <article class="card award-card reveal">
+          <div class="card-head">
+            <span class="card-index">2025</span>
+            <span class="card-date">Artificial Intelligence Innovation</span>
+          </div>
+          <div class="card-body">
+            <h2 class="item-title">China Robot and Artificial Intelligence Competition</h2>
+            <div class="fact-list">
+              <p><span>Track:</span> Artificial Intelligence Innovation.</p>
+              <p><span>Award:</span> Third Prize, Guangdong Regional Competition.</p>
+            </div>
+            <div class="card-actions"><button class="button" data-modal-button data-template="detail-award3" data-title="Award Detail" type="button">View Details</button></div>
+          </div>
+        </article>
+
+        <article class="card award-card reveal">
+          <div class="card-head">
+            <span class="card-index">2023-2024</span>
+            <span class="card-date">Scholarship</span>
+          </div>
+          <div class="card-body">
+            <h2 class="item-title">Outstanding Student Scholarship, Guangdong University of Technology</h2>
+            <div class="fact-list"><p><span>Award:</span> Third-Class Scholarship.</p></div>
+            <div class="card-actions"><button class="button" data-modal-button data-template="detail-award4" data-title="Award Detail" type="button">View Details</button></div>
+          </div>
+        </article>
+
+        <article class="card award-card reveal">
+          <div class="card-head">
+            <span class="card-index">2024-2025</span>
+            <span class="card-date">Scholarship</span>
+          </div>
+          <div class="card-body">
+            <h2 class="item-title">Outstanding Student Scholarship, Guangdong University of Technology</h2>
+            <div class="fact-list"><p><span>Award:</span> Second-Class Scholarship.</p></div>
+            <div class="card-actions"><button class="button" data-modal-button data-template="detail-award5" data-title="Award Detail" type="button">View Details</button></div>
+          </div>
+        </article>
+
+        <article class="card award-card reveal">
+          <div class="card-head">
+            <span class="card-index">2024-2025</span>
+            <span class="card-date">Leadership</span>
+          </div>
+          <div class="card-body">
+            <h2 class="item-title">Outstanding Class Monitor and Student Cadre, Guangdong University of Technology</h2>
+            <div class="fact-list"><p><span>Award:</span> First-Class Scholarship.</p></div>
+            <div class="card-actions"><button class="button" data-modal-button data-template="detail-award6" data-title="Award Detail" type="button">View Details</button></div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal" id="detail-modal" hidden>
+    <div class="modal-backdrop"></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="detail-modal-title">
+      <div class="modal-head">
+        <div>
+          <p>Detail</p>
+          <h3 id="detail-modal-title"></h3>
+        </div>
+        <button class="modal-close" id="detail-modal-close" type="button" aria-label="Close detail"><i class="fa fa-times"></i></button>
+      </div>
+      <div class="modal-copy" id="detail-modal-body"></div>
+    </div>
+  </div>
+
+  <template id="detail-award1">
     <h4>China Undergraduate Mathematical Contest in Modeling</h4>
-    <p>Year: 2024</p>
+    <p>Year: 2024.</p>
     <p>Award: Second Prize, Guangdong Provincial Division.</p>
-    <div class="certificate-preview">
-      <img src="assets/math_modeling_second_2024.png" alt="Certificate preview for China Undergraduate Mathematical Contest in Modeling" />
-    </div>
-    <div class="mt-4 flex flex-wrap gap-3">
-      <a href="assets/docs/math_modeling_second_2024.pdf" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900">Open Original Certificate</a>
-    </div>
-</template>
-<template id="detail-award2">
+    <div class="certificate-preview"><img src="assets/math_modeling_second_2024.png" alt="Certificate preview for China Undergraduate Mathematical Contest in Modeling" /></div>
+    <p><a class="button" href="assets/docs/math_modeling_second_2024.pdf" target="_blank" rel="noreferrer">Open Original Certificate</a></p>
+  </template>
+  <template id="detail-award2">
     <h4>National Mathematics Competition for College Students</h4>
-    <p>Year: 2024</p>
+    <p>Year: 2024.</p>
     <p>Award: Third Prize, Guangdong Provincial Division.</p>
-    <div class="certificate-preview">
-      <img src="assets/math_competition_third_2024.png" alt="Certificate preview for National Mathematics Competition for College Students" />
-    </div>
-    <div class="mt-4 flex flex-wrap gap-3">
-      <a href="assets/docs/math_competition_third_2024.pdf" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900">Open Original Certificate</a>
-    </div>
-</template>
-<template id="detail-award3">
+    <div class="certificate-preview"><img src="assets/math_competition_third_2024.png" alt="Certificate preview for National Mathematics Competition for College Students" /></div>
+    <p><a class="button" href="assets/docs/math_competition_third_2024.pdf" target="_blank" rel="noreferrer">Open Original Certificate</a></p>
+  </template>
+  <template id="detail-award3">
     <h4>China Robot and Artificial Intelligence Competition</h4>
-    <p>Year: 2025</p>
+    <p>Year: 2025.</p>
     <p>Track: Artificial Intelligence Innovation.</p>
     <p>Award: Third Prize, Guangdong Selection Competition.</p>
-    <div class="certificate-preview">
-      <img src="assets/robot_ai_competition_third_2025.png" alt="Certificate preview for China Robot and Artificial Intelligence Competition" />
-    </div>
-    <div class="mt-4 flex flex-wrap gap-3">
-      <a href="assets/docs/robot_ai_competition_third_2025.pdf" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900">Open Original Certificate</a>
-    </div>
-</template>
-<template id="detail-award4">
+    <div class="certificate-preview"><img src="assets/robot_ai_competition_third_2025.png" alt="Certificate preview for China Robot and Artificial Intelligence Competition" /></div>
+    <p><a class="button" href="assets/docs/robot_ai_competition_third_2025.pdf" target="_blank" rel="noreferrer">Open Original Certificate</a></p>
+  </template>
+  <template id="detail-award4">
     <h4>Outstanding Student Scholarship, Guangdong University of Technology</h4>
-    <p>Academic Year: 2023-2024</p>
+    <p>Academic Year: 2023-2024.</p>
     <p>Award: Third-Class Scholarship.</p>
-    <div class="certificate-preview">
-      <img src="assets/scholarship_third_2023_2024.jpg" alt="Certificate preview for the 2023-2024 Outstanding Student Third-Class Scholarship" />
-    </div>
-</template>
-<template id="detail-award5">
+    <div class="certificate-preview"><img src="assets/scholarship_third_2023_2024.jpg" alt="Certificate preview for the 2023-2024 scholarship" /></div>
+  </template>
+  <template id="detail-award5">
     <h4>Outstanding Student Scholarship, Guangdong University of Technology</h4>
-    <p>Academic Year: 2024-2025</p>
+    <p>Academic Year: 2024-2025.</p>
     <p>Award: Second-Class Scholarship.</p>
-    <div class="certificate-preview">
-      <img src="assets/scholarship_second_2024_2025.jpg" alt="Certificate preview for the 2024-2025 Outstanding Student Second-Class Scholarship" />
-    </div>
-</template>
-<template id="detail-award6">
+    <div class="certificate-preview"><img src="assets/scholarship_second_2024_2025.jpg" alt="Certificate preview for the 2024-2025 scholarship" /></div>
+  </template>
+  <template id="detail-award6">
     <h4>Outstanding Class Monitor and Student Cadre, Guangdong University of Technology</h4>
-    <p>Academic Year: 2024-2025</p>
+    <p>Academic Year: 2024-2025.</p>
     <p>Award: First-Class Scholarship.</p>
-    <p>This recognition highlights outstanding leadership, student service, and academic performance at Guangdong University of Technology.</p>
-</template>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const body = document.body;
-      const header = document.getElementById('site-header');
-      const mobileMenuButton = document.getElementById('mobile-menu-button');
-      const mobileMenu = document.getElementById('mobile-menu');
-      const mobileLinks = document.querySelectorAll('[data-mobile-link]');
-      const navLinks = document.querySelectorAll('[data-nav-link]');
-      const sections = document.querySelectorAll('section[id]');
-      const backToTop = document.getElementById('back-to-top');
-      const copyEmailBtn = document.getElementById('copy-email');
+    <p>This recognition highlights leadership, student service, and academic performance at Guangdong University of Technology.</p>
+  </template>
 
-      const detailModal = document.getElementById('detail-modal');
-      const detailModalTitle = document.getElementById('detail-modal-title');
-      const detailModalBody = document.getElementById('detail-modal-body');
-      const detailModalClose = document.getElementById('detail-modal-close');
-      const modalButtons = document.querySelectorAll('[data-modal-button]');
-
-      const setBodyLock = () => {
-        if (!detailModal) return;
-        const modalVisible = !detailModal.classList.contains('hidden');
-        body.classList.toggle('modal-open', modalVisible);
-      };
-
-      const updateHeaderState = () => {
-        header.classList.toggle('scrolled', window.scrollY > 12);
-        if (backToTop) backToTop.classList.toggle('show', window.scrollY > 360);
-      };
-
-      const updateActiveNav = () => {
-        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-
-        navLinks.forEach((link) => {
-          const linkPage = link.getAttribute('href');
-          const isActive = linkPage === currentPage || (currentPage === '' && linkPage === 'index.html');
-          link.classList.toggle('active', isActive);
-        });
-      };
-
-      mobileMenuButton.addEventListener('click', () => {
-        const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-        mobileMenuButton.setAttribute('aria-expanded', String(!isExpanded));
-        mobileMenu.classList.toggle('hidden');
-      });
-
-      mobileLinks.forEach((link) => {
-        link.addEventListener('click', () => {
-          mobileMenu.classList.add('hidden');
-          mobileMenuButton.setAttribute('aria-expanded', 'false');
-        });
-      });
-
-      const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            revealObserver.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.12 });
-
-      document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element));
-
-      modalButtons.forEach((button) => {
-        button.addEventListener('click', () => {
-          const template = document.getElementById(button.dataset.template || '');
-          if (!detailModal || !detailModalTitle || !detailModalBody) return;
-          detailModalTitle.textContent = button.dataset.title || 'Detail';
-          detailModalBody.innerHTML = template ? template.innerHTML : '';
-          detailModal.classList.remove('hidden');
-          setBodyLock();
-        });
-      });
-
-      const closeDetailModal = () => {
-        detailModal.classList.add('hidden');
-        detailModalBody.innerHTML = '';
-        setBodyLock();
-      };
-
-      if (detailModalClose && detailModal) {
-        detailModalClose.addEventListener('click', closeDetailModal);
-        detailModal.addEventListener('click', (event) => {
-          if (event.target === detailModal || event.target === detailModal.firstElementChild) {
-            closeDetailModal();
-          }
-        });
-      }
-
-      document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && detailModal && !detailModal.classList.contains('hidden')) {
-          closeDetailModal();
-        }
-      });
-
-      if (copyEmailBtn) {
-        const initialText = copyEmailBtn.textContent;
-        copyEmailBtn.addEventListener('click', async () => {
-          const email = copyEmailBtn.dataset.email || '';
-          try {
-            await navigator.clipboard.writeText(email);
-            copyEmailBtn.textContent = 'Copied';
-            setTimeout(() => {
-              copyEmailBtn.textContent = initialText;
-            }, 1600);
-          } catch (error) {
-            window.prompt('Copy email manually:', email);
-          }
-        });
-      }
-
-      if (backToTop) {
-        backToTop.addEventListener('click', () => {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-      }
-
-      window.addEventListener('scroll', () => {
-        updateHeaderState();
-        updateActiveNav();
-      }, { passive: true });
-
-      updateHeaderState();
-      updateActiveNav();
-    });
-  </script>
+  <footer class="footer">
+    <div class="shell footer-inner">
+      <p><strong>ChengLang Rong | 容程朗</strong></p>
+      <p>&copy; 2026 Academic Homepage. All rights reserved.</p>
+    </div>
+  </footer>
+  <script src="assets/site.js"></script>
 </body>
 </html>
-
