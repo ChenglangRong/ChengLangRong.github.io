@@ -717,7 +717,7 @@
       };
 
       const updateHeaderState = () => {
-        if (header) header.classList.toggle('scrolled', window.scrollY > 12);
+        header.classList.toggle('scrolled', window.scrollY > 12);
         if (backToTop) backToTop.classList.toggle('show', window.scrollY > 360);
       };
 
@@ -731,17 +731,14 @@
         });
       };
 
-      if (mobileMenuButton && mobileMenu) {
-        mobileMenuButton.addEventListener('click', () => {
-          const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-          mobileMenuButton.setAttribute('aria-expanded', String(!isExpanded));
-          mobileMenu.classList.toggle('hidden');
-        });
-      }
+      mobileMenuButton.addEventListener('click', () => {
+        const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+        mobileMenuButton.setAttribute('aria-expanded', String(!isExpanded));
+        mobileMenu.classList.toggle('hidden');
+      });
 
       mobileLinks.forEach((link) => {
         link.addEventListener('click', () => {
-          if (!mobileMenu || !mobileMenuButton) return;
           mobileMenu.classList.add('hidden');
           mobileMenuButton.setAttribute('aria-expanded', 'false');
         });
@@ -770,7 +767,6 @@
       });
 
       const closeDetailModal = () => {
-        if (!detailModal || !detailModalBody) return;
         detailModal.classList.add('hidden');
         detailModalBody.innerHTML = '';
         setBodyLock();
