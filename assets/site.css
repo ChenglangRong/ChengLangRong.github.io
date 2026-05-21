@@ -231,7 +231,8 @@ button {
 }
 
 .home-name .name-en {
-  font-size: 0.88em;
+  max-width: 100%;
+  font-size: clamp(42px, 4.8vw, 64px);
   white-space: nowrap;
 }
 
