@@ -63,10 +63,10 @@ button {
 
 .nav-shell {
   display: flex;
-  min-height: 72px;
+  min-height: 80px;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  gap: 20px;
 }
 
 .brand {
@@ -74,6 +74,10 @@ button {
   min-width: 0;
   align-items: center;
   gap: 12px;
+}
+
+.brand > span:last-child {
+  min-width: 0;
 }
 
 .brand-mark {
@@ -92,17 +96,20 @@ button {
 }
 
 .brand-title {
+  display: block;
   margin: 0;
   color: var(--ink);
-  font-size: 16px;
+  font-size: 19px;
   font-weight: 800;
-  line-height: 1.2;
+  line-height: 1.18;
+  overflow-wrap: anywhere;
 }
 
 .brand-subtitle {
+  display: block;
   margin: 2px 0 0;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -111,15 +118,15 @@ button {
 .desktop-nav {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 
 .nav-link {
   border-radius: 8px;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
-  padding: 8px 11px;
+  padding: 8px 10px;
   transition: background 0.2s ease, color 0.2s ease;
 }
 
@@ -179,6 +186,23 @@ button {
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+}
+
+.home-hero .eyebrow {
+  font-size: clamp(13px, 1.1vw, 15px);
+  letter-spacing: 0.15em;
+}
+
+.home-hero .page-title {
+  max-width: 940px;
+  font-size: clamp(46px, 6vw, 76px);
+  line-height: 1;
+}
+
+.home-hero .lead {
+  max-width: 900px;
+  font-size: clamp(18px, 1.55vw, 21px);
+  line-height: 1.78;
 }
 
 .page-title {
@@ -699,7 +723,7 @@ button {
   overflow: hidden;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1040px) {
   .desktop-nav {
     display: none;
   }
@@ -726,19 +750,29 @@ button {
   }
 
   .nav-shell {
-    min-height: 66px;
+    min-height: 72px;
+    gap: 12px;
   }
 
   .brand-title {
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .brand-subtitle {
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .page-title {
     font-size: 36px;
+  }
+
+  .home-hero .page-title {
+    font-size: clamp(42px, 13vw, 52px);
+  }
+
+  .home-hero .lead {
+    font-size: 17px;
+    line-height: 1.7;
   }
 
   .card-body,
