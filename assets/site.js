@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const detailModalClose = document.getElementById('detail-modal-close');
   const modalButtons = document.querySelectorAll('[data-modal-button]');
   const copyButtons = document.querySelectorAll('[data-copy-text]');
+  const qrEntryButton = document.getElementById('qr-entry-button');
+  const qrEntryDialog = document.getElementById('qr-entry-dialog');
+  const qrCloseButtons = document.querySelectorAll('[data-qr-close]');
 
   navLinks.forEach((link) => {
     const isActive = link.dataset.navPage === currentPage;
@@ -84,8 +87,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  if (qrEntryButton && qrEntryDialog) {
+    const closeQrDialog = () => {
+      if (qrEntryDialog.open) {
+        qrEntryDialog.close();
+      }
+    };
+
+    qrEntryButton.addEventListener('click', () => {
+      qrEntryDialog.showModal();
+      qrEntryButton.setAttribute('aria-expanded', 'true');
+      body.classList.add('modal-open');
+    });
+
+    qrCloseButtons.forEach((button) => {
+      button.addEventListener('click', closeQrDialog);
+    });
+
+    qrEntryDialog.addEventListener('click', (event) => {
+      if (event.target === qrEntryDialog) {
+        closeQrDialog();
+      }
+    });
+
+    qrEntryDialog.addEventListener('close', () => {
+      qrEntryButton.setAttribute('aria-expanded', 'false');
+      body.classList.remove('modal-open');
+      qrEntryButton.focus();
+    });
+  }
+
   copyButtons.forEach((button) => {
-    const initialText = button.textContent;
+    const initialContent = button.innerHTML;
     button.addEventListener('click', async () => {
       const text = button.dataset.copyText || '';
       const copyWithTextarea = () => {
@@ -122,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       button.textContent = copied ? 'Copied' : 'Manual Copy';
       window.setTimeout(() => {
-        button.textContent = initialText;
+        button.innerHTML = initialContent;
       }, 1600);
     });
   });

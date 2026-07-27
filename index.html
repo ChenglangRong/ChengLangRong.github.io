@@ -6,7 +6,7 @@
   <title>ChengLang Rong | Academic Homepage</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" />
-  <link rel="stylesheet" href="assets/site.css" />
+  <link rel="stylesheet" href="assets/site.css?v=20260727-qr" />
 </head>
 <body data-page="home">
   <header class="site-header">
@@ -56,6 +56,9 @@
         <div class="hero-actions">
           <a class="button primary" href="research.html"><i class="fa fa-flask"></i>View Research</a>
           <a class="button" href="contact.html"><i class="fa fa-envelope"></i>Contact</a>
+          <button class="button" id="qr-entry-button" type="button" aria-haspopup="dialog" aria-controls="qr-entry-dialog" aria-expanded="false">
+            <i class="fa fa-qrcode" aria-hidden="true"></i>Scan QR
+          </button>
         </div>
       </div>
       <aside class="card profile-card reveal">
@@ -126,12 +129,43 @@
     </section>
   </main>
 
+  <dialog class="qr-dialog" id="qr-entry-dialog" aria-labelledby="qr-dialog-title">
+    <div class="qr-dialog-head">
+      <div>
+        <span class="eyebrow">Mobile Access</span>
+        <h2 id="qr-dialog-title">Scan to open my homepage</h2>
+      </div>
+      <button class="qr-dialog-close" type="button" data-qr-close aria-label="Close QR code">
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="qr-dialog-body">
+      <div class="qr-code-frame">
+        <img src="assets/homepage-qr.svg" width="280" height="280" alt="QR code linking to ChengLang Rong's academic homepage" />
+      </div>
+      <div class="qr-dialog-copy">
+        <span class="eyebrow">Quick Access</span>
+        <h3>Take my academic profile with you</h3>
+        <p>Point your phone camera at the code to view my research, papers, awards, and contact details.</p>
+        <p class="qr-url"><i class="fa fa-link" aria-hidden="true"></i><span>chenglangrong.github.io</span></p>
+        <div class="qr-dialog-actions">
+          <a class="button primary" href="https://chenglangrong.github.io/" target="_blank" rel="noopener noreferrer">
+            <i class="fa fa-external-link" aria-hidden="true"></i>Open Homepage
+          </a>
+          <button class="button" type="button" data-copy-text="https://chenglangrong.github.io/">
+            <i class="fa fa-copy" aria-hidden="true"></i>Copy Link
+          </button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
   <footer class="footer">
     <div class="shell footer-inner">
       <p><strong>ChengLang Rong | &#23481;&#31243;&#26391;</strong></p>
       <p>&copy; 2026 Academic Homepage. All rights reserved.</p>
     </div>
   </footer>
-  <script src="assets/site.js"></script>
+  <script src="assets/site.js?v=20260727-qr"></script>
 </body>
 </html>
