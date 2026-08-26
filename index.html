@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ChengLang Rong's academic homepage: artificial intelligence, reinforcement learning, semiconductor manufacturing optimization, and engineering control." />
   <title>ChengLang Rong | Academic Homepage</title>
-  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" />
-  <link rel="stylesheet" href="assets/site.css?v=20260727-qr" />
+  <link rel="stylesheet" href="assets/site.css?v=20260826-academic" />
 </head>
 <body data-page="home">
   <header class="site-header">
@@ -21,7 +21,7 @@
       <nav class="desktop-nav" aria-label="Primary navigation">
         <a class="nav-link" data-nav-page="home" href="index.html">Home</a>
         <a class="nav-link" data-nav-page="research" href="research.html">Research</a>
-        <a class="nav-link" data-nav-page="publications" href="publications.html">Papers</a>
+        <a class="nav-link" data-nav-page="publications" href="publications.html">Publications</a>
         <a class="nav-link" data-nav-page="awards" href="awards.html">Awards</a>
         <a class="nav-link" data-nav-page="education" href="education.html">Education</a>
         <a class="nav-link" data-nav-page="contact" href="contact.html">Contact</a>
@@ -34,7 +34,7 @@
       <nav class="mobile-nav" aria-label="Mobile navigation">
         <a class="nav-link" data-nav-page="home" href="index.html">Home</a>
         <a class="nav-link" data-nav-page="research" href="research.html">Research</a>
-        <a class="nav-link" data-nav-page="publications" href="publications.html">Papers</a>
+        <a class="nav-link" data-nav-page="publications" href="publications.html">Publications</a>
         <a class="nav-link" data-nav-page="awards" href="awards.html">Awards</a>
         <a class="nav-link" data-nav-page="education" href="education.html">Education</a>
         <a class="nav-link" data-nav-page="contact" href="contact.html">Contact</a>
@@ -42,91 +42,130 @@
     </div>
   </header>
 
-  <main class="page">
-    <section class="shell page-hero home-hero">
-      <div class="reveal">
-        <span class="eyebrow">Personal Academic Website</span>
-        <h1 class="page-title home-name"><span class="name-en">ChengLang Rong</span><span class="name-cn">&#23481;&#31243;&#26391;</span></h1>
-        <p class="lead">Undergraduate researcher focusing on Artificial Intelligence, deep reinforcement learning, intelligent scheduling, semiconductor manufacturing optimization, and engineering control.</p>
-        <div class="home-affiliation">
-          <p class="home-affiliation-title">Guangdong University of Technology</p>
-          <p>School of Computer Science</p>
-          <p>Artificial Intelligence Innovation Class, B.Eng. candidate focused on reinforcement learning, intelligent scheduling, and engineering control.</p>
-        </div>
-        <div class="hero-actions">
-          <a class="button primary" href="research.html"><i class="fa fa-flask"></i>View Research</a>
-          <a class="button" href="contact.html"><i class="fa fa-envelope"></i>Contact</a>
-          <button class="button" id="qr-entry-button" type="button" aria-haspopup="dialog" aria-controls="qr-entry-dialog" aria-expanded="false">
-            <i class="fa fa-qrcode" aria-hidden="true"></i>Scan QR
-          </button>
-        </div>
-      </div>
-      <aside class="card profile-card reveal">
-        <div class="profile-topline"></div>
-        <div class="portrait">
+  <main class="page home-page">
+    <div class="shell academic-layout">
+      <aside class="academic-sidebar reveal" aria-label="Profile">
+        <div class="sidebar-portrait">
           <img src="assets/profile.jpg?v=20260727" alt="Portrait of ChengLang Rong" />
         </div>
+        <div class="sidebar-identity">
+          <p class="sidebar-name">ChengLang Rong <span>&#23481;&#31243;&#26391;</span></p>
+          <p class="sidebar-role">Undergraduate Researcher @ GDUT</p>
+        </div>
+        <ul class="sidebar-links" aria-label="Profile links">
+          <li><i class="fa fa-map-marker" aria-hidden="true"></i><span>Guangzhou, China</span></li>
+          <li><a href="mailto:rchenglang@gmail.com"><i class="fa fa-envelope" aria-hidden="true"></i><span>Email</span></a></li>
+          <li><a href="https://github.com/ChenglangRong" target="_blank" rel="noreferrer"><i class="fa fa-github" aria-hidden="true"></i><span>GitHub</span></a></li>
+          <li><a href="contact.html"><i class="fa fa-address-card-o" aria-hidden="true"></i><span>Contact</span></a></li>
+        </ul>
+        <button class="sidebar-qr-button" id="qr-entry-button" type="button" aria-haspopup="dialog" aria-controls="qr-entry-dialog" aria-expanded="false">
+          <i class="fa fa-qrcode" aria-hidden="true"></i>Homepage QR
+        </button>
       </aside>
-    </section>
 
-    <section class="shell section-block">
-      <div class="grid four">
-        <article class="card tight stat reveal">
-          <p class="stat-label">Study Period</p>
-          <p class="stat-value">2023-2027</p>
-          <p class="stat-note">Guangdong University of Technology</p>
-        </article>
-        <article class="card tight stat reveal">
-          <p class="stat-label">GPA</p>
-          <p class="stat-value">3.623 / 5.0</p>
-          <p class="stat-note">Current resume record</p>
-        </article>
-        <article class="card tight stat reveal">
-          <p class="stat-label">Major Rank</p>
-          <p class="stat-value">6 / 36</p>
-          <p class="stat-note">Artificial Intelligence Innovation Class</p>
-        </article>
-        <article class="card tight stat reveal">
-          <p class="stat-label">Paper Entries</p>
-          <p class="stat-value">7</p>
-          <p class="stat-note">Accepted and under-review works</p>
-        </article>
-      </div>
-    </section>
+      <div class="academic-content">
+        <section class="academic-section intro-section reveal" id="bio">
+          <span class="eyebrow">Academic Profile</span>
+          <h1 class="page-title home-name"><span class="name-en">ChengLang Rong</span><span class="name-cn">&#23481;&#31243;&#26391;</span></h1>
+          <p class="lead">I am an undergraduate researcher in the Artificial Intelligence Innovation Class at Guangdong University of Technology. My work focuses on reinforcement learning, intelligent scheduling, semiconductor manufacturing optimization, and engineering control.</p>
+          <p class="bio-copy">I develop learning-based scheduling methods for constrained engineering systems, combining event-driven simulation, feasibility-aware decision making, multi-agent reinforcement learning, and safety mechanisms. I also study power prediction and adaptive control for energy-efficient central air-conditioning systems.</p>
+        </section>
 
-    <section class="shell section-block">
-      <div class="grid two">
-        <article class="card reveal">
-          <div class="card-body">
-            <span class="eyebrow">Research Focus</span>
-            <h2 class="section-title">Artificial Intelligence-Driven Research for Complex Engineering Systems</h2>
-            <div class="fact-list">
-              <p><span>Semiconductor manufacturing:</span> single-arm and multicluster tool scheduling under parallel processing, residency limits, and reentrant buffer cooling.</p>
-              <p><span>Optimization methods:</span> reinforcement learning, event-driven simulation, dynamic feasibility masking, value decomposition, PPO refinement, and safety shielding.</p>
-              <p><span>Energy systems:</span> neural-network and Transformer-based power prediction for central air-conditioning scheduling and reinforcement-learning-based control.</p>
+        <section class="academic-section reveal" id="highlights">
+          <div class="section-heading-row">
+            <h2 class="section-title">Highlights</h2>
+            <a class="section-link" href="publications.html">All publications <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+          </div>
+          <div class="news-list">
+            <article class="news-item">
+              <span class="news-date">2026</span>
+              <p><strong>CSCWD 2026</strong> — First-author CCF-C conference paper accepted.</p>
+            </article>
+            <article class="news-item">
+              <span class="news-date">2026</span>
+              <p><strong>iCaMaL 2026</strong> — Second-author EI conference paper accepted.</p>
+            </article>
+            <article class="news-item">
+              <span class="news-date">Current</span>
+              <p><strong>RTSS and IEEE T-ASE</strong> — First-author manuscripts under review.</p>
+            </article>
+            <article class="news-item">
+              <span class="news-date">2023–27</span>
+              <p><strong>GDUT Artificial Intelligence Innovation Class</strong> — GPA 3.63 / 5.0, major rank 6 / 36.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="academic-section reveal" id="research-interests">
+          <div class="section-heading-row">
+            <h2 class="section-title">Research Interests</h2>
+            <a class="section-link" href="research.html">Research details <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+          </div>
+          <ul class="interest-list">
+            <li><span>01</span><div><strong>Intelligent Scheduling</strong><p>Learning-based scheduling for single-arm cluster and multicluster semiconductor tools.</p></div></li>
+            <li><span>02</span><div><strong>Reinforcement Learning</strong><p>Multi-agent coordination, dynamic feasibility masking, PPO refinement, TD3, and safety shielding.</p></div></li>
+            <li><span>03</span><div><strong>Engineering Control</strong><p>Power prediction and adaptive control for central air-conditioning systems.</p></div></li>
+          </ul>
+        </section>
+
+        <section class="academic-section reveal" id="education-summary">
+          <div class="section-heading-row">
+            <h2 class="section-title">Education</h2>
+            <a class="section-link" href="education.html">Full background <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+          </div>
+          <div class="education-row">
+            <div class="education-period">2023–2027</div>
+            <div>
+              <h3>Guangdong University of Technology</h3>
+              <p>B.Eng. candidate, Artificial Intelligence Innovation Class, School of Computer Science.</p>
+              <p class="education-meta">GPA 3.63 / 5.0 · Major rank 6 / 36</p>
             </div>
           </div>
-        </article>
-        <article class="card reveal">
-          <div class="card-body">
-            <span class="eyebrow">Publication Progress</span>
-            <h2 class="section-title">Current Paper Pipeline</h2>
-            <div class="fact-list">
-              <p><span>RTSS 2026:</span> first-author CCF-A conference paper under review.</p>
-              <p><span>IEEE T-ASE:</span> first-author SCI Q1, CCF-B journal manuscript under review.</p>
-              <p><span>CSCWD 2026:</span> first-author CCF-C conference paper accepted and linked to its IEEE Xplore record.</p>
-              <p><span>iCaMaL 2026:</span> second-author EI conference paper accepted.</p>
-              <p><span>IEEE TII:</span> third-author SCI Q1, CCF-B journal manuscript under review.</p>
-              <p><span>PRICAI 2026, Paper 1:</span> first-author CCF-C conference paper under review on reentrant processing-module scheduling.</p>
-              <p><span>PRICAI 2026, Paper 2:</span> second-author CCF-C conference paper under review on central air-conditioning prediction and control.</p>
-            </div>
-            <div class="card-actions">
-              <a class="button subtle" href="publications.html"><i class="fa fa-file-text-o"></i>View Papers</a>
-            </div>
+        </section>
+
+        <section class="academic-section reveal" id="selected-publications">
+          <div class="section-heading-row">
+            <h2 class="section-title">Selected Publications</h2>
+            <a class="section-link" href="publications.html">View all seven <i class="fa fa-angle-right" aria-hidden="true"></i></a>
           </div>
-        </article>
+          <div class="publication-list">
+            <article class="publication-row">
+              <div class="publication-year">2026</div>
+              <div>
+                <h3>IEEE Real-Time Systems Symposium (RTSS 2026)</h3>
+                <p>First author · CCF-A conference · Under review</p>
+                <span class="publication-topic">Real-time scheduling with cooling-reentry constraints and safety shielding</span>
+              </div>
+            </article>
+            <article class="publication-row">
+              <div class="publication-year">2026</div>
+              <div>
+                <h3>IEEE Transactions on Automation Science and Engineering</h3>
+                <p>First author · SCI Q1, CCF-B journal · Under review</p>
+                <span class="publication-topic">Multi-agent scheduling for constrained multicluster tools</span>
+              </div>
+            </article>
+            <article class="publication-row">
+              <div class="publication-year">2026</div>
+              <div>
+                <h3>CSCWD 2026</h3>
+                <p>First author · CCF-C conference · Accepted</p>
+                <span class="publication-topic">TD3-based full-cycle scheduling for single-arm cluster tools</span>
+                <a class="publication-link" href="https://ieeexplore.ieee.org/document/11582531" target="_blank" rel="noreferrer">IEEE Xplore <i class="fa fa-external-link" aria-hidden="true"></i></a>
+              </div>
+            </article>
+            <article class="publication-row">
+              <div class="publication-year">2026</div>
+              <div>
+                <h3>IEEE Automation in Manufacturing, Transportation and Logistics</h3>
+                <p>Second author · EI conference · Accepted</p>
+                <span class="publication-topic">MAPPO-based online scheduling with variable cleaning cycles</span>
+              </div>
+            </article>
+          </div>
+        </section>
       </div>
-    </section>
+    </div>
   </main>
 
   <dialog class="qr-dialog" id="qr-entry-dialog" aria-labelledby="qr-dialog-title">
@@ -166,6 +205,6 @@
       <p>&copy; 2026 Academic Homepage. All rights reserved.</p>
     </div>
   </footer>
-  <script src="assets/site.js?v=20260727-qr"></script>
+  <script src="assets/site.js?v=20260826-academic"></script>
 </body>
 </html>

@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const qrEntryButton = document.getElementById('qr-entry-button');
   const qrEntryDialog = document.getElementById('qr-entry-dialog');
   const qrCloseButtons = document.querySelectorAll('[data-qr-close]');
+  let lastModalTrigger = null;
 
   navLinks.forEach((link) => {
     const isActive = link.dataset.navPage === currentPage;
@@ -28,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
       mobileMenuButton.setAttribute('aria-expanded', String(!expanded));
       mobileMenu.hidden = expanded;
+      mobileMenuButton.setAttribute('aria-label', expanded ? 'Open menu' : 'Close menu');
     });
   }
 
@@ -56,6 +58,9 @@ document.addEventListener('DOMContentLoaded', () => {
       detailModal.hidden = true;
       detailModalBody.innerHTML = '';
       setModalLock();
+      if (lastModalTrigger) {
+        lastModalTrigger.focus();
+      }
     }
   };
 
@@ -63,10 +68,14 @@ document.addEventListener('DOMContentLoaded', () => {
     modalButtons.forEach((button) => {
       button.addEventListener('click', () => {
         const template = document.getElementById(button.dataset.template || '');
+        lastModalTrigger = button;
         detailModalTitle.textContent = button.dataset.title || 'Detail';
         detailModalBody.innerHTML = template ? template.innerHTML : '';
         detailModal.hidden = false;
         setModalLock();
+        if (detailModalClose) {
+          detailModalClose.focus();
+        }
       });
     });
 
