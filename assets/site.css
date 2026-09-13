@@ -291,23 +291,8 @@ button { font: inherit; }
   padding-bottom: 34px;
 }
 
-.classical-bio-section .eyebrow {
-  color: var(--accent-strong);
-  letter-spacing: 0.12em;
-}
-
-.classical-title {
-  margin: 10px 0 0;
-  color: var(--ink);
-  font-family: "Songti SC", "SimSun", "Noto Serif CJK SC", serif;
-  font-size: clamp(25px, 3vw, 33px);
-  font-weight: 720;
-  letter-spacing: 0;
-  line-height: 1.32;
-}
-
 .classical-copy {
-  margin-top: 15px;
+  margin-top: 0;
   border-left: 3px solid var(--accent);
   color: #30373f;
   font-family: "Songti SC", "SimSun", "Noto Serif CJK SC", serif;
