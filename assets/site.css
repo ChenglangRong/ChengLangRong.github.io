@@ -460,7 +460,8 @@ button { font: inherit; }
 .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 
 body[data-page="publications"] .grid.two,
-body[data-page="research"] .section-block > .grid.two { grid-template-columns: 1fr; }
+body[data-page="research"] .section-block > .grid.two,
+body[data-page="awards"] .section-block > .grid.three { grid-template-columns: 1fr; }
 
 .card {
   min-width: 0;
